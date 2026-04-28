@@ -1,0 +1,326 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "_comment": "digital-product-studio-ai v0.2 — shared project settings. Language: English (Layer 2 internal config). For policy details see docs/language-policy.md, requirements-v0.2.md Section 7, and Section 11.",
+
+  "permissions": {
+    "_comment_permissions": "Permission strategy: explicit allow-list for safe read/inspect operations to minimize prompts; ask for any destructive or out-of-scope action; deny for secrets/credentials.",
+
+    "allow": [
+      "Read(**)",
+      "Glob(**)",
+      "Grep(**)",
+
+      "Edit(docs/**)",
+      "Edit(.claude/**)",
+      "Edit(projects/**)",
+      "Edit(README.md)",
+      "Edit(CLAUDE.md)",
+      "Edit(UPGRADING.md)",
+      "Edit(.gitignore)",
+
+      "Write(docs/**)",
+      "Write(.claude/**)",
+      "Write(projects/**)",
+      "Write(README.md)",
+      "Write(CLAUDE.md)",
+      "Write(UPGRADING.md)",
+
+      "WebFetch",
+      "WebSearch",
+
+      "Bash(ls *)",
+      "Bash(ls -la*)",
+      "Bash(pwd)",
+      "Bash(cat *)",
+      "Bash(head *)",
+      "Bash(tail *)",
+      "Bash(wc *)",
+      "Bash(file *)",
+      "Bash(echo *)",
+      "Bash(date)",
+      "Bash(which *)",
+      "Bash(type *)",
+
+      "Bash(git status)",
+      "Bash(git status *)",
+      "Bash(git diff)",
+      "Bash(git diff *)",
+      "Bash(git log)",
+      "Bash(git log *)",
+      "Bash(git show *)",
+      "Bash(git branch)",
+      "Bash(git branch *)",
+      "Bash(git remote *)",
+      "Bash(git config --get *)",
+      "Bash(git rev-parse *)",
+      "Bash(git ls-files *)",
+      "Bash(git stash list*)",
+      "Bash(git blame *)",
+
+      "Bash(find . -type f -name *)",
+      "Bash(find . -type d -name *)",
+
+      "Bash(node --version)",
+      "Bash(npm --version)",
+      "Bash(pnpm --version)",
+      "Bash(npx --version)",
+      "Bash(yarn --version)",
+
+      "Bash(npm run *)",
+      "Bash(pnpm run *)",
+      "Bash(pnpm install)",
+      "Bash(pnpm install *)",
+      "Bash(npm test*)",
+      "Bash(pnpm test*)",
+      "Bash(pnpm build)",
+      "Bash(pnpm build *)",
+      "Bash(pnpm dev)",
+      "Bash(pnpm lint*)",
+      "Bash(npm run build*)",
+      "Bash(npm run dev*)",
+      "Bash(npm run lint*)",
+
+      "Bash(jq *)",
+      "Bash(yq *)",
+      "Bash(awk *)",
+      "Bash(sort *)",
+      "Bash(uniq *)",
+      "Bash(grep *)",
+      "Bash(sed -n *)",
+      "Bash(cut *)",
+      "Bash(tr *)",
+      "Bash(xargs *)",
+
+      "Bash(mkdir -p projects/*)",
+      "Bash(mkdir -p .claude/*)",
+      "Bash(mkdir -p docs/*)",
+      "Bash(touch projects/*)",
+      "Bash(touch docs/*)",
+      "Bash(cp -r projects/*)",
+
+      "Bash(chmod +x .claude/hooks/*)",
+      "Bash(bash .claude/hooks/*)",
+
+      "Bash(claude --version)",
+      "Bash(claude --help)"
+    ],
+
+    "ask": [
+      "Bash(git add *)",
+      "Bash(git commit*)",
+      "Bash(git push*)",
+      "Bash(git pull*)",
+      "Bash(git fetch*)",
+      "Bash(git merge*)",
+      "Bash(git rebase*)",
+      "Bash(git checkout*)",
+      "Bash(git switch*)",
+      "Bash(git restore*)",
+      "Bash(git tag*)",
+      "Bash(git stash*)",
+      "Bash(git clean*)",
+
+      "Bash(npm install *)",
+      "Bash(pnpm add *)",
+      "Bash(pnpm remove *)",
+      "Bash(npm uninstall *)",
+
+      "Bash(rm *)",
+      "Bash(mv *)",
+
+      "Bash(npx *)",
+      "Bash(curl *)",
+      "Bash(wget *)",
+
+      "Bash(vercel *)",
+      "Bash(netlify *)",
+
+      "Edit(projects/_archive/**)",
+      "Write(projects/_archive/**)",
+
+      "Bash(gh *)"
+    ],
+
+    "deny": [
+      "Read(.env)",
+      "Read(.env.*)",
+      "Read(secrets/**)",
+      "Read(**/credentials/**/*.yaml)",
+      "Read(**/credentials/**/*.json)",
+      "Read(**/credentials/**/*.txt)",
+      "Read(**/*.pem)",
+      "Read(**/*.key)",
+      "Read(**/id_rsa)",
+      "Read(**/id_ed25519)",
+
+      "Edit(.env)",
+      "Edit(.env.*)",
+      "Edit(secrets/**)",
+      "Write(.env)",
+      "Write(.env.*)",
+      "Write(secrets/**)",
+
+      "Bash(rm -rf *)",
+      "Bash(rm -rf /)",
+      "Bash(rm -rf ~)",
+      "Bash(rm -rf .git*)",
+      "Bash(rm -rf node_modules*)",
+
+      "Bash(sudo *)",
+      "Bash(su *)",
+
+      "Bash(git push --force*)",
+      "Bash(git push -f*)",
+      "Bash(git reset --hard*)",
+      "Bash(git filter-branch*)",
+      "Bash(git update-ref*)",
+      "Bash(git config --global *)",
+
+      "Bash(eval *)",
+      "Bash(source ~/.bashrc)",
+      "Bash(. ~/.bashrc)",
+
+      "Bash(chmod 777 *)",
+      "Bash(chown *)",
+
+      "Bash(npm publish*)",
+      "Bash(pnpm publish*)",
+
+      "Bash(dd *)",
+      "Bash(mkfs*)",
+      "Bash(fdisk *)"
+    ]
+  },
+
+  "_comment_hooks": "Hooks invoke bash scripts under .claude/hooks/. All scripts target Windows 11 + WSL2 + Git Bash (primary). PowerShell variants are deferred to v0.4. The CLAUDE_PROJECT_DIR variable is provided by Claude Code at runtime and resolves to the repo root.",
+
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/session-start.sh\"",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+
+    "Stop": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/session-stop.sh\"",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+
+    "PostToolUse": [
+      {
+        "_comment": "validate-meta-tags.sh — runs after any git commit invocation; verifies title/description/og presence on touched HTML/page files",
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/validate-meta-tags.sh\"",
+            "timeout": 30
+          }
+        ]
+      },
+      {
+        "_comment": "validate-images.sh — runs after Write/Edit on public/images/** to verify alt + WebP/AVIF",
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/validate-images.sh\"",
+            "timeout": 30
+          }
+        ]
+      },
+      {
+        "_comment": "validate-a11y.sh — runs after git commit; basic a11y checks (semantic HTML, alt, labels, contrast tokens)",
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/validate-a11y.sh\"",
+            "timeout": 45
+          }
+        ]
+      }
+    ],
+
+    "PreToolUse": [
+      {
+        "_comment": "lighthouse-budget.sh — runs before deploy-related Bash invocations; aborts on score-budget violation. Hook script self-detects deploy commands via env var DEPLOY_TARGET or by parsing $TOOL_INPUT.",
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/lighthouse-budget.sh\"",
+            "timeout": 120
+          }
+        ]
+      },
+      {
+        "_comment": "legal-pages-check.sh — runs before deploy; verifies legal pages exist and lawyer-confirmation header is present.",
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/legal-pages-check.sh\"",
+            "timeout": 30
+          }
+        ]
+      },
+      {
+        "_comment": "pre-deploy-approval-check.sh — runs before deploy; verifies approvals.yaml has design + launch approvals recorded for the active project.",
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/pre-deploy-approval-check.sh\"",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  },
+
+  "_comment_env": "Environment defaults. CLAUDE_CODE_DEFAULT_LANGUAGE matches docs/language-policy.md. CLAUDE_CODE_PROJECT_VERSION is read by hooks for logging.",
+
+  "env": {
+    "CLAUDE_CODE_DEFAULT_LANGUAGE": "ja",
+    "CLAUDE_CODE_PROJECT_VERSION": "0.2",
+    "DPSAI_MAX_PARALLEL_PROJECTS": "3",
+    "DPSAI_LIGHTHOUSE_PERFORMANCE_MIN": "90",
+    "DPSAI_LIGHTHOUSE_ACCESSIBILITY_MIN": "95",
+    "DPSAI_LIGHTHOUSE_SEO_MIN": "100",
+    "DPSAI_LIGHTHOUSE_BEST_PRACTICES_MIN": "90"
+  },
+
+  "_comment_model": "Default model for runtime operations is opus-4-7 (quality-first stance per v0.2-direction.md). Phase B4/B5 implementation may switch to sonnet-4-6 manually via /model.",
+
+  "model": "claude-opus-4-7",
+
+  "_comment_misc": "Additional behaviors. cleanupPeriodDays preserves session history for incident response. apiKeyHelper is intentionally unset (use env var ANTHROPIC_API_KEY).",
+
+  "cleanupPeriodDays": 90,
+
+  "outputStyle": "default",
+
+  "_comment_status_line": "Status line shows current project + active phase. Phase A/B/C/D/E plus the chapter marker informs Shin which phase is active.",
+
+  "statusLine": {
+    "type": "command",
+    "command": "echo \"📦 digital-product-studio-ai v0.2 | $(git -C \\\"$CLAUDE_PROJECT_DIR\\\" branch --show-current 2>/dev/null || echo no-git) | $(date +%H:%M)\"",
+    "padding": 1
+  }
+}
