@@ -86,3 +86,16 @@ sed -i 's/status: pending/status: appr"}
 {"ts":"2026-04-29T02:14:08Z","hook":"pre-deploy-approval-check","event":"skip","detail":"no active project found"}
 {"ts":"2026-04-29T02:14:08Z","hook":"lighthouse-budget","event":"warn-no-file","detail":"no lighthouse-scores.json found before deploy"}
 {"ts":"2026-04-29T02:14:43Z","hook":"session-stop","event":"stopped","detail":"branch=main staged=0 modified=0"}
+{"ts":"2026-04-29T02:17:08Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\.claude\rules\language-layer1-japanese.md"}
+{"ts":"2026-04-29T02:17:23Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\.claude\rules\language-layer2-english.md"}
+{"ts":"2026-04-29T02:17:42Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\.claude\rules\legal-templates.md"}
+{"ts":"2026-04-29T02:18:09Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\.claude\rules\implementation-code.md"}
+{"ts":"2026-04-29T02:18:37Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\.claude\rules\design-wcag-system.md"}
+{"ts":"2026-04-29T02:19:04Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\.claude\rules\yaml-schema-conventions.md"}
+{"ts":"2026-04-29T02:19:28Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\.claude\rules\page-meta-geo.md"}
+{"ts":"2026-04-29T02:19:55Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\.claude\rules\bash-portability.md"}
+{"ts":"2026-04-29T02:20:19Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\.claude\rules\project-scaffold.md"}
+{"ts":"2026-04-29T02:20:43Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\.claude\rules\approval-gate.md"}
+{"ts":"2026-04-29T02:21:08Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\.claude\rules\handoff-scope-boundary.md"}
+{"ts":"2026-04-29T02:21:41Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\.claude\rules\estimate-pricing.md"}
+{"ts":"2026-04-29T02:22:29Z","hook":"session-stop","event":"stopped","detail":"branch=main staged=0 modified=1"}
