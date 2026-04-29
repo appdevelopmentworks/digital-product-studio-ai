@@ -1,0 +1,162 @@
+# ===============================================================
+# approvals.yaml テンプレート
+# ---------------------------------------------------------------
+# 用途      : 案件のクライアント承認を一元管理する正典記録
+# 配置先    : projects/<project_id>/00-engagement/approvals.yaml
+# 主担当    : client-success-lead
+# スキル    : /approval-request, /approval-record, /approval-status
+# 言語層    : Layer 1 (キーは英語、値は日本語可)
+# 参照      : .claude/rules/approval-gate.md
+#             .claude/rules/yaml-schema-conventions.md
+#             docs/requirements-v0.2.md Section 10 (C-1 ~ C-4 fix)
+# ---------------------------------------------------------------
+# 重要      : このファイルはフェーズゲートとデプロイの強制要件
+#             - design_approval が approved でなければ実装フェーズに進めない
+#             - launch_approval が approved でなければデプロイできない
+#               (pre-deploy-approval-check.sh が強制)
+# ===============================================================
+
+project_id: <<AXYZ-20260601-001>>
+created_at: <<YYYY-MM-DD>>
+last_updated_at: <<YYYY-MM-DD>>
+
+# ---------------------------------------------------------------
+# approvals: 1承認1エントリ
+#
+# status の状態遷移:
+#   created → pending → approved
+#                    ↘ rejected → (revised) → pending (再提出ループ)
+#                    ↘ waived (delivery-director 判断、要 DEC-NNN)
+#
+# 許可される遷移:
+#   pending  → approved   (クライアント承認)
+#   pending  → rejected   (修正依頼)
+#   rejected → pending    (修正後再提出)
+#   * → waived             (delivery-director のみ、decisions.yaml に記録必須)
+#
+# 禁止される遷移:
+#   approved → rejected   (取消は不可、change-order を起こす)
+#   approved → pending    (リセット不可、change-order を起こす)
+# ---------------------------------------------------------------
+
+approvals:
+
+  # ============ 必須承認タイプ ===============================
+  # 案件の進行に応じて実体を埋めていく(初期は雛形のみ)
+
+  - id: APV-001
+    type: requirements_approval        # 要件定義 v1 の承認
+    status: pending                    # pending | approved | rejected | waived
+    subject: "要件定義書 v1 承認依頼"
+    requested_by: ux-strategy-lead     # 起案エージェント
+    requested_at: <<YYYY-MM-DD>>
+    artifact_refs:                     # 承認対象の成果物
+      - "01-discovery/requirements-v0.md"
+    approval_method: null              # email | meeting | written | verbal+followup
+    approved_by: null                  # クライアント担当者氏名 (承認時に記入)
+    approved_at: null                  # ISO 日付 (承認時に記入)
+    notes: ""
+    revision_history: []
+
+  - id: APV-002
+    type: design_approval              # ★必須: 実装フェーズ開始の前提
+    status: pending
+    subject: "デザインシステム v1 承認依頼"
+    requested_by: art-direction-lead
+    requested_at: <<YYYY-MM-DD>>
+    artifact_refs:
+      - "03-design/design-system.md"
+      - "03-design/screens/home.md"
+    approval_method: null
+    approved_by: null
+    approved_at: null
+    notes: ""
+    revision_history: []
+
+  - id: APV-003
+    type: content_approval             # ★必須: ステージング環境反映の前提
+    status: pending
+    subject: "本番投入用コンテンツ承認依頼"
+    requested_by: content-strategy-lead
+    requested_at: <<YYYY-MM-DD>>
+    artifact_refs:
+      - "02-strategy/content-strategy.md"
+    approval_method: null
+    approved_by: null
+    approved_at: null
+    notes: ""
+    revision_history: []
+
+  - id: APV-004
+    type: launch_approval              # ★必須: 本番デプロイの前提(hook が強制)
+    status: pending
+    subject: "本番公開最終承認"
+    requested_by: delivery-director
+    requested_at: <<YYYY-MM-DD>>
+    artifact_refs:
+      - "05-launch/launch-checklist.md"
+    approval_method: null
+    approved_by: null
+    approved_at: null
+    notes: ""
+    revision_history: []
+
+# ---------------------------------------------------------------
+# 任意承認タイプ(必要に応じて追加)
+#   - estimate_approval        : 見積承認 (契約締結前)
+#   - wireframe_approval       : ワイヤーフレーム承認
+#   - prototype_approval       : プロトタイプ承認
+#   - article_approval         : 個別記事承認 (A3 案件で複数発生)
+#   - cms_training_approval    : CMS 操作研修完了承認
+# ---------------------------------------------------------------
+
+# ---------------------------------------------------------------
+# revision_history の例 (rejected → pending → approved の場合)
+# ---------------------------------------------------------------
+# - id: APV-002
+#   type: design_approval
+#   status: approved
+#   subject: "デザインシステム v1 承認依頼"
+#   requested_by: art-direction-lead
+#   requested_at: 2026-06-10
+#   artifact_refs:
+#     - "03-design/design-system.md"
+#   approval_method: email
+#   approved_by: 田中 太郎
+#   approved_at: 2026-06-16
+#   notes: "ヘッダー色修正後に承認"
+#   revision_history:
+#     - round: 1
+#       status: rejected
+#       rejected_at: 2026-06-12
+#       rejected_by: 田中 太郎
+#       feedback: "ヘッダーの色をブランドカラーに合わせてほしい"
+#       revised_at: 2026-06-14
+#       revised_by: art-direction-lead
+#     - round: 2
+#       status: approved
+#       approved_at: 2026-06-16
+#       approved_by: 田中 太郎
+#       approval_method: email
+
+# ---------------------------------------------------------------
+# サマリー(/approval-status で自動算出可)
+# ---------------------------------------------------------------
+summary:
+  total_count: <<4>>
+  pending_count: <<4>>
+  approved_count: <<0>>
+  rejected_count: <<0>>
+  waived_count: <<0>>
+  blocking_phase_progress: []           # 進行を阻害している APV-NNN のリスト
+
+# ---------------------------------------------------------------
+# 書き込み運用ルール (.claude/rules/approval-gate.md より)
+# ---------------------------------------------------------------
+# 1. status: approved を一方的に設定しない (クライアント確認時のみ)
+# 2. approved を設定するときは approval_method を必ず記入
+# 3. rejected エントリは削除しない (revision_history に追記)
+# 4. 重要な承認イベントは decisions.yaml に DEC-NNN を作成
+# 5. 1成果物バージョンに対して 1 APV (改版時は新規 APV を作成)
+# 6. 承認後の変更要望は change-order プロセスへ (新規 APV は CO 経由)
+# ---------------------------------------------------------------

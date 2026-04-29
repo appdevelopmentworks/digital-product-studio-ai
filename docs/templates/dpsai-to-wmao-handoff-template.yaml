@@ -1,0 +1,280 @@
+# ===============================================================
+# dpsai-to-wmao-handoff.yaml テンプレート
+# ---------------------------------------------------------------
+# 用途      : digital-product-studio-ai → web-marketing-ai-org (WMAO) への引継ぎ
+#             (公開後 30 日経過 + 最終承認後にトリガー)
+# 配置先    : projects/<project_id>/06-handoff/dpsai-to-wmao-handoff.yaml
+# 主担当    : delivery-director (引継ぎ責任者)
+#             seo-geo-strategist (B-C1 30日レポート提供)
+#             content-strategy-lead + copywriter (B-C2 初期記事提供)
+#             cms-engineer (CMS 認証情報・操作ドキュメント)
+# 言語層    : Layer 1 (キーは英語、値は日本語可)
+# 参照      : docs/handoff-protocols.md Section 4
+#             .claude/rules/handoff-scope-boundary.md (WMAO Handoff 節)
+# ---------------------------------------------------------------
+# ★ 引継ぎ条件:
+#   1. 本番公開済み
+#   2. 公開後 30 日経過 (B-C1 SEO/GEO 検証完了)
+#   3. Shin の最終承認 (decisions.yaml に DEC-NNN)
+#   いずれかが欠ける場合は引継ぎ不可。
+# ===============================================================
+
+handoff_id: DPS-<<YYYYMMDD>>-<<NNN>>        # 例: DPS-20260901-001
+from_org: digital-product-studio-ai
+to_org: web-marketing-ai-org
+project_id: <<AXYZ-20260601-001>>
+
+handoff_type: post-launch                    # post-launch (標準) | mid-project (例外)
+handoff_at: <<YYYY-MM-DD>>                   # 引継ぎ実施日 (公開後 31 日以降)
+launched_at: <<YYYY-MM-DD>>                  # 本番公開日
+handed_off_by: delivery-director             # 引継ぎ責任者
+shin_final_approval_ref: DEC-<<NNN>>         # decisions.yaml の DEC-NNN 参照
+
+# ===============================================================
+# サイト基本情報
+# ===============================================================
+site:
+  url: <<https://example.com>>               # 本番 URL
+  staging_url: <<https://staging.example.com>>  # ステージング URL (任意)
+  cms: <<wordpress>>                         # wordpress | microcms | sanity | contentful | none
+  cms_version: <<6.4.x>>
+  hosting: <<vercel>>                        # vercel | netlify | aws | sakura | other
+  domain_registrar: <<クライアント管理>>       # AILEAP 管理 / クライアント管理
+  ssl_provider: <<Let's Encrypt 自動更新>>
+
+stack:
+  framework: <<Next.js 14 (App Router)>>
+  language: <<TypeScript>>
+  styling: <<Tailwind CSS + CSS Modules>>
+  i18n: <<next-intl (ja のみ)>>
+  cms_integration: <<WP REST API>>
+  analytics: <<GA4 + Google Search Console>>
+  monitoring: <<UptimeRobot>>
+
+# ===============================================================
+# アクセス権限引継ぎ
+# ===============================================================
+access:
+  cms_access_provided: true                  # CMS 管理者権限を WMAO に付与済み
+  cms_credentials_location: <<1Password Vault: WMAO Shared / <<案件名>>>>
+  cms_admin_users:
+    - email: <<wmao-admin@example>>
+      role: administrator
+      created_at: <<YYYY-MM-DD>>
+
+  analytics_access_provided: true            # GA4 / GSC 編集者権限付与
+  ga4_property_id: <<G-XXXXXXXXXX>>
+  ga4_users:
+    - email: <<wmao-analytics@example>>
+      role: editor
+  gsc_property: <<https://example.com/>>
+  gsc_users:
+    - email: <<wmao-analytics@example>>
+      role: full
+
+  hosting_access_provided: <<true>>          # ホスティング側のアクセス
+  hosting_users:
+    - service: vercel
+      email: <<wmao-deploy@example>>
+      role: member
+
+  repository_access_provided: <<true>>
+  repository_url: <<https://github.com/aileap/sample-corp-site>>
+  repository_users:
+    - github: <<wmao-engineering>>
+      role: maintain
+
+# ===============================================================
+# 公開時 Lighthouse スコア (ベースライン)
+# ===============================================================
+baseline_lighthouse_scores:
+  measured_at: <<YYYY-MM-DD>>                # 測定日
+  pages_measured:
+    - url: <<https://example.com/>>
+      performance: <<95>>
+      accessibility: <<98>>
+      seo: <<100>>
+      best_practices: <<93>>
+    - url: <<https://example.com/services>>
+      performance: <<92>>
+      accessibility: <<96>>
+      seo: <<100>>
+      best_practices: <<93>>
+
+# ===============================================================
+# B-C1 境界: 公開後 30 日 SEO/GEO 検証レポート
+# ===============================================================
+b_c1_report:
+  report_ref: <<06-handoff/seo-geo-30day-report.md>>
+  measured_period:
+    from: <<YYYY-MM-DD>>                     # 公開日
+    to: <<YYYY-MM-DD>>                       # 公開後 30 日
+  key_metrics:
+    gsc_total_impressions: <<8500>>
+    gsc_total_clicks: <<320>>
+    gsc_average_ctr: <<3.7>>                 # %
+    gsc_average_position: <<18.5>>
+    ga4_organic_users: <<420>>
+    ga4_total_sessions: <<1200>>
+    ga4_avg_session_duration_sec: <<145>>
+    llm_referral_sessions: <<25>>            # GEO 経由セッション (UTM)
+    indexed_pages: <<32>>
+    submitted_pages: <<35>>
+  llm_citation_check:
+    chatgpt_indexed: <<partial>>             # full | partial | not-yet
+    perplexity_indexed: <<full>>
+    gemini_indexed: <<not-yet>>
+  recommendations_for_wmao: |
+    <<例:
+    - "<<業種>> Web 制作 事例" の検索順位が 25 位 → 5 位以内を目指したリライト
+    - 記事 #3 (WCAG 解説) が GEO 強い → シリーズ化を推奨
+    - llms.txt の更新を月次でルーチン化推奨>>
+
+# ===============================================================
+# B-C2 境界: 初期記事 (1-10) の引継ぎ
+# ===============================================================
+b_c2_articles:
+  count_produced_by_dpsai: <<7>>             # 1 ～ 10 (B-C2 上限)
+  articles:
+    - id: BLG-001
+      title: <<生成AIで Web 制作の工数を半減する3つの方法>>
+      url: <<https://example.com/blog/ai-web-production>>
+      published_at: <<YYYY-MM-DD>>
+      pillar: <<業界専門性>>
+      target_kw: <<AI Web 制作 効率化>>
+      author: <<copywriter / Shin 監修>>
+      char_count: <<3000>>
+    - id: BLG-002
+      title: <<中小企業がDXに失敗する5つのパターンと対策>>
+      url: <<https://example.com/blog/dx-fail-patterns>>
+      published_at: <<YYYY-MM-DD>>
+      pillar: <<課題解決ハウツー>>
+      target_kw: <<DX 中小企業 失敗>>
+      author: <<copywriter / Shin 監修>>
+      char_count: <<3500>>
+
+  wmao_scope_start: <<記事 8 本目以降。WMAO 標準カデンスで月 4-8 本を継続>>
+  recommended_next_topics:
+    - <<llms.txt 配置事例の詳細解説 (技術系の柱継続)>>
+    - <<制作事例 X社 (公開直後の好評事例)>>
+    - <<WCAG 2.2 から 2.3 への移行ガイド>>
+    - <<採用候補者向け技術スタック解説>>
+    - <<<<業種>> 別 Web 戦略 (シリーズ第1回)>>
+
+# ===============================================================
+# コンテンツ戦略・トーン引継ぎ (継続運用に必要)
+# ===============================================================
+content_strategy_handoff:
+  reference: <<02-strategy/content-strategy.md>>
+  pillars_summary:
+    - <<業界専門性>>
+    - <<課題解決ハウツー>>
+    - <<事例・実績>>
+    - <<会社・カルチャー>>
+  tone_of_voice_keywords:
+    - 信頼感
+    - 先進性
+    - 親しみやすさ
+    - 誠実さ
+  ng_expressions:
+    - 「必ず」「絶対」「100%」
+    - 「業界 No.1」「最高」(根拠なし)
+  glossary_ref: <<06-handoff/glossary.csv>>
+
+# ===============================================================
+# CMS 操作ドキュメント / トレーニング
+# ===============================================================
+cms_documentation:
+  manual_ref: <<06-handoff/cms-manual.md>>
+  video_walkthrough_url: <<gdrive: ...>>
+  training_completed: true
+  training_attendees:
+    - <<クライアント主担当>>
+    - <<WMAO コンテンツ担当>>
+  training_date: <<YYYY-MM-DD>>
+
+# ===============================================================
+# 既知の制約 / 技術負債 / 注意事項
+# ===============================================================
+known_constraints:
+  - constraint: <<画像最適化が一部手動 (Sharp バッチ未自動化)>>
+    impact: <<記事追加時に編集者が WebP 変換が必要>>
+    workaround: <<運用マニュアル X 章参照>>
+  - constraint: <<i18n は ja のみ。en 追加時は再見積>>
+    impact: <<将来の多言語化時にコスト>>
+    workaround: <<-->>
+
+technical_debt:
+  - <<3件の TODO コメントが未解決 (機能には影響なし)>>
+  - <<Lighthouse Best Practices 93 (97 を目標としたい)>>
+
+# ===============================================================
+# 進行中 / 引継ぎ時点で未完了の作業
+# ===============================================================
+incomplete_work:
+  - item: <<採用ページの英語版 (依頼後対応)>>
+    blocker: <<クライアント側の翻訳承認待ち>>
+    handover_required: false                 # WMAO 側で巻き取り不要
+  - item: <<記事 8 本目の起案 (B-C2 内)>>
+    blocker: なし
+    handover_required: true                  # WMAO 側で続行希望
+
+# ===============================================================
+# Retainer 契約状況 (該当時)
+# ===============================================================
+retainer:
+  has_retainer: true                         # AILEAP との Retainer 契約有無
+  retainer_id: RTN-<<YYYYMMDD>>-<<NNN>>
+  tier: standard
+  monthly_fee_jpy: <<80000>>
+  scope_overlap_with_wmao: |
+    <<AILEAP Retainer は技術保守 + 軽微改善が範囲。
+    WMAO 契約は継続コンテンツ + 広告運用が範囲。重複なし。>>
+
+# ===============================================================
+# WMAO スコープ開始ライン
+# ===============================================================
+wmao_scope_start:
+  seo_continuous_improvement: <<公開後 31 日 (本日以降)>>
+  content_production: <<記事 8 本目以降>>
+  ad_operations: <<該当時のみ・別契約>>
+  social_media: <<該当時のみ・別契約>>
+
+# ===============================================================
+# 引継ぎ会議
+# ===============================================================
+handoff_meeting:
+  scheduled_at: <<YYYY-MM-DD HH:MM>>
+  attendees:
+    - delivery-director (AILEAP)
+    - seo-geo-strategist (AILEAP)
+    - cms-engineer (AILEAP)
+    - content-strategy-lead (AILEAP)
+    - <<WMAO 担当者氏名>>
+    - <<WMAO 担当者氏名>>
+  agenda:
+    - サイト現状サマリー
+    - B-C1 30日レポート共有
+    - B-C2 記事一覧と次トピック案
+    - CMS 操作ライブデモ
+    - 質疑応答
+  meeting_minutes_ref: <<00-engagement/minutes/MTG-YYYYMMDD-NNN.md>>
+
+# ===============================================================
+# Shin 最終承認 (引継ぎ前提条件)
+# ===============================================================
+shin_final_approval:
+  approved: true                             # ★ true でなければ引継ぎ不可
+  approved_at: <<YYYY-MM-DD>>
+  approval_method: meeting                   # email | meeting | written
+  decision_log_ref: DEC-<<NNN>>
+  notes: <<例: 30日レポート確認のうえ、WMAO 引継ぎを承認>>
+
+# ===============================================================
+# 引継ぎ完了確認 (受領した WMAO 側で更新)
+# ===============================================================
+wmao_acknowledgment:
+  received: false                            # WMAO 側受領で true
+  received_at: null
+  received_by: null
+  acknowledgment_notes: ""

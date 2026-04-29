@@ -1,0 +1,292 @@
+# ===============================================================
+# decisions.yaml テンプレート
+# ---------------------------------------------------------------
+# 用途      : 案件の重要な意思決定を構造化記録 (アーキテクチャ・スコープ・
+#             契約・人事等の意思決定ログ)
+# 配置先    : projects/<project_id>/00-engagement/decisions.yaml
+# 主担当    : client-success-lead (記録) / 関連 Practice Director (起案)
+# スキル    : /decision-log
+# 言語層    : Layer 1 (キーは英語、値は日本語可)
+# 参照      : .claude/rules/yaml-schema-conventions.md
+#             .claude/skills/decision-log/SKILL.md
+# ---------------------------------------------------------------
+# ★ ADR (Architecture Decision Record) 風の意思決定ログ。
+#   後から「なぜこの選択をしたのか」を追跡可能にする。
+# ===============================================================
+
+project_id: <<AXYZ-20260601-001>>
+created_at: <<YYYY-MM-DD>>
+last_updated_at: <<YYYY-MM-DD>>
+
+# ===============================================================
+# decisions: 1意思決定1エントリ
+#
+# decision の種類:
+#   - architecture     : 技術選定・アーキテクチャ
+#   - scope            : スコープ追加・削減
+#   - schedule         : スケジュール変更
+#   - budget           : 予算・金額変更
+#   - design           : デザイン方針・ブランド方針
+#   - content          : コンテンツ方針・記事採否
+#   - legal            : 法務・コンプライアンス
+#   - vendor           : 外注・業務委託
+#   - personnel        : 担当者変更・体制変更
+#   - phase-transition : フェーズ遷移
+#   - approval-waiver  : 承認免除 (waived 設定)
+#   - escalation       : エスカレーション解決
+#   - other            : 上記に該当しない
+# ===============================================================
+
+decisions:
+
+  # =========================================================
+  # サンプル 1: 技術選定 (architecture)
+  # =========================================================
+  - id: DEC-001
+    type: architecture
+    title: フレームワークに Next.js 14 (App Router) を採用
+    decided_at: <<YYYY-MM-DD>>
+    decided_by:                                # 決定者チェーン (順序が重要)
+      - role: technology-director
+        name: technology-director              # AILEAP 側
+      - role: クライアント主担当
+        name: <<田中 太郎>>
+    proposed_by: technology-director
+    impacted_agents:                           # 影響を受けるエージェント
+      - frontend-lead
+      - frontend-engineer
+      - cms-engineer
+      - seo-geo-strategist
+    related_artifacts:
+      - "01-discovery/requirements-v0.md"
+      - "02-strategy/architecture.md"
+    context: |
+      <<クライアントの要件:
+      - 動的コンテンツ管理 (記事・お知らせ)
+      - 高い SEO 要件
+      - 拡張性 (将来の機能追加)
+      - チーム保守性>>
+    options_considered:
+      - option: Next.js 14 (App Router)
+        pros:
+          - SSR/SSG/ISR を柔軟に切替可能
+          - React Server Components で Bundle Size 削減
+          - Vercel 標準サポート
+          - メタタグ API がシンプル
+        cons:
+          - 学習コストあり
+          - 一部の WordPress エコシステムプラグインが使えない
+      - option: WordPress (テーマ開発)
+        pros:
+          - クライアントの編集者が WP 慣れ
+          - 既存プラグイン豊富
+          - サーバーが安価
+        cons:
+          - パフォーマンス最適化が手間
+          - ヘッドレス化なしでは GEO 対応が弱い
+          - Lighthouse 90+ 達成が困難
+      - option: Astro
+        pros:
+          - 軽量・高速
+          - Multi-framework 対応
+        cons:
+          - 動的機能が弱い (CMS 連携要件と相性悪い)
+          - チームの経験が浅い
+    decision_rationale: |
+      <<クライアントの要件 (動的+SEO+拡張性) と AILEAP の保守スキル
+      (Next.js への習熟度) を総合し、Next.js 14 (App Router) を採用。
+      CMS は WordPress を Headless 連携 (WP REST API) で利用し、
+      編集者の慣れと Next.js の表現力を両立する>>
+    consequences:
+      positive:
+        - Lighthouse 90+ 達成見込み
+        - GEO 対応 (構造化データ・llms.txt) が容易
+        - 将来的な機能追加に強い
+      negative:
+        - 編集者がフロントエンドを直接編集する場合は Git 操作必要
+        - WordPress プラグインの一部が使えない (代替実装が必要)
+      mitigation:
+        - 編集者向け CMS 操作マニュアル整備で WP REST 連携を吸収
+        - Visual な編集はカスタムフィールド (ACF) で対応
+    review_required_by: null                   # 再検討期限 (任意)
+    superseded_by: null                        # 後続の DEC-NNN で置換された場合
+    notes: ""
+
+  # =========================================================
+  # サンプル 2: スコープ追加 (scope)
+  # =========================================================
+  - id: DEC-002
+    type: scope
+    title: 採用ページに英語版を追加 (Phase 2 ではなく初回スコープ内)
+    decided_at: <<YYYY-MM-DD>>
+    decided_by:
+      - role: delivery-director
+        name: delivery-director
+      - role: クライアント決裁者
+        name: <<山田 一郎>>
+    proposed_by: client                        # クライアント発議
+    impacted_agents:
+      - localization-specialist
+      - copywriter
+      - frontend-engineer
+    related_artifacts:
+      - "00-engagement/change-orders/CO-20260620-001.md"
+    context: |
+      <<採用候補者に海外人材も含めたいという経営判断。
+      当初は Phase 2 で予定していたが、案件着手後に方針転換>>
+    decision_rationale: |
+      <<クライアントの戦略意図と整合し、技術的にも実装可能。
+      初回スコープに含めることで採用効果を早期に発現させる>>
+    consequences:
+      positive:
+        - 採用効果の早期発現
+        - 多言語サイトとしての完成度向上
+      negative:
+        - 初期予算 +20万円
+        - 公開予定日 +5日
+      mitigation:
+        - Change Order CO-20260620-001 で正式合意
+        - 5日のずれは内部バッファで吸収可能
+    review_required_by: null
+    superseded_by: null
+    notes: ""
+
+  # =========================================================
+  # サンプル 3: フェーズ遷移 (phase-transition)
+  # =========================================================
+  - id: DEC-003
+    type: phase-transition
+    title: フェーズ遷移 strategy → design (デザインシステム着手)
+    decided_at: <<YYYY-MM-DD>>
+    decided_by:
+      - role: delivery-director
+        name: delivery-director
+    proposed_by: delivery-director
+    impacted_agents:
+      - art-direction-lead
+      - ui-designer
+    related_artifacts:
+      - "PROJECT.md"                           # phase: strategy → design に更新
+      - "00-engagement/approvals.yaml"         # APV-001 (requirements_approval) approved 確認
+    context: |
+      <<要件定義 v1 が承認された (APV-001 approved)。
+      ゲートチェック条件をすべて満たしたためフェーズ遷移>>
+    decision_rationale: |
+      <<phase-gate.md 条件をすべて確認:
+      - APV-001 approved: ✅
+      - sitemap.md 第1版完成: ✅
+      - content-strategy.md 第1版完成: ✅
+      よって design フェーズに遷移>>
+    consequences:
+      positive:
+        - スケジュールどおり進行
+        - art-direction-lead が着手可能
+      negative: []
+      mitigation: []
+    review_required_by: null
+    superseded_by: null
+    notes: ""
+
+  # =========================================================
+  # サンプル 4: 承認免除 (approval-waiver)
+  # =========================================================
+  - id: DEC-004
+    type: approval-waiver
+    title: APV-005 (記事 #5 個別承認) を waived に設定
+    decided_at: <<YYYY-MM-DD>>
+    decided_by:
+      - role: delivery-director
+        name: delivery-director                # waived は delivery-director のみ
+    proposed_by: content-strategy-lead
+    impacted_agents:
+      - copywriter
+    related_artifacts:
+      - "00-engagement/approvals.yaml"
+    context: |
+      <<記事 #5 は AILEAP 自社サイト用ではなく案件用記事。
+      クライアントが「AILEAP のコンテンツ戦略に従って良い」と
+      包括承認 (APV-003 で全記事承認) を出している。
+      個別承認 (APV-005) は不要と判断>>
+    decision_rationale: |
+      <<APV-003 (content_approval) で包括承認済み。
+      個別 APV-005 は形式的な承認に留まるため waived に設定>>
+    consequences:
+      positive:
+        - 承認サイクルの短縮
+      negative:
+        - 個別記事レベルの記録粒度が低下
+      mitigation:
+        - approvals.yaml notes 欄にこの DEC-004 を参照記録
+    review_required_by: null
+    superseded_by: null
+    notes: |
+      <<approvals.yaml の APV-005 status: waived に変更し、
+      notes 欄に "DEC-004 で waiver 承認" を記載>>
+
+  # =========================================================
+  # サンプル 5: エスカレーション (escalation)
+  # =========================================================
+  - id: DEC-005
+    type: escalation
+    title: 並列案件 4 件目を承認 (一時的な並列上限超過)
+    decided_at: <<YYYY-MM-DD>>
+    decided_by:
+      - role: studio-director
+        name: studio-director                  # F-C2 上限超過は studio-director 承認
+      - role: Shin
+        name: Shin
+    proposed_by: delivery-director
+    impacted_agents:
+      - studio-director
+      - delivery-director
+    related_artifacts:
+      - "PROJECT.md (新規案件)"
+      - ".claude/state/parallel-projects.yaml"
+    context: |
+      <<DPSAI_MAX_PARALLEL_PROJECTS = 3 だが、4件目の案件依頼が来た。
+      3件のうち1件 (案件Z) は post-launch フェーズで実質的な工数発生は低い。
+      実質工数で判定すれば余力があると判断>>
+    decision_rationale: |
+      <<案件Z は post-launch + 30日経過後の WMAO 引継ぎ準備のみで、
+      実質工数 < 5h/月。4件目を受けても実質的な並列影響は低い>>
+    consequences:
+      positive:
+        - 売上機会の確保
+        - クライアント関係の維持
+      negative:
+        - 一時的に管理工数増
+        - 万一案件Z で問題発生時に手薄リスク
+      mitigation:
+        - 案件Z の WMAO 引継ぎを優先で完了させる
+        - 4件目案件は当面 strategy フェーズに留め、design 着手前に再評価
+    review_required_by: <<YYYY-MM-DD>>          # 1ヶ月後に再評価
+    superseded_by: null
+    notes: ""
+
+# ===============================================================
+# サマリー(/decision-log で自動算出可)
+# ===============================================================
+summary:
+  total_count: <<5>>
+  by_type:
+    architecture: 1
+    scope: 1
+    phase-transition: 1
+    approval-waiver: 1
+    escalation: 1
+  active_count: 5                              # superseded されていないもの
+  superseded_count: 0
+  pending_review_count: 1                      # review_required_by が今後の日付
+
+# ===============================================================
+# 書き込み運用ルール
+# ===============================================================
+# 1. ID は DEC-NNN (連番、ゼロパディングなし: DEC-1 ❌, DEC-001 ✅)
+# 2. decided_by は順序付き (上流の決定者が先)
+# 3. options_considered は重要決定 (architecture / scope) で必須
+# 4. consequences は positive / negative / mitigation を明示
+# 5. 過去の決定を覆すときは新規 DEC を起こし superseded_by で連結
+# 6. waived 設定は delivery-director のみ可
+# 7. 並列案件上限超過は studio-director + Shin 承認必須
+# 8. クライアントが関与する決定は decided_by に明示
+# ---------------------------------------------------------------

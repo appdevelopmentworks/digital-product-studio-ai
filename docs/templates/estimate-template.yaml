@@ -1,0 +1,181 @@
+# ===============================================================
+# estimate.yaml テンプレート
+# ---------------------------------------------------------------
+# 用途      : クライアントへの見積(必須3パターン)を構造化記録
+# 配置先    : projects/<project_id>/00-engagement/estimate.yaml
+# 主担当    : commercial-manager
+# スキル    : /estimate
+# 言語層    : Layer 1 (キーは英語、値は日本語可)
+# 参照      : .claude/rules/estimate-pricing.md
+#             docs/pricing-strategy.md (C-3 fix: Retainer 必須)
+#             docs/requirements-v0.2.md Section 15
+# ---------------------------------------------------------------
+# ★ 必須ルール (C-3 fix):
+#   どんな場合でも 3 パターン全て(Fixed / T&M / Retainer)を提示。
+#   クライアントが「保守不要」と言っても Light Retainer は提示。
+# ===============================================================
+
+estimate_id: EST-<<YYYYMMDD>>-<<NNN>>     # 例: EST-20260515-001
+project_id: <<AXYZ-20260601-001>>
+created_at: <<YYYY-MM-DD>>
+created_by: commercial-manager
+valid_until: <<YYYY-MM-DD>>               # 30日有効期限が標準
+
+# 案件タイプ(価格レンジ判定用)
+project_type: <<A1>>                       # A1 | A2 | A3 | Internal
+
+# 案件パラメータ(見積根拠の主要因子)
+parameters:
+  page_count: <<10>>                       # ページ数
+  design_complexity: <<full_custom>>       # template | semi_custom | full_custom
+  multilingual: <<false>>                  # true なら言語数を locales で指定
+  locales: [ja]                             # BCP-47 配列
+  cms: <<wordpress>>                       # none | wordpress | microcms | sanity | contentful
+  api_integrations: <<0>>                  # 外部 API 連携数
+  animation_level: <<basic>>               # none | basic | advanced
+  has_photo_shooting: <<false>>            # 撮影手配の有無
+
+# ===============================================================
+# patterns: 3パターン必須
+# ===============================================================
+patterns:
+
+  # =========================================================
+  # パターン A: Fixed Price (固定価格)
+  # =========================================================
+  fixed:
+    label: "固定価格(Fixed Price)"
+    total_jpy: <<1200000>>                 # 整数 JPY、税抜
+    tax_excluded: true
+    hours_included: <<160>>                # 含まれる工数(参考値)
+    breakdown:
+      strategy_requirements_jpy: <<150000>>
+      design_jpy: <<400000>>
+      implementation_jpy: <<450000>>
+      qa_launch_jpy: <<200000>>
+    payment_schedule:
+      - phase: contract_signing
+        ratio: 0.3                          # 30% 着手金
+        amount_jpy: <<360000>>
+      - phase: design_approval
+        ratio: 0.3                          # 30% デザイン承認時
+        amount_jpy: <<360000>>
+      - phase: launch
+        ratio: 0.4                          # 40% 公開時
+        amount_jpy: <<480000>>
+    scope_notes: |
+      ページ数: 10ページ(トップ、会社概要、サービス4、採用、お問い合わせ、法務2)
+      多言語: 日本語のみ
+      CMS: WordPress(カスタムテーマ)
+      API 連携: なし
+    included:
+      - WCAG 2.2 AA 準拠
+      - Lighthouse Performance 90+ 保証
+      - 構造化データ (Organization / WebSite / WebPage / BreadcrumbList)
+      - llms.txt 標準装備 (GEO 対策)
+      - 公開後30日のSEO/GEO初動検証
+    excluded:
+      - 公開31日以降の継続運用 (Retainer 別途)
+      - 商用フォントライセンス費 (クライアント負担)
+      - 写真・動画素材費 (別途実費)
+      - 撮影手配 (別途見積)
+    change_order_rates:
+      additional_page_jpy: 80000           # 1ページ追加
+      additional_locale_jpy: 200000        # 1言語追加
+      photo_shoot_pass_through: true       # 撮影は実費パススルー
+
+  # =========================================================
+  # パターン B: Time & Materials (時間単価 × 工数)
+  # =========================================================
+  time_and_materials:
+    label: "実費精算(T&M / Time & Materials)"
+    hourly_rate_jpy: <<10000>>             # 1万円/h が標準
+    estimated_hours_min: <<140>>
+    estimated_hours_max: <<200>>
+    ceiling_jpy: <<2000000>>               # Not-to-Exceed 上限
+    monthly_hour_cap: <<80>>               # 月次上限(超過は事前承認)
+    billing_cycle: monthly                 # 月末締め翌月末払い
+    progress_report_cadence: bi_weekly     # 隔週進捗報告
+    advantages: |
+      - 仕様変更に柔軟に対応できる
+      - 仕様が固まらない領域に向く
+      - クライアント側で進捗を細かく確認可能
+    disadvantages: |
+      - 総額が読みにくい
+      - クライアント側に工数管理負担が発生
+    when_recommended: |
+      - 仕様固めが進行中の段階で着手したい
+      - スコープが流動的(段階的リリース計画)
+
+  # =========================================================
+  # パターン C: Retainer (月額保守) ★ C-3 fix で必須
+  # =========================================================
+  retainer:
+    label: "月額保守(Retainer)"
+    tier: <<standard>>                     # light | standard | pro | enterprise
+    monthly_fee_jpy: <<80000>>             # 整数 JPY、税抜
+    minimum_period_months: 6               # 最低契約期間
+    overage_rate_jpy: 12000                # Retainer 単価より高め
+    included_hours_total: 18               # 月内合計時間
+    included_services:
+      monitoring_hours: 5                  # 監視・バグ対応
+      content_update_hours: 5              # コンテンツ更新
+      feature_addition_hours: 5            # 機能追加・改善
+      seo_geo_improvement_hours: 3         # SEO/GEO 改善 (WMAO 連携前提)
+      monthly_report: included             # 月次レポート発行
+    excluded:
+      - 大規模リブランド (A4 として再受注)
+      - サイト全体リニューアル
+      - 単月で20時間超える機能追加
+      - 撮影・動画制作
+      - 広告運用 (WMAO 領域)
+      - 継続コンテンツ制作 (WMAO 領域)
+    upgrade_trigger:
+      consecutive_months_over_cap: 3       # 3ヶ月連続超過で次ティア提案
+    advantages: |
+      - 公開後の保守を確保
+      - 月額枠内で機能追加を消化
+      - 関係継続で次案件受注確率向上 (LTV)
+    annual_projection_jpy: 960000          # 月額 × 12
+
+# ===============================================================
+# 合計サマリー
+# ===============================================================
+totals:
+  fixed_total_jpy: <<1200000>>
+  tm_min_jpy: <<1400000>>                  # 推定工数下限 × 単価
+  tm_ceiling_jpy: <<2000000>>              # 上限
+  retainer_monthly_jpy: <<80000>>
+  retainer_annual_projection_jpy: <<960000>>
+  recommended_combination: "fixed + retainer"  # 推奨組合せ
+  recommended_combination_first_year_jpy: <<2160000>>  # 1200000 + 80000×12
+
+# ===============================================================
+# 推奨提示順序 (pricing-strategy.md 3.2)
+# ===============================================================
+presentation_order:
+  - retainer       # 心理的アンカリング: 最初に Retainer を提示
+  - fixed          # 次に Fixed
+  - time_and_materials  # 最後に T&M
+
+# ===============================================================
+# 内部メモ (クライアントには非公開)
+# ===============================================================
+internal_notes: |
+  - 案件タイプ A1 のレンジ内 (50-150万円)
+  - クライアントの予算感: 100-130万円(ヒアリングより)
+  - 標準的な Standard Retainer を提案
+  - 競合他社の見積感: 150-200万円(Web Production Co.等)
+  - LTV 試算: 初年度 216万 + Retainer 継続で年96万(LTV 600万+)
+
+# ===============================================================
+# 自社案件(internal_client: true)の場合
+# ===============================================================
+# 上記すべての _jpy フィールドを使用せず、以下に置き換え:
+#
+# internal_client: true
+# internal_effort_hours: 240
+# note: "AILEAP 内部プロジェクト — 外部請求なし。工数管理のみ"
+#
+# patterns ブロックは省略可。estimate-template.md は内部版に切替える。
+# ===============================================================

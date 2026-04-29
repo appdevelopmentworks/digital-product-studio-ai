@@ -1,0 +1,164 @@
+# ===============================================================
+# apex-to-dpsai-handoff.yaml テンプレート
+# ---------------------------------------------------------------
+# 用途      : apex-consulting-ai → digital-product-studio-ai への引継ぎ
+#             (戦略コンテキスト + 案件タイプ推奨を AILEAP の上流から受け取る)
+# 配置先    : projects/<project_id>/00-engagement/apex-to-dpsai-handoff.yaml
+# 主担当    : delivery-director (受領確認) / studio-director (要約と差配)
+# 言語層    : Layer 1 (キーは英語、値は日本語可)
+# 参照      : docs/handoff-protocols.md
+#             .claude/rules/handoff-scope-boundary.md (Apex Handoff 節)
+# ---------------------------------------------------------------
+# ★ 必須フィールドが欠けている場合は client-onboarding に進めない。
+#   apex 側に追完依頼を出してから受領する。
+# ===============================================================
+
+handoff_id: APX-<<YYYYMMDD>>-<<NNN>>        # 例: APX-20260601-001
+from_org: apex-consulting-ai
+to_org: digital-product-studio-ai
+handoff_at: <<YYYY-MM-DD>>                  # apex 側で確定した引継ぎ日
+received_at: null                            # dpsai 側で受領確認した日 (受領時に記入)
+received_by: null                            # 受領した dpsai 側エージェント (delivery-director 等)
+
+# ===============================================================
+# クライアント基本情報
+# ===============================================================
+client:
+  name: <<株式会社サンプル>>                  # 法人格込みの正式名称
+  primary_contact_name: <<田中 太郎>>
+  primary_contact_email: <<tanaka@example.com>>
+  primary_contact_phone: <<03-0000-0000>>    # 任意
+  decision_maker_name: <<代表取締役 ○○○○>>
+  decision_maker_email: <<rep@example.com>>  # 任意
+  industry: <<製造業 / 中堅>>                  # 業界・規模
+  company_size: <<従業員 200名>>
+  existing_site_url: <<https://example.com>> # 既存サイトがあれば
+
+# ===============================================================
+# apex が確定した戦略コンテキスト
+# ===============================================================
+strategic_context: |
+  <<apex 側で抽出した戦略上のコンテキストを 3-10 行でまとめる。
+  例:
+  - 中堅製造業 (従業員200名) のコーポレートサイト刷新案件
+  - 既存サイトは10年前に制作され、スマホ非対応・SEO 弱い
+  - DX 推進の一環としてデジタル接点を立て直したい
+  - 採用ブランディングも同時に強化したい (中途採用エンジニアが急務)
+  - 経営層は AI 活用に前向き、社内 IT 部門は手薄>>
+
+# ===============================================================
+# 案件タイプ推奨 (apex の判定)
+# ===============================================================
+recommended_project_type: <<A1>>             # A1 | A2 | A3 | Internal
+project_type_rationale: |
+  <<apex がその案件タイプを推奨した理由を 2-5 行で。
+  例:
+  - 採用 + ブランディング + 顧客接点が中心 → A1 コーポレートサイト
+  - メディア化 (A3) のニーズはあるが Phase 2 として検討推奨
+  - LP 単発 (A2) では訴求範囲が不足>>
+
+# ===============================================================
+# KGI / KPI 推奨 (apex の試算)
+# ===============================================================
+recommended_kgi: <<月間問い合わせ件数 30件達成 (公開 6 ヶ月後)>>
+
+recommended_kpi:
+  - metric: <<オーガニック流入>>
+    target: <<1,000 UU/月>>
+    baseline: <<300 UU/月>>
+  - metric: <<フォーム CV 率>>
+    target: <<2.5%>>
+    baseline: <<未計測>>
+  - metric: <<採用エントリー数>>
+    target: <<月 5 件>>
+    baseline: <<月 1 件>>
+
+# ===============================================================
+# 想定予算・期間 (apex 試算)
+# ===============================================================
+budget_range:
+  min_jpy: <<800000>>                        # 想定下限 (税抜)
+  max_jpy: <<1500000>>                       # 想定上限 (税抜)
+  retainer_likely: true                      # 月額保守も視野に入れているか
+  retainer_range_jpy: <<80000-150000>>       # Retainer の想定レンジ
+
+timeline:
+  target_kickoff_at: <<YYYY-MM-DD>>          # 着手希望日
+  target_launch_at: <<YYYY-MM-DD>>           # 公開希望日
+  hard_deadline: false                       # 公開日が不可侵かどうか
+  hard_deadline_reason: null                 # true の場合の理由 (展示会連動等)
+
+# ===============================================================
+# 提供素材 (apex がクライアントから受領済みのもの)
+# ===============================================================
+assets_provided:
+  - id: APX-AST-001
+    name: <<会社案内 PDF>>
+    type: <<document>>                       # document | logo | photo | brand-guide | data
+    location: <<gdrive: 0AB.../company-profile.pdf>>
+    notes: <<会社概要文の参考に使える>>
+
+  - id: APX-AST-002
+    name: <<ロゴ AI ファイル>>
+    type: logo
+    location: <<gdrive: 0AB.../logo.ai>>
+    notes: <<横組のみ。縦組は再依頼が必要>>
+
+# ===============================================================
+# クライアント側の意思決定構造
+# ===============================================================
+decision_structure:
+  approval_chain:
+    - role: 主担当者
+      name: <<田中 太郎>>
+      role_description: <<現場運用・実務確認>>
+    - role: 経営企画
+      name: <<佐藤 花子>>
+      role_description: <<予算 50万円までの決裁>>
+    - role: 代表取締役
+      name: <<山田 一郎>>
+      role_description: <<予算 50万円超の決裁>>
+
+  decision_cycle: <<週次火曜の経営会議で決裁。緊急時は代表直接>>
+  blackout_periods: <<8月中旬 / 12月下旬-1月初旬>>
+  communication_preference: <<メール (Slack なし)>>
+
+# ===============================================================
+# 業種特殊性 / 法務・コンプライアンス
+# ===============================================================
+industry_compliance:
+  applicable_regulations: []                 # 例: [医療広告ガイドライン, 金融商品取引法]
+  lawyer_review_recommended: <<false>>       # apex の判定
+  lawyer_review_reason: null                 # true の場合の理由
+
+# ===============================================================
+# 既知のリスク / 前任者注記
+# ===============================================================
+known_risks:
+  - risk: <<素材提供の遅延が発生しやすい組織風土>>
+    mitigation: <<アセット締切の自動リマインダー強化>>
+  - risk: <<経営層と現場の温度差>>
+    mitigation: <<キックオフで両者参加を必須化>>
+
+apex_handoff_notes: |
+  <<apex 側で気をつけてほしい点・引継ぎ時の補足を自由記述。
+  例:
+  - 過去に他社制作会社とトラブルあり (納期遅延が原因)
+  - 同種業界の競合分析は X社・Y社が必須
+  - 撮影は別途手配を推奨 (既存写真が低品質)>>
+
+# ===============================================================
+# 受領後の dpsai 側アクション
+# ===============================================================
+# dpsai 受領時のチェックリスト (受領担当が手動更新):
+# - [ ] 必須フィールドの欠落がないか確認
+# - [ ] strategic_context が具体的か (抽象的な場合は apex に追問)
+# - [ ] recommended_project_type が現実的か
+# - [ ] 予算レンジが docs/pricing-strategy.md と整合
+# - [ ] assets_provided の location にアクセス可能
+# - [ ] industry_compliance の判定が妥当か (高リスク業種なら追加確認)
+# - [ ] 並列案件数 < 3 (DPSAI_MAX_PARALLEL_PROJECTS 制約)
+# ---------------------------------------------------------------
+# 不備があれば apex 側に追完依頼を出す。受領完了後に
+# /client-onboarding に進める。
+# ===============================================================

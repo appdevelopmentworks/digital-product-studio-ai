@@ -1,0 +1,234 @@
+# ===============================================================
+# assets-required.yaml テンプレート
+# ---------------------------------------------------------------
+# 用途      : 案件で必要となる素材(ロゴ・写真・文章・認証情報)を
+#             受領状況とともに追跡する
+# 配置先    : projects/<project_id>/00-engagement/assets-required.yaml
+# 主担当    : client-success-lead
+# スキル    : /asset-checklist で初期生成、/asset-status で状況確認
+# 言語層    : Layer 1 (キーは英語、値は日本語可)
+# 参照      : .claude/rules/yaml-schema-conventions.md
+#             .claude/skills/asset-checklist/SKILL.md
+# ===============================================================
+
+project_id: <<AXYZ-20260601-001>>
+created_at: <<YYYY-MM-DD>>             # 初版作成日 (ISO 8601)
+last_updated_at: <<YYYY-MM-DD>>        # 直近更新日
+total_assets_required: <<10>>          # 必要素材の総数 (任意・参考値)
+
+# ---------------------------------------------------------------
+# assets: 1素材1エントリ
+# status は pending / received / overdue のいずれか
+# ---------------------------------------------------------------
+assets:
+
+  # ============ ブランド・ロゴ系 =============================
+  - id: AST-001
+    category: brand                    # brand | photo | copy | data | credential | legal
+    name: ロゴデータ(AI / SVG)
+    required: true
+    status: pending                    # pending | received | overdue
+    requested_at: <<YYYY-MM-DD>>       # 依頼日
+    deadline: <<YYYY-MM-DD>>           # 提供期限 (ヒアリングで合意)
+    received_at: null                  # 受領日 (受領時に記入)
+    file_refs: []                      # 受領後に格納先パスを追加
+    provider: <<クライアント>>           # クライアント | 撮影外注 | AILEAP社内
+    notes: |
+      AI または SVG 形式での提供を依頼。
+      横組・縦組両方あれば共有いただきたい。
+
+  - id: AST-002
+    category: brand
+    name: ブランドカラー指定
+    required: true
+    status: pending
+    requested_at: <<YYYY-MM-DD>>
+    deadline: <<YYYY-MM-DD>>
+    received_at: null
+    file_refs: []
+    provider: クライアント
+    notes: |
+      HEX / RGB / CMYK のいずれかで指定。
+      コーポレートカラー + アクセントカラーを希望。
+      WCAG 2.2 AA(4.5:1)を満たさない色は提案で代替案を提示する。
+
+  - id: AST-003
+    category: brand
+    name: フォント指定 / ライセンス情報
+    required: false
+    status: pending
+    requested_at: <<YYYY-MM-DD>>
+    deadline: <<YYYY-MM-DD>>
+    received_at: null
+    file_refs: []
+    provider: クライアント
+    notes: |
+      指定なしの場合は Google Fonts(無料)で代替案を提示。
+      モリサワ等の有償フォントはライセンス費がクライアント負担となる。
+
+  # ============ 写真・動画素材 ==============================
+  - id: AST-004
+    category: photo
+    name: 製品 / サービス写真
+    required: true
+    status: pending
+    requested_at: <<YYYY-MM-DD>>
+    deadline: <<YYYY-MM-DD>>
+    received_at: null
+    file_refs: []
+    provider: <<クライアント / 撮影外注>>
+    notes: |
+      最低解像度: 横 2000px 以上、長辺 3000px 推奨。
+      未提供時は撮影手配の見積を別途提示。
+
+  - id: AST-005
+    category: photo
+    name: 役員・スタッフ写真
+    required: false
+    status: pending
+    requested_at: <<YYYY-MM-DD>>
+    deadline: <<YYYY-MM-DD>>
+    received_at: null
+    file_refs: []
+    provider: クライアント
+    notes: |
+      会社概要 / 採用ページで使用予定。
+      撮影が必要な場合は別途見積。
+
+  # ============ 文章・コピー =================================
+  - id: AST-006
+    category: copy
+    name: 会社概要文
+    required: true
+    status: pending
+    requested_at: <<YYYY-MM-DD>>
+    deadline: <<YYYY-MM-DD>>
+    received_at: null
+    file_refs: []
+    provider: クライアント
+    notes: |
+      代表挨拶・沿革・所在地等。
+      未提供時は AILEAP 側で叩き台を作成し、確認サイクルで仕上げる。
+
+  - id: AST-007
+    category: copy
+    name: サービス紹介文
+    required: true
+    status: pending
+    requested_at: <<YYYY-MM-DD>>
+    deadline: <<YYYY-MM-DD>>
+    received_at: null
+    file_refs: []
+    provider: クライアント
+    notes: |
+      サービスごとに 800-1500 字程度。
+      コピーライティング含めて AILEAP に依頼の場合は見積に明記。
+
+  # ============ データ・原稿(記事案件用) ==================
+  - id: AST-008
+    category: copy
+    name: 初期記事原稿(A3 メディアサイトのみ)
+    required: false
+    status: pending
+    requested_at: <<YYYY-MM-DD>>
+    deadline: <<YYYY-MM-DD>>
+    received_at: null
+    file_refs: []
+    provider: <<クライアント / AILEAP>>
+    notes: |
+      B-C2 境界: 初期 5-10 記事は AILEAP のスコープ。
+      11記事目以降は WMAO へ引継ぎ。
+      A1/A2 案件では本項目は不要(削除可)。
+
+  # ============ クレデンシャル・認証情報 ====================
+  - id: AST-009
+    category: credential
+    name: ドメイン管理情報
+    required: true
+    status: pending
+    requested_at: <<YYYY-MM-DD>>
+    deadline: <<YYYY-MM-DD>>
+    received_at: null
+    file_refs: []
+    provider: クライアント
+    notes: |
+      レジストラ名 + ログイン情報、または DNS 編集権限。
+      公開直前に必要。事前共有を依頼。
+      機密情報のため受領時は安全な方法(1Password 共有等)で取得する。
+
+  - id: AST-010
+    category: credential
+    name: GA4 / Google Search Console アクセス
+    required: true
+    status: pending
+    requested_at: <<YYYY-MM-DD>>
+    deadline: <<YYYY-MM-DD>>
+    received_at: null
+    file_refs: []
+    provider: クライアント
+    notes: |
+      既存サイトがある場合: 編集者権限で AILEAP 担当アカウントを招待。
+      新規構築の場合: 公開前にプロパティ作成し、クライアントに権限移譲。
+
+  - id: AST-011
+    category: credential
+    name: ホスティング / サーバーアクセス
+    required: false
+    status: pending
+    requested_at: <<YYYY-MM-DD>>
+    deadline: <<YYYY-MM-DD>>
+    received_at: null
+    file_refs: []
+    provider: クライアント
+    notes: |
+      既存サーバー継続使用時のみ必要。
+      Vercel / Netlify 等を新規利用する場合は AILEAP 側で取得後、
+      クライアントへ移譲する。
+
+  # ============ 法務・法人情報 =============================
+  - id: AST-012
+    category: legal
+    name: 法人登記情報(住所 / 代表者名)
+    required: true
+    status: pending
+    requested_at: <<YYYY-MM-DD>>
+    deadline: <<YYYY-MM-DD>>
+    received_at: null
+    file_refs: []
+    provider: クライアント
+    notes: |
+      特定商取引法表記・プライバシーポリシーで使用。
+      正式な法人名・所在地・代表者名を確認。
+
+  - id: AST-013
+    category: legal
+    name: 個人情報保護方針(既存があれば)
+    required: false
+    status: pending
+    requested_at: <<YYYY-MM-DD>>
+    deadline: <<YYYY-MM-DD>>
+    received_at: null
+    file_refs: []
+    provider: クライアント
+    notes: |
+      既存ポリシーがあれば踏襲。
+      ない場合は AILEAP テンプレートをベースに弁護士確認を依頼。
+
+# ---------------------------------------------------------------
+# サマリー(/asset-status で自動再計算可)
+# ---------------------------------------------------------------
+summary:
+  pending_count: <<10>>                # status: pending の数
+  received_count: <<0>>                # status: received の数
+  overdue_count: <<0>>                 # status: overdue の数
+  next_reminder_at: <<YYYY-MM-DD>>     # 次回リマインド予定日
+
+# ---------------------------------------------------------------
+# 運用ルール
+# ---------------------------------------------------------------
+# 1. status を received に変更したら必ず file_refs に格納先パスを追加
+# 2. deadline を過ぎても pending なら overdue に自動昇格(/asset-status)
+# 3. overdue が 3 件超過したら client-success-lead が再ヒアリング
+# 4. 認証情報を本ファイルに直接記載しない(参照のみ)
+# 5. 受領済データは projects/<id>/assets/ 配下に保管
+# ---------------------------------------------------------------

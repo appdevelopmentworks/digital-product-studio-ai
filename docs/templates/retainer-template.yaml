@@ -1,0 +1,157 @@
+# ===============================================================
+# retainer.yaml テンプレート
+# ---------------------------------------------------------------
+# 用途      : 月額保守(Retainer)契約の構造化記録
+# 配置先    : projects/<project_id>/00-engagement/retainer.yaml
+# 主担当    : commercial-manager
+# スキル    : /retainer-design
+# 言語層    : Layer 1 (キーは英語、値は日本語可)
+# 参照      : .claude/rules/estimate-pricing.md
+#             docs/pricing-strategy.md Section 4 / 9.2
+# ---------------------------------------------------------------
+# ★ 4ティア定義 (Light / Standard / Pro / Enterprise):
+#   - Light       :  5- 10万円/月 - 監視のみ、A2 / 小規模 A1
+#   - Standard    : 10- 20万円/月 - 監視 + 更新 + 軽微機能、標準 A1/A3
+#   - Pro         : 20- 50万円/月 - 上記 + SEO/GEO + 月次戦略、大規模
+#   - Enterprise  : 50万円+/月    - SLA 保証、B 系 (v0.3+)
+# ===============================================================
+
+retainer_id: RTN-<<YYYYMMDD>>-<<NNN>>      # 例: RTN-20260901-001
+project_id: <<AXYZ-20260601-001>>
+client_name: <<株式会社サンプル>>
+created_at: <<YYYY-MM-DD>>
+created_by: commercial-manager
+
+# ===============================================================
+# 契約期間
+# ===============================================================
+status: active                              # active | paused | terminated
+contract_start: <<YYYY-MM-DD>>              # 契約開始日 (通常は公開日翌日)
+minimum_period_months: 6                    # 最低契約期間
+auto_renewal: true                          # 6ヶ月後は1ヶ月単位で自動更新
+notice_period_months: 1                     # 解約予告期間
+
+# ===============================================================
+# ティア・料金
+# ===============================================================
+tier: <<standard>>                          # light | standard | pro | enterprise
+monthly_fee_jpy: <<80000>>                  # 整数 JPY、税抜
+tax_excluded: true
+overage_rate_jpy: <<12000>>                 # 月次工数枠超過時の単価
+billing_cycle: monthly                      # 月末締め翌月末払い
+invoice_method: <<email>>                   # email | postal
+
+# ===============================================================
+# 月次工数枠 (含まれるサービス)
+# ===============================================================
+included_hours_total: <<18>>                # 月内合計時間
+included_services:
+
+  - service: monitoring                     # 監視・障害対応
+    hours_per_month: 5
+    description: |
+      - サーバー稼働監視 (UptimeRobot 等)
+      - エラーログレビュー
+      - 緊急障害対応 (営業時間内 4 時間以内一次応答)
+
+  - service: content_update                 # コンテンツ更新
+    hours_per_month: 5
+    description: |
+      - お知らせ / 記事の追加・修正
+      - 画像差替え
+      - 既存ページのコピー修正
+
+  - service: feature_addition               # 機能追加・改善
+    hours_per_month: 5
+    description: |
+      - 既存ページへの軽微機能追加 (フォーム項目追加等)
+      - UI 微調整 (CTA 文言、ボタン位置等)
+      - パフォーマンス改善 (画像最適化等)
+
+  - service: seo_geo_improvement            # SEO/GEO 改善
+    hours_per_month: 3
+    description: |
+      - 月次 GSC レビュー
+      - メタタグ調整
+      - 構造化データ追加・調整
+      - llms.txt 更新
+      - WMAO への改善要望伝達
+
+  - service: monthly_report                 # 月次レポート
+    hours_per_month: 0                      # 工数枠外 (定型化済)
+    description: |
+      - 稼働実績 (時間内訳)
+      - GA4 / GSC 主要指標
+      - 改善提案 1-3 件
+
+# ===============================================================
+# 含まれないサービス (別途見積)
+# ===============================================================
+excluded_services:
+  - 大規模リブランド (A4 案件として再受注)
+  - サイト全体リニューアル
+  - 単月で 20 時間を超える機能追加
+  - 撮影・動画制作の手配
+  - 広告運用 / SNS 運用 (WMAO 領域)
+  - 継続コンテンツ制作 (11記事目以降は WMAO 領域)
+  - ホスティング費用 / ドメイン費用 (パススルー)
+
+# ===============================================================
+# SLA (Standard 以上)
+# ===============================================================
+sla:
+  uptime_monitoring: true                   # 監視は実施 (保証は対象外)
+  emergency_response_hours_business: 4      # 営業時間内一次応答
+  emergency_response_hours_offhours: 24     # 営業時間外一次応答
+  monthly_report_due_day: 5                 # 翌月5営業日以内に発行
+  escalation_path: |
+    1. AILEAP 担当 → 2. delivery-director → 3. 代表
+
+# ===============================================================
+# ティア昇格トリガ (pricing-strategy.md 4.4)
+# ===============================================================
+upgrade_trigger:
+  consecutive_months_over_cap: 3            # 3ヶ月連続で超過したら次ティア提案
+  next_tier: <<pro>>                        # 昇格候補ティア
+  proposed_monthly_fee_jpy: <<150000>>      # 昇格後の想定月額
+
+# ===============================================================
+# 解約条件
+# ===============================================================
+termination:
+  notice_period_days: 30                    # 1ヶ月前通知
+  early_termination_within_minimum:
+    allowed: false                          # 最低契約期間内の解約は原則不可
+    penalty_jpy: <<月額 × 残月数>>           # 例外時
+  data_handover:
+    cms_credentials: true                   # CMS 認証情報の引渡し
+    analytics_access: true                  # GA4 / GSC 権限の継続付与
+    documentation: true                     # 運用ドキュメントの引渡し
+
+# ===============================================================
+# WMAO 連携 (handoff-protocols.md B-C1 / B-C2)
+# ===============================================================
+wmao_handoff:
+  applicable: true                          # WMAO 引継ぎ済み案件のみ
+  handoff_at: <<YYYY-MM-DD>>                # 公開後30日経過後
+  handoff_ref: DPS-<<YYYYMMDD>>-<<NNN>>     # dpsai-to-wmao-handoff の ID
+  retainer_role: |
+    本 Retainer は技術保守 + 軽微改善が範囲。
+    継続コンテンツ制作・広告運用は WMAO の月額契約で別途。
+
+# ===============================================================
+# 内部メモ
+# ===============================================================
+internal_notes: |
+  - クライアント側担当: <<田中 太郎>>
+  - 月次ミーティング: 毎月第3火曜 14:00-15:00 (Zoom)
+  - Slack 連携: なし (メール窓口)
+  - 緊急連絡先: <<emergency@aileap.example>>
+
+# ===============================================================
+# サマリー(月次レポート用)
+# ===============================================================
+summary:
+  annual_projection_jpy: <<960000>>         # 月額 × 12
+  expected_lifetime_value_jpy: <<3000000>>  # LTV 想定 (3年継続)
+  next_review_at: <<YYYY-MM-DD>>            # 次回見直し日
