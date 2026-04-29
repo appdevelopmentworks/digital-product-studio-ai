@@ -1,0 +1,88 @@
+{"ts":"2026-04-29T02:10:24Z","hook":"session-start","event":"started","detail":"branch=main"}
+{"ts":"2026-04-29T02:11:58Z","hook":"validate-images","event":"triggered","detail":"tool=Edit file=C:\Users\hartm\Desktop\digital-product-studio-ai\.claude\hooks\_lib.sh"}
+{"ts":"2026-04-29T02:12:02Z","hook":"legal-pages-check","event":"triggered","detail":"cmd=cd 'C:/Users/hartm/Desktop/digital-product-studio-ai' && \
+{"ts":"2026-04-29T02:12:02Z","hook":"lighthouse-budget","event":"triggered","detail":"cmd=cd 'C:/Users/hartm/Desktop/digital-product-studio-ai' && \
+INPUT='{'tool_name':'"}
+INPUT='{'tool_name':'"}
+{"ts":"2026-04-29T02:12:02Z","hook":"pre-deploy-approval-check","event":"triggered","detail":"cmd=cd 'C:/Users/hartm/Desktop/digital-product-studio-ai' && \
+INPUT='{'tool_name':'"}
+{"ts":"2026-04-29T02:12:02Z","hook":"lighthouse-budget","event":"warn-no-file","detail":"no lighthouse-scores.json found before deploy"}
+{"ts":"2026-04-29T02:12:02Z","hook":"pre-deploy-approval-check","event":"skip","detail":"no active project found"}
+{"ts":"2026-04-29T02:12:02Z","hook":"legal-pages-check","event":"skip","detail":"no active project found"}
+{"ts":"2026-04-29T02:12:09Z","hook":"pre-deploy-approval-check","event":"triggered","detail":"cmd=cd 'C:/Users/hartm/Desktop/digital-product-studio-ai' && \
+{"ts":"2026-04-29T02:12:09Z","hook":"legal-pages-check","event":"triggered","detail":"cmd=cd 'C:/Users/hartm/Desktop/digital-product-studio-ai' && \
+echo '{'tool_name':'B"}
+echo '{'tool_name':'B"}
+{"ts":"2026-04-29T02:12:09Z","hook":"lighthouse-budget","event":"triggered","detail":"cmd=cd 'C:/Users/hartm/Desktop/digital-product-studio-ai' && \
+echo '{'tool_name':'B"}
+{"ts":"2026-04-29T02:12:09Z","hook":"legal-pages-check","event":"skip","detail":"no active project found"}
+{"ts":"2026-04-29T02:12:09Z","hook":"pre-deploy-approval-check","event":"skip","detail":"no active project found"}
+{"ts":"2026-04-29T02:12:09Z","hook":"lighthouse-budget","event":"warn-no-file","detail":"no lighthouse-scores.json found before deploy"}
+{"ts":"2026-04-29T02:12:12Z","hook":"lighthouse-budget","event":"triggered","detail":"cmd=vercel deploy --prod"}
+{"ts":"2026-04-29T02:12:12Z","hook":"lighthouse-budget","event":"warn-no-file","detail":"no lighthouse-scores.json found before deploy"}
+{"ts":"2026-04-29T02:12:15Z","hook":"lighthouse-budget","event":"triggered","detail":"cmd=cd 'C:/Users/hartm/Desktop/digital-product-studio-ai' && \
+echo '{'tool_name':'B"}
+{"ts":"2026-04-29T02:12:15Z","hook":"pre-deploy-approval-check","event":"triggered","detail":"cmd=cd 'C:/Users/hartm/Desktop/digital-product-studio-ai' && \
+echo '{'tool_name':'B"}
+{"ts":"2026-04-29T02:12:15Z","hook":"legal-pages-check","event":"triggered","detail":"cmd=cd 'C:/Users/hartm/Desktop/digital-product-studio-ai' && \
+echo '{'tool_name':'B"}
+{"ts":"2026-04-29T02:12:15Z","hook":"pre-deploy-approval-check","event":"skip","detail":"no active project found"}
+{"ts":"2026-04-29T02:12:15Z","hook":"lighthouse-budget","event":"warn-no-file","detail":"no lighthouse-scores.json found before deploy"}
+{"ts":"2026-04-29T02:12:15Z","hook":"legal-pages-check","event":"skip","detail":"no active project found"}
+{"ts":"2026-04-29T02:12:18Z","hook":"pre-deploy-approval-check","event":"triggered","detail":"cmd=vercel deploy --prod"}
+{"ts":"2026-04-29T02:12:18Z","hook":"pre-deploy-approval-check","event":"skip","detail":"no active project found"}
+{"ts":"2026-04-29T02:12:36Z","hook":"lighthouse-budget","event":"triggered","detail":"cmd=cd 'C:/Users/hartm/Desktop/digital-product-studio-ai' && \
+{"ts":"2026-04-29T02:12:36Z","hook":"pre-deploy-approval-check","event":"triggered","detail":"cmd=cd 'C:/Users/hartm/Desktop/digital-product-studio-ai' && \
+# Test: deploy with a"}
+# Test: deploy with a"}
+{"ts":"2026-04-29T02:12:36Z","hook":"legal-pages-check","event":"triggered","detail":"cmd=cd 'C:/Users/hartm/Desktop/digital-product-studio-ai' && \
+# Test: deploy with a"}
+{"ts":"2026-04-29T02:12:36Z","hook":"pre-deploy-approval-check","event":"skip","detail":"no active project found"}
+{"ts":"2026-04-29T02:12:36Z","hook":"lighthouse-budget","event":"warn-no-file","detail":"no lighthouse-scores.json found before deploy"}
+{"ts":"2026-04-29T02:12:36Z","hook":"legal-pages-check","event":"skip","detail":"no active project found"}
+{"ts":"2026-04-29T02:12:39Z","hook":"pre-deploy-approval-check","event":"triggered","detail":"cmd=vercel deploy --prod"}
+{"ts":"2026-04-29T02:12:39Z","hook":"pre-deploy-approval-check","event":"skip","detail":"no active project found"}
+{"ts":"2026-04-29T02:13:03Z","hook":"legal-pages-check","event":"triggered","detail":"cmd=cd 'C:/Users/hartm/Desktop/digital-product-studio-ai' && \
+# Link hooks to tmp p"}
+{"ts":"2026-04-29T02:13:03Z","hook":"lighthouse-budget","event":"triggered","detail":"cmd=cd 'C:/Users/hartm/Desktop/digital-product-studio-ai' && \
+# Link hooks to tmp p"}
+{"ts":"2026-04-29T02:13:03Z","hook":"pre-deploy-approval-check","event":"triggered","detail":"cmd=cd 'C:/Users/hartm/Desktop/digital-product-studio-ai' && \
+# Link hooks to tmp p"}
+{"ts":"2026-04-29T02:13:03Z","hook":"lighthouse-budget","event":"warn-no-file","detail":"no lighthouse-scores.json found before deploy"}
+{"ts":"2026-04-29T02:13:03Z","hook":"legal-pages-check","event":"skip","detail":"no active project found"}
+{"ts":"2026-04-29T02:13:03Z","hook":"pre-deploy-approval-check","event":"skip","detail":"no active project found"}
+{"ts":"2026-04-29T02:13:11Z","hook":"pre-deploy-approval-check","event":"triggered","detail":"cmd=cat > /tmp/dpsai-test/projects/TEST-001/00-engagement/approvals.yaml <<'EOF'
+{"ts":"2026-04-29T02:13:11Z","hook":"lighthouse-budget","event":"triggered","detail":"cmd=cat > /tmp/dpsai-test/projects/TEST-001/00-engagement/approvals.yaml <<'EOF'
+{"ts":"2026-04-29T02:13:11Z","hook":"legal-pages-check","event":"triggered","detail":"cmd=cat > /tmp/dpsai-test/projects/TEST-001/00-engagement/approvals.yaml <<'EOF'
+app"}
+app"}
+app"}
+{"ts":"2026-04-29T02:13:12Z","hook":"legal-pages-check","event":"skip","detail":"no active project found"}
+{"ts":"2026-04-29T02:13:12Z","hook":"lighthouse-budget","event":"warn-no-file","detail":"no lighthouse-scores.json found before deploy"}
+{"ts":"2026-04-29T02:13:12Z","hook":"pre-deploy-approval-check","event":"skip","detail":"no active project found"}
+{"ts":"2026-04-29T02:13:19Z","hook":"lighthouse-budget","event":"triggered","detail":"cmd=# Test: all approvals approved → exit 0
+{"ts":"2026-04-29T02:13:19Z","hook":"legal-pages-check","event":"triggered","detail":"cmd=# Test: all approvals approved → exit 0
+{"ts":"2026-04-29T02:13:19Z","hook":"pre-deploy-approval-check","event":"triggered","detail":"cmd=# Test: all approvals approved → exit 0
+sed -i 's/status: pending/status: appr"}
+sed -i 's/status: pending/status: appr"}
+sed -i 's/status: pending/status: appr"}
+{"ts":"2026-04-29T02:13:19Z","hook":"pre-deploy-approval-check","event":"skip","detail":"no active project found"}
+{"ts":"2026-04-29T02:13:19Z","hook":"legal-pages-check","event":"skip","detail":"no active project found"}
+{"ts":"2026-04-29T02:13:19Z","hook":"lighthouse-budget","event":"warn-no-file","detail":"no lighthouse-scores.json found before deploy"}
+{"ts":"2026-04-29T02:13:27Z","hook":"legal-pages-check","event":"triggered","detail":"cmd=cd 'C:/Users/hartm/Desktop/digital-product-studio-ai' && \
+# Test lighthouse-bud"}
+{"ts":"2026-04-29T02:13:27Z","hook":"lighthouse-budget","event":"triggered","detail":"cmd=cd 'C:/Users/hartm/Desktop/digital-product-studio-ai' && \
+{"ts":"2026-04-29T02:13:27Z","hook":"pre-deploy-approval-check","event":"triggered","detail":"cmd=cd 'C:/Users/hartm/Desktop/digital-product-studio-ai' && \
+# Test lighthouse-bud"}
+# Test lighthouse-bud"}
+{"ts":"2026-04-29T02:13:27Z","hook":"lighthouse-budget","event":"warn-no-file","detail":"no lighthouse-scores.json found before deploy"}
+{"ts":"2026-04-29T02:13:27Z","hook":"legal-pages-check","event":"skip","detail":"no active project found"}
+{"ts":"2026-04-29T02:13:27Z","hook":"pre-deploy-approval-check","event":"skip","detail":"no active project found"}
+{"ts":"2026-04-29T02:14:01Z","hook":"validate-images","event":"triggered","detail":"tool=Edit file=C:\Users\hartm\Desktop\digital-product-studio-ai\.claude\hooks\lighthouse-budget.sh"}
+{"ts":"2026-04-29T02:14:08Z","hook":"pre-deploy-approval-check","event":"triggered","detail":"cmd=cp 'C:/Users/hartm/Desktop/digital-product-studio-ai/.claude/hooks/lighthouse-bu"}
+{"ts":"2026-04-29T02:14:08Z","hook":"legal-pages-check","event":"triggered","detail":"cmd=cp 'C:/Users/hartm/Desktop/digital-product-studio-ai/.claude/hooks/lighthouse-bu"}
+{"ts":"2026-04-29T02:14:08Z","hook":"lighthouse-budget","event":"triggered","detail":"cmd=cp 'C:/Users/hartm/Desktop/digital-product-studio-ai/.claude/hooks/lighthouse-bu"}
+{"ts":"2026-04-29T02:14:08Z","hook":"legal-pages-check","event":"skip","detail":"no active project found"}
+{"ts":"2026-04-29T02:14:08Z","hook":"pre-deploy-approval-check","event":"skip","detail":"no active project found"}
+{"ts":"2026-04-29T02:14:08Z","hook":"lighthouse-budget","event":"warn-no-file","detail":"no lighthouse-scores.json found before deploy"}
+{"ts":"2026-04-29T02:14:43Z","hook":"session-stop","event":"stopped","detail":"branch=main staged=0 modified=0"}
