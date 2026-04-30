@@ -1,0 +1,136 @@
+# ===============================================================
+# approvals.yaml
+# AILEAP 自社サイト v2
+# ===============================================================
+
+project_id: AILEAP-20260429-001
+created_at: 2026-04-29
+last_updated_at: 2026-04-29
+
+approvals:
+
+  # =========================================================
+  # APV-001: 要件定義 v1 承認
+  # =========================================================
+  - id: APV-001
+    type: requirements_approval
+    status: pending
+    subject: "要件定義書 v1 承認依頼(AILEAP 自社サイト v2)"
+    requested_by: ux-strategy-lead
+    requested_at: 2026-04-29
+    artifact_refs:
+      - "01-discovery/requirements-v0.md"
+    approval_method: null
+    approved_by: null
+    approved_at: null
+    notes: ""
+    revision_history: []
+
+  # =========================================================
+  # APV-002: 見積 v1 承認(自社のため工数承認)
+  # =========================================================
+  - id: APV-002
+    type: estimate_approval
+    status: pending
+    subject: "内部工数見積 v1 承認依頼"
+    requested_by: commercial-manager
+    requested_at: 2026-04-29
+    artifact_refs:
+      - "00-engagement/estimate.yaml"
+      - "00-engagement/sow.md"
+    approval_method: null
+    approved_by: null
+    approved_at: null
+    notes: |
+      自社案件のため commercial-manager は internal mode。
+      請求書発行なし、工数管理のみ。
+    revision_history: []
+
+  # =========================================================
+  # APV-003: デザインシステム承認(★必須ゲート)
+  # =========================================================
+  - id: APV-003
+    type: design_approval
+    status: pending
+    subject: "デザインシステム v1 + 主要画面 承認依頼"
+    requested_by: art-direction-lead
+    requested_at: 2026-04-29
+    artifact_refs:
+      - "03-design/design-system.md"
+    approval_method: null
+    approved_by: null
+    approved_at: null
+    notes: |
+      WCAG 2.2 AA をデザイントークン段階で担保(H-4 fix の実証)。
+      実装フェーズ移行のための必須ゲート。
+    revision_history: []
+
+  # =========================================================
+  # APV-004: コンテンツ承認(ステージング前)
+  # =========================================================
+  - id: APV-004
+    type: content_approval
+    status: pending
+    subject: "本番投入用コンテンツ承認依頼"
+    requested_by: content-strategy-lead
+    requested_at: 2026-04-29
+    artifact_refs:
+      - "02-strategy/content-strategy.md"
+    approval_method: null
+    approved_by: null
+    approved_at: null
+    notes: ""
+    revision_history: []
+
+  # =========================================================
+  # APV-005: 本番公開最終承認(★必須ゲート)
+  # =========================================================
+  - id: APV-005
+    type: launch_approval
+    status: pending
+    subject: "本番公開最終承認(AILEAP 自社サイト v2)"
+    requested_by: delivery-director
+    requested_at: 2026-04-29
+    artifact_refs:
+      - "05-launch/launch-checklist.md"
+    approval_method: null
+    approved_by: null
+    approved_at: null
+    notes: |
+      pre-deploy-approval-check.sh が本 APV を強制チェック。
+      approved でなければ Vercel デプロイ禁止。
+    revision_history: []
+
+  # =========================================================
+  # APV-006: WMAO 引継ぎ承認(公開後 30 日経過後)
+  # =========================================================
+  - id: APV-006
+    type: handoff_approval
+    status: pending
+    subject: "WMAO 引継ぎ承認(B-C1 30日レポート受領後)"
+    requested_by: delivery-director
+    requested_at: 2026-04-29
+    artifact_refs:
+      - "06-handoff/seo-geo-30day-report.md"
+    approval_method: null
+    approved_by: null
+    approved_at: null
+    notes: |
+      公開後 30 日経過 + Shin の最終承認 が条件。
+      本承認により dpsai-to-wmao-handoff.yaml 発行が可能になる。
+    revision_history: []
+
+# ===============================================================
+# サマリー
+# ===============================================================
+summary:
+  total_count: 6
+  pending_count: 6
+  approved_count: 0
+  rejected_count: 0
+  waived_count: 0
+  blocking_phase_progress:
+    - APV-001                                # discovery → strategy のゲート
+    - APV-003                                # design → implementation のゲート
+    - APV-004                                # implementation → staging のゲート
+    - APV-005                                # staging → launch のゲート

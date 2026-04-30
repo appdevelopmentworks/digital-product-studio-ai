@@ -1,0 +1,149 @@
+# ===============================================================
+# estimate.yaml
+# AILEAP 自社サイト v2 (内部見積)
+# ---------------------------------------------------------------
+# internal_client: true のため、外部請求なし・工数管理のみ。
+# 通常の 3 パターン(Fixed/T&M/Retainer)は参考値として作成し、
+# /estimate スキルの動作確認とする。
+# ===============================================================
+
+estimate_id: EST-INTERNAL-20260429-001
+project_id: AILEAP-20260429-001
+created_at: 2026-04-29
+created_by: commercial-manager
+valid_until: 2026-05-29
+
+# ★ internal_client モード ★
+internal_client: true
+internal_effort_hours: 200                  # 工数想定(検証込み)
+note: |
+  AILEAP 自社案件 — 外部請求なし。工数管理のみ。
+  下記の 3 パターンは /estimate スキルの動作確認用に参考値として算出。
+  実際の費用発生はない。
+
+# 案件タイプ
+project_type: A1
+
+# 案件パラメータ
+parameters:
+  page_count: 11                             # トップ + about + services + works + careers + contact + 法務2 + ブログ一覧 + ブログ詳細 + 記事カテゴリ
+  design_complexity: full_custom
+  multilingual: false
+  locales: [ja]
+  cms: microcms                              # AILEAP は Headless CMS を採用(検証目的)
+  api_integrations: 1                        # microCMS API 1 連携
+  animation_level: basic
+  has_photo_shooting: false                  # AI 画像生成で代替
+
+# ===============================================================
+# patterns: 参考値(自社案件のため実費発生なし)
+# ===============================================================
+patterns:
+
+  fixed:
+    label: "固定価格(Fixed Price) — 参考値"
+    total_jpy: 1500000                       # A1 レンジ上限近辺
+    tax_excluded: true
+    hours_included: 200
+    breakdown:
+      strategy_requirements_jpy: 200000
+      design_jpy: 500000
+      implementation_jpy: 600000
+      qa_launch_jpy: 200000
+    payment_schedule:
+      - phase: contract_signing
+        ratio: 0.3
+        amount_jpy: 450000
+      - phase: design_approval
+        ratio: 0.3
+        amount_jpy: 450000
+      - phase: launch
+        ratio: 0.4
+        amount_jpy: 600000
+    scope_notes: |
+      ページ数: 11 ページ
+      多言語: ja のみ(en は v0.3 検証案件)
+      CMS: microCMS (Headless)
+      API 連携: microCMS のみ
+      初期記事: 7 本(B-C2 境界の検証範囲)
+    included:
+      - WCAG 2.2 AA 準拠
+      - Lighthouse Performance 90+ 保証
+      - 構造化データ(Organization / WebSite / WebPage / BreadcrumbList / Article / FAQPage)
+      - llms.txt 標準装備(GEO 対策)
+      - 公開後 30 日の SEO/GEO 初動検証
+    excluded:
+      - 公開 31 日以降の継続運用 → WMAO 領域
+      - 11 記事目以降のコンテンツ → WMAO 領域
+      - 多言語対応(en) → v0.3 で別案件として検証
+    change_order_rates:
+      additional_page_jpy: 80000
+      additional_locale_jpy: 250000
+      photo_shoot_pass_through: false        # AI 生成で代替する方針
+
+  time_and_materials:
+    label: "実費精算(T&M) — 参考値"
+    hourly_rate_jpy: 10000
+    estimated_hours_min: 180
+    estimated_hours_max: 250
+    ceiling_jpy: 2500000
+    monthly_hour_cap: 100
+    billing_cycle: monthly
+    progress_report_cadence: bi_weekly
+    advantages: |
+      - 仕様変更に柔軟
+      - 検証目的では工数を細かく追跡できる
+    disadvantages: |
+      - 自社案件には不要(internal mode)
+    when_recommended: 自社案件では非採用
+
+  retainer:
+    label: "月額保守(Retainer) — 参考値"
+    tier: standard
+    monthly_fee_jpy: 100000
+    minimum_period_months: 6
+    overage_rate_jpy: 15000
+    included_hours_total: 20
+    included_services:
+      monitoring_hours: 5
+      content_update_hours: 5
+      feature_addition_hours: 5
+      seo_geo_improvement_hours: 5            # AILEAP 自社のため SEO/GEO 改善を厚めに
+      monthly_report: included
+    excluded:
+      - 大規模リブランド (A4)
+      - 全面リニューアル
+      - 単月で 30 時間超える機能追加
+    upgrade_trigger:
+      consecutive_months_over_cap: 3
+    advantages: |
+      - 自社サイトの継続改善枠を確保(検証案件として WMAO 引継ぎ後も
+        本組織が「実装側保守」として枠を持つことを想定)
+    annual_projection_jpy: 1200000
+
+# ===============================================================
+# 合計サマリー(参考値)
+# ===============================================================
+totals:
+  fixed_total_jpy: 1500000
+  tm_min_jpy: 1800000
+  tm_ceiling_jpy: 2500000
+  retainer_monthly_jpy: 100000
+  retainer_annual_projection_jpy: 1200000
+  recommended_combination: "fixed + retainer (参考値)"
+  recommended_combination_first_year_jpy: 2700000
+
+presentation_order:
+  - retainer
+  - fixed
+  - time_and_materials
+
+# ===============================================================
+# 内部メモ
+# ===============================================================
+internal_notes: |
+  - 自社案件のため外部請求なし
+  - 200 時間が想定工数(うち 50 時間程度が検証作業のオーバーヘッド)
+  - 通常の A1 案件であれば 150-180 時間が標準(本案件はテンプレート検証込み)
+  - 3パターン提示は /estimate スキル動作確認のため形式的に作成
+  - 実際の Retainer 契約は AILEAP 自身がクライアント役となるため形式的(運用は通常通り)

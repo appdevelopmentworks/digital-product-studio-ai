@@ -1,0 +1,110 @@
+# ===============================================================
+# legal-review.yaml
+# AILEAP 自社サイト v2
+# ---------------------------------------------------------------
+# 法務テンプレート(プライバシー・特商法・利用規約)の弁護士確認状態を管理。
+# 公開直前に lawyer_confirmation: true へ更新が必要(該当ページのみ)。
+# ===============================================================
+
+project_id: AILEAP-20260429-001
+created_at: 2026-04-29
+last_updated_at: 2026-04-29
+
+requires_lawyer_review: true                # 個人情報取得あり(問い合わせ・採用)
+overall_lawyer_confirmation: false          # 全体確認の集約状態
+
+# ===============================================================
+# ページ別の弁護士確認状態
+# ===============================================================
+pages_reviewed:
+
+  - page: privacy_policy
+    required: true                          # 必須(個人情報取得あり)
+    lawyer_confirmation: false              # ★ 公開直前に true へ更新
+    template_used: docs/templates/privacy-policy-template.md
+    lawyer_name: null                       # 弁護士確認後に記入
+    lawyer_firm: null
+    reviewed_at: null
+    review_notes: ""
+    publish_blocked: true                   # 確認済みでない限り公開不可
+
+  - page: tokushoho                         # 特商法表記
+    required: false                         # 任意(商品販売なしのため)
+    lawyer_confirmation: false
+    template_used: docs/templates/tokushoho-template.md
+    lawyer_name: null
+    lawyer_firm: null
+    reviewed_at: null
+    review_notes: |
+      AILEAP は無形のサービス(Web 制作受託)が中心であり、
+      特商法の対象となる「通信販売」には該当しない可能性が高い。
+      ただし、将来的に有償サブスクリプション(MeetingAI 等)を提供する場合は
+      該当する。本案件では掲載を任意とする。
+    publish_blocked: false
+
+  - page: terms_of_service                  # 利用規約
+    required: false                         # 任意(会員機能なし)
+    lawyer_confirmation: false
+    template_used: docs/templates/terms-of-service-template.md
+    lawyer_name: null
+    lawyer_firm: null
+    reviewed_at: null
+    review_notes: |
+      会員登録・有料サービスはないため必須ではない。
+      ただし、サイト利用一般のディスクレーマーとして
+      簡易な「サイト利用規約」を掲載する方針(コンプライアンス保険)。
+      弁護士確認は推奨。
+    publish_blocked: false
+
+# ===============================================================
+# 弁護士確認手配
+# ===============================================================
+lawyer_engagement:
+  vendor: 未定                               # 弁護士事務所名
+  engagement_status: not_started            # not_started | engaged | in_review | completed
+  estimated_review_period_days: 14          # 確認期間想定
+  estimated_cost_jpy: 100000                # 見積想定(参考)
+  notes: |
+    Shin が弁護士事務所を選定し、以下を依頼予定:
+    1. プライバシーポリシー: 個人情報保護法・GDPR 配慮の確認
+    2. 利用規約(任意): 消費者契約法・損害賠償条項の妥当性
+    特商法表記: 本案件では非掲載のため確認対象外。
+
+# ===============================================================
+# 業種特殊性
+# ===============================================================
+industry_specific_compliance:
+  applicable_regulations: []                # AI Web 制作スタジオは特殊規制なし
+  notes: |
+    AILEAP は AI 活用 Web 制作サービスを提供するが、
+    医療・金融・薬機法・士業のような業種別規制には該当しない。
+    ただし、提供したサイトがクライアント側の規制対象業種である場合は
+    各案件で個別に対応する(本案件には影響なし)。
+
+# ===============================================================
+# 公開前のチェックリスト
+# ===============================================================
+pre_launch_checklist:
+  - item: privacy_policy が lawyer_confirmation: true
+    status: pending
+    blocker_for_launch: true
+  - item: 利用規約が lawyer_confirmation: true(掲載する場合)
+    status: pending
+    blocker_for_launch: false                # 任意のため公開を止めない
+  - item: 個人情報保護管理者の氏名・役職を確定
+    status: pending
+    blocker_for_launch: true
+  - item: 特商法ページを掲載するか最終決定
+    status: pending
+    blocker_for_launch: false
+
+# ===============================================================
+# 運用ルール
+# ===============================================================
+# 1. lawyer_confirmation: true への更新は弁護士確認完了後にのみ行う
+# 2. テンプレート段階の lawyer_confirmation: false は絶対に変更しない
+#    (legal-templates.md の必須ヘッダー)
+# 3. 公開直前に pre-deploy-approval-check.sh が本ファイルを参照し、
+#    publish_blocked: true のページが lawyer_confirmation: false なら
+#    デプロイをブロックする
+# 4. 公開後の改訂は同様のプロセスを再実行

@@ -1,0 +1,198 @@
+# ===============================================================
+# assets-required.yaml
+# AILEAP 自社サイト v2
+# ---------------------------------------------------------------
+# 自社案件のため provider は社内エージェント or Shin が中心。
+# 外部クライアント案件と同じスキーマで管理することで
+# /asset-checklist / /asset-status の検証も兼ねる。
+# ===============================================================
+
+project_id: AILEAP-20260429-001
+created_at: 2026-04-29
+last_updated_at: 2026-04-29
+total_assets_required: 12
+
+assets:
+
+  # ============ ブランド・ロゴ系 ============
+  - id: AST-001
+    category: brand
+    name: AILEAP ロゴ(AI / SVG)
+    required: true
+    status: pending
+    requested_at: 2026-04-29
+    deadline: 2026-05-06
+    received_at: null
+    file_refs: []
+    provider: Shin (内製)
+    notes: |
+      未確定。本案件で art-direction-lead が複数案を提案し Shin 決定。
+      横組 + 縦組 + ファビコン用シンボルマークの 3 種を作成予定。
+
+  - id: AST-002
+    category: brand
+    name: AILEAP ブランドカラー指定
+    required: true
+    status: pending
+    requested_at: 2026-04-29
+    deadline: 2026-05-06
+    received_at: null
+    file_refs: []
+    provider: Shin
+    notes: |
+      暫定: プライマリ #2563EB(青系・信頼感)、アクセント検討中。
+      art-direction-lead が WCAG 2.2 AA 適合の組合せを提案。
+
+  - id: AST-003
+    category: brand
+    name: AILEAP ブランドキーワード(言語化)
+    required: true
+    status: pending
+    requested_at: 2026-04-29
+    deadline: 2026-05-03
+    received_at: null
+    file_refs: []
+    provider: Shin + content-strategy-lead
+    notes: |
+      暫定: AI Native / 同等品質を半額 / WCAG 2.2 AA + GEO 標準装備
+      content-strategy-lead が言語化案を提示し Shin 決定。
+
+  # ============ 写真・素材 ============
+  - id: AST-004
+    category: photo
+    name: ヒーローセクション用ビジュアル素材
+    required: true
+    status: pending
+    requested_at: 2026-04-29
+    deadline: 2026-05-13
+    received_at: null
+    file_refs: []
+    provider: ui-designer (生成 AI 活用)
+    notes: |
+      AI 画像生成(Midjourney / Stable Diffusion)で複数案を作成。
+      著作権・ライセンスは AILEAP 帰属で生成。
+
+  - id: AST-005
+    category: photo
+    name: 「中の人」イラスト or 抽象表現
+    required: false
+    status: pending
+    requested_at: 2026-04-29
+    deadline: 2026-05-13
+    received_at: null
+    file_refs: []
+    provider: ui-designer
+    notes: |
+      AILEAP は人間 1人 + AI エージェント 21体 構成のため、
+      「メンバー紹介」を従来の人物写真ではなく抽象表現で表現する。
+      これ自体が差別化要素になる。
+
+  # ============ 文章・コピー ============
+  - id: AST-006
+    category: copy
+    name: 会社概要文(設立目的・3組織アーキテクチャ説明)
+    required: true
+    status: pending
+    requested_at: 2026-04-29
+    deadline: 2026-05-10
+    received_at: null
+    file_refs: []
+    provider: copywriter (Shin 監修)
+    notes: |
+      AILEAP の存在意義(中小企業に AI 活用 Web 制作を半額品質で届ける)を
+      経営層・採用候補者の双方に伝わる文体で。
+
+  - id: AST-007
+    category: copy
+    name: サービス紹介文(コーポレート / LP / メディアサイト 各 800-1500字)
+    required: true
+    status: pending
+    requested_at: 2026-04-29
+    deadline: 2026-05-13
+    received_at: null
+    file_refs: []
+    provider: copywriter + content-strategy-lead
+    notes: |
+      A1 / A2 / A3 の 3 サービス紹介。
+      価格レンジは pricing-strategy.md と一致させる。
+
+  - id: AST-008
+    category: copy
+    name: 初期記事 1-7 本(Phase D 検証範囲内)
+    required: true
+    status: pending
+    requested_at: 2026-04-29
+    deadline: 2026-06-10
+    received_at: null
+    file_refs: []
+    provider: copywriter (Shin 監修)
+    notes: |
+      B-C2 境界の上限 10 本のうち、検証範囲として 7 本に絞る。
+      残り 3 本(8-10)は WMAO 受領後の継続として位置づけ。
+
+  # ============ クレデンシャル ============
+  - id: AST-009
+    category: credential
+    name: aileap.example ドメイン取得
+    required: true
+    status: pending
+    requested_at: 2026-04-29
+    deadline: 2026-06-01
+    received_at: null
+    file_refs: []
+    provider: Shin
+    notes: |
+      公開直前に必要。現状は aileap-hazel.vercel.app の Vercel ドメインを使用中。
+      正式ドメインは Shin 取得 → AILEAP 名義に登録。
+
+  - id: AST-010
+    category: credential
+    name: GA4 / Google Search Console プロパティ
+    required: true
+    status: pending
+    requested_at: 2026-04-29
+    deadline: 2026-06-01
+    received_at: null
+    file_refs: []
+    provider: Shin
+    notes: |
+      公開前に新規プロパティ作成。WMAO 引継ぎ時に WMAO アカウントへ権限付与。
+
+  # ============ 法務・法人情報 ============
+  - id: AST-011
+    category: legal
+    name: 法人登記情報(住所 / 代表者名)
+    required: true
+    status: pending
+    requested_at: 2026-04-29
+    deadline: 2026-06-01
+    received_at: null
+    file_refs: []
+    provider: Shin
+    notes: |
+      設立準備中の場合は「準備中」表記 + 公開後に追記。
+      プライバシーポリシー・特商法表記で必要。
+
+  - id: AST-012
+    category: legal
+    name: 弁護士確認手配(プライバシー / 利用規約)
+    required: true
+    status: pending
+    requested_at: 2026-04-29
+    deadline: 2026-06-08
+    received_at: null
+    file_refs: []
+    provider: Shin
+    notes: |
+      法務テンプレート(プライバシー・利用規約)を弁護士確認後に
+      lawyer_confirmation: true へ更新。
+      公開直前のクリティカルパス。
+
+# ===============================================================
+# サマリー
+# ===============================================================
+summary:
+  pending_count: 12
+  received_count: 0
+  overdue_count: 0
+  next_reminder_at: 2026-05-03

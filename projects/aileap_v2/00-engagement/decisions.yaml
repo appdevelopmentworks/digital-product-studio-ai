@@ -1,0 +1,252 @@
+# ===============================================================
+# decisions.yaml
+# AILEAP 自社サイト v2
+# ===============================================================
+
+project_id: AILEAP-20260429-001
+created_at: 2026-04-29
+last_updated_at: 2026-04-29
+
+decisions:
+
+  # =========================================================
+  # DEC-001: 案件タイプを A1 に確定
+  # =========================================================
+  - id: DEC-001
+    type: scope
+    title: 案件タイプを A1 (コーポレートサイト) に確定
+    decided_at: 2026-04-29
+    decided_by:
+      - role: studio-director
+        name: studio-director
+      - role: 決裁者
+        name: Shin
+    proposed_by: studio-director
+    impacted_agents:
+      - delivery-director
+      - ux-strategy-lead
+      - content-strategy-lead
+      - art-direction-lead
+    related_artifacts:
+      - "PROJECT.md"
+      - "00-engagement/apex-to-dpsai-handoff.yaml"
+    context: |
+      AILEAP 自社サイトは現状 A2(LP) 相当の情報量しかないが、
+      3組織アーキテクチャの説明、採用導線、実績訴求、ブログを
+      フルで備える必要がある。
+    options_considered:
+      - option: A1 (コーポレートサイト)
+        pros:
+          - 3組織アーキテクチャを十分に説明できる
+          - 採用導線を確立できる
+          - メディアサイト化(A3)への道筋が立つ
+        cons:
+          - 工数大(検証目的としては適切)
+      - option: A2 (LP) のまま情報追加
+        pros:
+          - 工数小
+        cons:
+          - 採用導線が弱い
+          - GEO 引用の受け皿が薄い
+      - option: A3 (メディアサイト) として記事中心
+        pros:
+          - GEO 引用獲得には強い
+        cons:
+          - 自社サービス紹介が薄くなる
+          - 検証スコープを超える
+    decision_rationale: |
+      A1 は本案件の目的(自社差別化を訴求 + 採用 + 実績 + 記事)を
+      過不足なくカバーする。検証目的としても A1 のフルワークフローを
+      回す必要があるため適切。
+    consequences:
+      positive:
+        - 21テンプレートのほぼ全てを使用する機会が得られる
+        - 21エージェント全員が起動する確率が高い
+      negative:
+        - 工数が大きい
+      mitigation:
+        - 初期記事は B-C2 境界の上限ではなく 7 本に絞る
+    review_required_by: null
+    superseded_by: null
+    notes: ""
+
+  # =========================================================
+  # DEC-002: 多言語対応(en) を本案件スコープから除外
+  # =========================================================
+  - id: DEC-002
+    type: scope
+    title: 多言語対応(en) を本案件スコープから除外
+    decided_at: 2026-04-29
+    decided_by:
+      - role: strategy-director
+        name: strategy-director
+      - role: localization-specialist
+        name: localization-specialist
+      - role: 決裁者
+        name: Shin
+    proposed_by: localization-specialist
+    impacted_agents:
+      - localization-specialist
+      - copywriter
+      - frontend-engineer
+    related_artifacts:
+      - "PROJECT.md"
+    context: |
+      AILEAP は将来的に英語圏顧客も視野に入れているが、
+      v0.2 Phase D の検証スコープを膨張させないため
+      初版では ja のみとする。
+    options_considered:
+      - option: ja のみ(初版)、en は v0.3 で追加
+        pros:
+          - スコープ管理しやすい
+          - localization-specialist の動作確認は別案件で実施可
+        cons:
+          - 英語圏訴求が遅れる
+      - option: ja + en で初版から対応
+        pros:
+          - 英語圏訴求が早期に立ち上がる
+        cons:
+          - 工数 +20-30%
+          - 検証スコープを超える
+    decision_rationale: |
+      Phase D の検証目的を優先。en 化は次の検証案件(v0.3 想定)で実施。
+      ただし、i18n-strategy-template.md 自体の動作確認は本案件で実施する
+      (空のまま実装に進めて良いか確認)。
+    consequences:
+      positive:
+        - スコープが明確化
+      negative:
+        - localization-specialist のフル動作検証が遅れる
+      mitigation:
+        - i18n-strategy.md の作成は内部メモとして実施(将来の en 化準備)
+    review_required_by: null
+    superseded_by: null
+    notes: ""
+
+  # =========================================================
+  # DEC-003: 内部見積モード(internal_client: true) を採用
+  # =========================================================
+  - id: DEC-003
+    type: budget
+    title: commercial-manager を internal mode で動作させる
+    decided_at: 2026-04-29
+    decided_by:
+      - role: commercial-manager
+        name: commercial-manager
+      - role: 決裁者
+        name: Shin
+    proposed_by: commercial-manager
+    impacted_agents:
+      - commercial-manager
+      - delivery-director
+    related_artifacts:
+      - "PROJECT.md"
+      - "00-engagement/estimate.yaml"
+    context: |
+      自社案件のため外部請求は発生しない。
+      ただし工数管理は通常案件と同等に行う(検証目的)。
+    decision_rationale: |
+      pricing-strategy.md Section 3.3 に従い、internal_client: true 案件は
+      工数管理のみ・請求書発行なし。
+      3パターン提示(Fixed/T&M/Retainer)は本案件では参考値として作成し、
+      検証目的の動作確認に留める。
+    consequences:
+      positive:
+        - 自社案件で外部見積を強制発行しない
+        - 工数管理は維持される
+      negative: []
+      mitigation: []
+    review_required_by: null
+    superseded_by: null
+    notes: ""
+
+  # =========================================================
+  # DEC-004: 法務 3 点を弁護士確認推奨に設定
+  # =========================================================
+  - id: DEC-004
+    type: legal
+    title: 法務テンプレート(プライバシー / 特商法 / 利用規約) の弁護士確認方針
+    decided_at: 2026-04-29
+    decided_by:
+      - role: delivery-director
+        name: delivery-director
+      - role: 決裁者
+        name: Shin
+    proposed_by: delivery-director
+    impacted_agents:
+      - copywriter
+      - delivery-director
+    related_artifacts:
+      - "00-engagement/legal-review.yaml"
+    context: |
+      自社サイトでも問い合わせフォーム・採用エントリーで個人情報を取得するため
+      プライバシーポリシーは必須。利用規約は会員機能なしのため任意だが
+      コンプライアンス保険として作成。特商法は商品販売なしのため任意。
+    decision_rationale: |
+      legal-escalation-rules.md に従い:
+      - プライバシーポリシー: 弁護士確認 必須
+      - 利用規約: 弁護士確認 推奨(会員機能なしのため)
+      - 特商法表記: 任意(商品販売なし)
+
+      公開直前に lawyer_confirmation: true へ更新する手順を明示。
+    consequences:
+      positive:
+        - 法的リスクを最小化
+      negative:
+        - 弁護士確認の工数・費用が発生
+      mitigation:
+        - assets-required.yaml AST-012 で弁護士確認手配を Shin タスクに登録
+    review_required_by: null
+    superseded_by: null
+    notes: ""
+
+  # =========================================================
+  # DEC-005: 初期記事を 7 本に絞る
+  # =========================================================
+  - id: DEC-005
+    type: scope
+    title: 初期記事(B-C2 境界)を 10 本上限から 7 本に縮小
+    decided_at: 2026-04-29
+    decided_by:
+      - role: content-strategy-lead
+        name: content-strategy-lead
+      - role: 決裁者
+        name: Shin
+    proposed_by: content-strategy-lead
+    impacted_agents:
+      - content-strategy-lead
+      - copywriter
+    related_artifacts:
+      - "02-strategy/content-strategy.md"
+      - "00-engagement/sow.md"
+    context: |
+      B-C2 境界では digital-product-studio-ai が 1-10 記事を担当できるが、
+      検証案件として全 10 本を作成すると工数が膨張する。
+      初期 7 本を AILEAP(本組織)が、残り 3 本を WMAO 引継ぎ後の
+      早期コンテンツとして位置づける。
+    decision_rationale: |
+      検証目的では copywriter が複数記事を書く動作確認できれば十分。
+      7 本でカテゴリ別の動作確認(柱1: 業界専門性 / 柱2: ハウツー / 柱3: 実績 / 柱4: 採用)が回る。
+    consequences:
+      positive:
+        - 検証スコープが現実的になる
+      negative:
+        - WMAO 引継ぎ時の「初期記事」が標準より少ない
+      mitigation:
+        - WMAO 引継ぎ書面で「初期 7 本 + WMAO 受領 1 ヶ月以内に 3 本」と明示
+    review_required_by: null
+    superseded_by: null
+    notes: ""
+
+# ===============================================================
+# サマリー
+# ===============================================================
+summary:
+  total_count: 5
+  by_type:
+    scope: 3
+    budget: 1
+    legal: 1
+  active_count: 5
+  superseded_count: 0
+  pending_review_count: 0

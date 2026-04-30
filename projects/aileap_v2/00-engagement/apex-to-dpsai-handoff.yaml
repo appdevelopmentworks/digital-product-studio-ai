@@ -1,0 +1,170 @@
+# ===============================================================
+# apex-to-dpsai-handoff.yaml
+# AILEAP 自社サイト v2 (Phase D 検証案件)
+# ---------------------------------------------------------------
+# 自社案件のため apex は「Shin 自身が apex 役を兼務」する仮想ハンドオフ。
+# 通常案件の apex 受領プロセスが正しく動くかを検証するために
+# 通常通りのスキーマで記録する。
+# ===============================================================
+
+handoff_id: APX-20260429-001
+from_org: apex-consulting-ai
+to_org: digital-product-studio-ai
+handoff_at: 2026-04-29
+received_at: 2026-04-29
+received_by: delivery-director              # dpsai 側受領
+
+# ===============================================================
+# クライアント基本情報
+# ===============================================================
+client:
+  name: 株式会社 AILEAP
+  primary_contact_name: Shin
+  primary_contact_email: shin@aileap.example
+  primary_contact_phone: ""
+  decision_maker_name: Shin
+  decision_maker_email: shin@aileap.example
+  industry: AI 活用 Web 制作スタジオ / 自社 (digital-product-studio-ai を含む 3 組織アーキテクチャ)
+  company_size: 設立準備中(Shin + AI エージェント 21体)
+  existing_site_url: https://aileap-hazel.vercel.app
+
+# ===============================================================
+# apex が確定した戦略コンテキスト
+# ===============================================================
+strategic_context: |
+  AILEAP は apex-consulting-ai(上流戦略)、digital-product-studio-ai(中流制作)、
+  web-marketing-ai-org / WMAO(下流マーケ)の3組織アーキテクチャで構成される
+  AI Native の Web 制作スタジオ。
+
+  既存サイト(aileap-hazel.vercel.app)は v0.1 段階の試験的ランディングページで、
+  以下の課題を抱える:
+  - 情報量不足(サービス・実績・採用導線がない)
+  - SEO 設計が弱い(構造化データ・llms.txt 未対応)
+  - GEO 未対応(LLM からの参照を獲得できていない)
+  - ブランドメッセージ が「同等品質を半額」を訴求しきれていない
+  - 採用導線がない(エンジニア中途採用が必要)
+
+  本改修案件で AILEAP の3組織アーキテクチャを言語化し、
+  digital-product-studio-ai の差別化(AI による工数削減 + WCAG 2.2 AA + GEO 標準装備)を
+  訴求できるサイトに刷新する。
+
+  本案件はもう一つの目的を持つ: digital-product-studio-ai v0.2 の Phase D 検証案件として、
+  実装したエージェント・スキル・hook・テンプレートを実プロジェクトで動作確認する。
+
+# ===============================================================
+# 案件タイプ推奨
+# ===============================================================
+recommended_project_type: A1                # コーポレートサイト
+project_type_rationale: |
+  - サービス紹介 + 採用 + 実績 + 記事 が必要 → A1 (コーポレート) が妥当
+  - LP 単発(A2)では3組織アーキテクチャの説明が困難
+  - メディアサイト(A3)化のニーズはあるが、Phase 2 として検討推奨
+
+# ===============================================================
+# KGI / KPI 推奨
+# ===============================================================
+recommended_kgi: AILEAP として月間問い合わせ件数 30件達成(公開後 6ヶ月以内)
+
+recommended_kpi:
+  - metric: オーガニック流入
+    target: 1,000 UU/月
+    baseline: 50 UU/月 (現状の vercel ドメインは事実上未計測)
+  - metric: GEO 経由(LLM 参照)セッション
+    target: 50 セッション/月
+    baseline: 0 (現状未対応)
+  - metric: 採用エントリー
+    target: 月 5件
+    baseline: 0 (現状フォームなし)
+  - metric: フォーム CV 率
+    target: 2.5%
+    baseline: 未計測
+
+# ===============================================================
+# 想定予算・期間
+# ===============================================================
+budget_range:
+  min_jpy: 0                                 # 自社案件のため外部請求なし
+  max_jpy: 0
+  retainer_likely: false                     # 自社のため Retainer は工数枠管理のみ
+  retainer_range_jpy: 0
+  internal_effort_hours_estimated: 200       # 工数換算(検証込み)
+
+timeline:
+  target_kickoff_at: 2026-04-29
+  target_launch_at: 2026-06-15
+  hard_deadline: false
+  hard_deadline_reason: null
+
+# ===============================================================
+# 提供素材
+# ===============================================================
+assets_provided:
+  - id: APX-AST-001
+    name: 既存サイト ソースコード
+    type: source-code
+    location: github.com/aileap/aileap-hazel
+    notes: 全面リライト前提。デザインの一部要素のみ再利用候補
+  - id: APX-AST-002
+    name: AILEAP 3組織アーキテクチャ図
+    type: document
+    location: docs/architecture.md
+    notes: 既に digital-product-studio-ai リポジトリ内に存在
+  - id: APX-AST-003
+    name: AILEAP ブランドキーワード
+    type: brand-guide
+    location: 未文書化(本案件で言語化が必要)
+    notes: |
+      暫定キーワード:
+      - AI Native(AI 活用が前提)
+      - 同等品質を半額(差別化軸)
+      - WCAG 2.2 AA + GEO 標準装備(品質シグナル)
+
+# ===============================================================
+# 意思決定構造
+# ===============================================================
+decision_structure:
+  approval_chain:
+    - role: 決裁者 / 代表
+      name: Shin
+      role_description: 全決裁(自社のため単一決裁)
+  decision_cycle: 自社案件のため即決可。エージェント間の判断は通常通り階層委譲
+  blackout_periods: ""
+  communication_preference: メール + Claude Code 内対話
+
+# ===============================================================
+# 業種特殊性 / 法務
+# ===============================================================
+industry_compliance:
+  applicable_regulations: []
+  lawyer_review_recommended: true            # コーポレートサイトでも法務3点(プライバシー / 特商法 / 利用規約)は弁護士確認推奨
+  lawyer_review_reason: |
+    自社サイトといえども個人情報取得(問い合わせフォーム・採用エントリー)があるため
+    プライバシーポリシー・利用規約は弁護士確認推奨。
+    特商法は商品販売を行わないため任意。
+
+# ===============================================================
+# 既知のリスク
+# ===============================================================
+known_risks:
+  - risk: 自社案件のため要件が膨らみがち(検証目的とサイト目的の混同)
+    mitigation: スコープを A1 標準に保ち、検証観点は validation-notes.md に分離
+  - risk: 外部クライアント不在のため承認ゲートが緩くなる
+    mitigation: Shin が「クライアント役」を演じて承認サイクルを回す
+
+apex_handoff_notes: |
+  本案件は Phase D 検証ケース。digital-product-studio-ai 側は通常案件と同じワークフローで
+  進めること。テンプレート・スキル・hook の動作確認を最優先目的とする。
+
+  検証で発見した課題は projects/aileap_v2/validation-notes.md に随時記録し、
+  Phase E (gap-analysis-v0.2.md) でまとめて評価する。
+
+# ===============================================================
+# 受領後の dpsai 側アクション(チェック完了済み)
+# ===============================================================
+# - [x] 必須フィールドの欠落なし
+# - [x] strategic_context が具体的
+# - [x] recommended_project_type (A1) は妥当
+# - [x] 予算は internal_effort_hours で扱う
+# - [x] assets_provided の 3 件はアクセス可能
+# - [x] industry_compliance: 法務3点を弁護士確認推奨
+# - [x] 並列案件数 1 < 3 (上限内)
