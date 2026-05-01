@@ -1,6 +1,12 @@
 ---
 name: sitemap-design
 description: Design the information architecture and sitemap for a project. Output is a 3-tier hierarchy with URL conventions and rationale, validated against content depth and SEO/GEO friendliness. Lead agent ux-strategy-lead.
+auto_trigger_keywords:
+  - サイトマップ
+  - sitemap design
+  - 情報アーキテクチャ
+  - ページ構成
+  - URL 設計
 ---
 
 # /sitemap-design

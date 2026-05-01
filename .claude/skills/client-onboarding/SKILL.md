@@ -1,6 +1,14 @@
 ---
 name: client-onboarding
 description: Run the structured initial client hearing — agenda, stakeholder mapping, KGI/KPI capture, constraint discovery, asset checklist seeding, success criteria, communication preferences. Lead agent client-success-lead with ux-strategy-lead contributing constraint-discovery.
+auto_trigger_keywords:
+  - 新案件
+  - 新規案件
+  - クライアント案件
+  - ヒアリング
+  - onboarding
+  - キックオフ
+  - 案件開始
 ---
 
 # /client-onboarding

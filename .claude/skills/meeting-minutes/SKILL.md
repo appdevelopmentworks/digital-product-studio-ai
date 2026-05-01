@@ -1,6 +1,12 @@
 ---
 name: meeting-minutes
 description: Convert recording / notes into structured meeting minutes. Captures participants, agenda, decisions (auto-mirrored to decisions.yaml), action items, parking lot. Lead agent client-success-lead.
+auto_trigger_keywords:
+  - 議事録
+  - meeting minutes
+  - ミーティング記録
+  - 会議録
+  - 打ち合わせ
 ---
 
 # /meeting-minutes
@@ -29,16 +35,58 @@ Produce structured meeting minutes from raw transcript / notes / recording. Capt
 1. Identify meeting metadata (date, participants, location/format)
 2. Identify agenda items discussed
 3. Extract decisions:
-   - Each decision → record in minutes
-   - Each significant decision → also append to `decisions.yaml`
+   - Each decision → record in minutes with a stable `D{n}` ID
+   - Each significant decision → also append to `decisions.yaml` with a `DEC-NNN` ID
 4. Extract action items with owner and deadline
 5. Note open questions / parking-lot items
 6. Schedule next meeting if mentioned
+7. **decisions.yaml mirroring confirmation prompt (G-H5 v0.3 — mandatory)**:
+   Before completing the skill, surface a structured confirmation prompt that
+   lists every `D{n}` row from the minutes side-by-side with its proposed
+   `DEC-NNN` mirroring intent, and ask the user to confirm. See §"decisions.yaml
+   mirroring prompt" below.
+
+## decisions.yaml mirroring prompt (mandatory)
+
+After drafting the minutes but before writing the final files, present the
+following confirmation prompt to the user. The user MUST explicitly approve,
+modify, or skip each row before the skill writes anything to `decisions.yaml`.
+
+```
+以下の決定事項を 00-engagement/decisions.yaml に追記してよろしいですか?
+(各行について「追記する / 追記しない / 修正してから追記」を選んでください)
+
+| # | 議事録 ID | 決定内容(要約) | 提案 DEC ID | mirror? | 理由 |
+|---|---|---|---|---|---|
+| 1 | D1 | A1 案件で確定 | DEC-007 | ✅ 推奨 | プロジェクト基本構成 |
+| 2 | D2 | 多言語(日英)を初期から | DEC-008 | ✅ 推奨 | スコープ確定 |
+| 3 | D3 | KGI 月間問合せ 30 件 | DEC-009 | ✅ 推奨 | 経営目標と紐づく |
+| 4 | D4 | WordPress 維持 | DEC-010 | ✅ 推奨 | 技術選定の固定 |
+| 5 | D5 | 撮影パートナー検討 | -        | ❌ skip  | パーキングロット項目 |
+
+選択肢:
+  all-yes        全項目を提案通りに追記
+  yes <番号>     指定番号のみ追記
+  skip <番号>    指定番号を追記しない
+  edit <番号>    DEC ID または内容を修正してから追記
+  cancel         追記を全件中止(議事録のみ書き出し)
+```
+
+ルール:
+- パーキングロット項目(まだ決定していない議題)は **mirror しない**(`skip`)
+- アクションアイテムは decisions.yaml の対象外(別ロジックで管理)
+- 同じ内容の DEC が既に存在する場合は新規発番ではなく既存 DEC への補足として扱う
+- ユーザーが `cancel` を選んだ場合でも、議事録ファイルは書き出す
 
 ## Outputs
 
 - `00-engagement/meetings/YYYY-MM-DD_<topic>.md` (Japanese)
-- Updates to `00-engagement/decisions.yaml` if significant decisions made
+- Updates to `00-engagement/decisions.yaml` if user approved mirroring (per the
+  prompt above) — otherwise the minutes are written but decisions.yaml stays
+  unchanged
+- Inline note in the minutes: `(D1-D4 は decisions.yaml にも反映済 / D5 は
+  パーキングロットのため未反映)` — fully transparent record of the mirroring
+  decision
 
 ## Example Output (Japanese excerpt)
 

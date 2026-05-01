@@ -1,6 +1,11 @@
 ---
 name: approval-request
 description: Generate a client approval-request mail draft for a specific artifact (proposal/design/launch/etc.). Lead agent client-success-lead with the responsible Practice providing context.
+auto_trigger_keywords:
+  - 承認依頼
+  - approval request
+  - 承認メール
+  - 承認依頼書
 ---
 
 # /approval-request

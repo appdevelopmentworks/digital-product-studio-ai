@@ -1,6 +1,12 @@
 ---
 name: requirements-gathering
 description: Produce the client-facing requirements draft (要件定義書) integrating onboarding output, constraints, and project type. Lead agent ux-strategy-lead with client-success-lead and seo-geo-strategist contributing.
+auto_trigger_keywords:
+  - 要件定義
+  - requirements gathering
+  - 要件草案
+  - 要件書
+  - 機能要件
 ---
 
 # /requirements-gathering

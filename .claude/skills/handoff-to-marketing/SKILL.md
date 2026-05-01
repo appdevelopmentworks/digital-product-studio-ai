@@ -1,6 +1,12 @@
 ---
 name: handoff-to-marketing
 description: Generate the WMAO handoff package per docs/handoff-protocols.md Section 4. Requires 30-day post-launch elapsed + Shin's final approval. Lead agent delivery-director with seo-geo-strategist providing 30-day report.
+auto_trigger_keywords:
+  - WMAO 引継ぎ
+  - marketing handoff
+  - 30日引継ぎ
+  - post-launch handoff
+  - マーケ引継ぎ
 ---
 
 # /handoff-to-marketing

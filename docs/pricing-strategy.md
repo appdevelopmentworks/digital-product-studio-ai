@@ -268,6 +268,117 @@ Reasons:
 - Relationship continuity (next project win-back)
 ```
 
+### 4.5 Internal Mode(自社プロダクト案件)の動作仕様
+
+[gap-analysis-v0.2.md](gap-analysis-v0.2.md) G-H3 で指摘された「internal_client モードの出力仕様が未確定」を本節で確定する。
+
+`commercial-manager` は `PROJECT.md::internal_client: true` を検出した場合、**Internal Mode** で動作する。Internal Mode における各出力フィールドの取扱いは以下の通り。
+
+#### 4.5.1 必須出力フィールド(MUST)
+
+| フィールド | 値 | 理由 |
+|---|---|---|
+| `estimate_id` | `EST-INTERNAL-NNN` | 通常案件と区別するため固定 prefix |
+| `internal_client` | `true` | フラグを必ず明示 |
+| `internal_effort_hours` | 工数(h) | AILEAP 内部の工数管理に必須 |
+| `phase_breakdown` | フェーズ別工数 | 自社事業計画との照合用 |
+| `note` | "内部プロジェクト — 外部請求なし。工数管理のみ" | 誤発行防止 |
+
+このセットがあれば `/estimate` の最低要件を満たす。
+
+#### 4.5.2 推奨出力フィールド(SHOULD)
+
+| フィールド | 値 | 理由 |
+|---|---|---|
+| `patterns.fixed_price.total_jpy` | 参考値(外部委託していたら相当の額) | 自社プロダクトの「機会費用」算定 |
+| `patterns.time_and_material.estimated_hours` | 参考値 | 同上 |
+| `patterns.retainer.monthly_fee_jpy` | 参考値(0 でも記載) | 将来の外部公開時の値付け参考 |
+| `valid_until` | 6 ヶ月先(自社案件は更新サイクル長) | フォーマット一貫性 |
+
+3 パターンの「参考値」生成は **推奨**。完全省略しても valid だが、生成すると次の利点がある:
+
+- AILEAP 自社プロダクト(MeetingAI 等)を将来クライアント案件に展開した時の値付け基準が残る
+- ドッグフーディングで `/estimate` 自体の品質テストになる(C-3 fix の C-3 fix)
+- 自社事業計画のコスト見える化(機会費用の可視化)
+
+省略する場合の妥当な理由: 「明確に外部公開予定がない自社ツール」「短期検証スパイク(2 週間以内)」など。
+
+#### 4.5.3 任意出力フィールド(MAY)
+
+| フィールド | 値 | 理由 |
+|---|---|---|
+| `payment_schedule` | 省略 | 自社案件は支払いがない |
+| `change_order_unit_prices` | 省略 | 内部スコープ変更は decisions.yaml で管理 |
+| `performance_bonus` | 省略 | 自社案件は成果報酬なし |
+| `escalation_to_pro` | 省略 | Retainer は概念的にのみ存在 |
+
+これらは Internal Mode では「省略がデフォルト」。記載してもエラーにはならないが、`null` または完全省略を推奨。
+
+#### 4.5.4 Internal Mode の `/estimate` 出力例
+
+```yaml
+# 必須セットのみの最小例
+estimate_id: EST-INTERNAL-003
+project_id: AILEAP-20260601-001
+created_at: 2026-06-01
+internal_client: true
+internal_effort_hours: 240
+phase_breakdown:
+  engagement: 10
+  strategy: 25
+  design: 50
+  implementation: 100
+  qa_launch: 30
+  post_launch: 25
+note: "内部プロジェクト — 外部請求なし。工数管理のみ"
+```
+
+```yaml
+# 推奨セット込みの例(参考値生成あり)
+estimate_id: EST-INTERNAL-004
+project_id: AILEAP-20260601-002
+created_at: 2026-06-01
+valid_until: 2026-12-01
+internal_client: true
+internal_effort_hours: 240
+phase_breakdown: { ... }
+patterns:
+  fixed_price:
+    total_jpy: 1200000              # 参考値:外部委託相当額
+    note: "AILEAP 内部実施のため計上は工数のみ。本値は機会費用算定の参考。"
+  time_and_material:
+    hourly_rate_jpy: 10000
+    estimated_hours: 240
+    note: "参考値"
+  retainer:
+    tier: standard
+    monthly_fee_jpy: 80000
+    note: "参考値:将来クライアント案件展開時の値付け基準"
+note: "内部プロジェクト — 外部請求なし。工数管理のみ"
+```
+
+#### 4.5.5 Internal Mode における関連スキルの動作
+
+| スキル | Internal Mode での動作 |
+|---|---|
+| `/estimate` | 上記 4.5.1-4.5.4 に従う |
+| `/retainer-design` | 参考値生成可。実契約ファイル(`retainer-contract.yaml`)は生成しない |
+| `/scope-check` | 通常通り動作。スコープ逸脱時は decisions.yaml に記録(変更注文書は発行しない) |
+| `/change-order` | 変更注文書は生成しない。代わりに decisions.yaml に DEC エントリを追加 |
+| `/handoff-package` | クライアント納品物は生成しない。代わりに「次フェーズ Owner」を delivery-director から studio-director(自社案件) へ転送する内部メモを作成 |
+
+#### 4.5.6 Internal Mode の境界(MUST NOT)
+
+以下は Internal Mode でも **絶対に省略してはいけない**:
+
+- `lawyer_confirmation` フロー(自社サイトでも個人情報取得があれば必須)
+- `pre-deploy-approval-check.sh`(approval gate は内部承認でも機能する)
+- `placeholder-detection.sh`(自社サイトの公開前 placeholder 残置は同様の事故)
+- WCAG 2.2 AA 準拠(自社サイトこそ範例として遵守)
+- Lighthouse 予算(同上)
+
+これらは「自社案件だから緩める」のではなく、**自社案件こそ範例**として運用する。
+
 ---
 
 ## 5. 成果報酬の発動条件

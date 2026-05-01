@@ -1,6 +1,13 @@
 ---
 name: retainer-design
 description: Design the monthly maintenance contract (Retainer) — tier, monthly fee, included services with hour caps, overage rate, minimum period. Lead agent commercial-manager (per docs/pricing-strategy.md Section 4 / 9.2).
+auto_trigger_keywords:
+  - リテイナー
+  - retainer
+  - 月額保守
+  - 保守契約
+  - 月額契約
+  - maintenance
 ---
 
 # /retainer-design

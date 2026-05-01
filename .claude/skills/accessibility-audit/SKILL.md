@@ -1,6 +1,12 @@
 ---
 name: accessibility-audit
 description: Run WCAG 2.2 AA compliance audit covering semantic HTML, ARIA, keyboard interaction, focus visibility, contrast, motion safety. Lead agent seo-geo-strategist (in v0.2; v0.3 hands to accessibility-specialist).
+auto_trigger_keywords:
+  - accessibility
+  - アクセシビリティ
+  - WCAG
+  - a11y
+  - コントラスト
 ---
 
 # /accessibility-audit

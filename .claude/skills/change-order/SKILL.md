@@ -1,6 +1,12 @@
 ---
 name: change-order
 description: Document scope/timeline/price changes mid-project as a formal change order. Lead agent commercial-manager with client-success-lead handling client communication.
+auto_trigger_keywords:
+  - 変更注文
+  - change order
+  - スコープ変更
+  - 価格変更
+  - 仕様変更
 ---
 
 # /change-order

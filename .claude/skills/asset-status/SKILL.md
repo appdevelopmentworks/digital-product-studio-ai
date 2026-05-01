@@ -1,6 +1,12 @@
 ---
 name: asset-status
 description: Visualize asset receipt state and generate reminder mail drafts for not-yet-received items. Lead agent client-success-lead.
+auto_trigger_keywords:
+  - 素材状態
+  - asset status
+  - 素材受領
+  - 素材未着
+  - 素材リマインド
 ---
 
 # /asset-status

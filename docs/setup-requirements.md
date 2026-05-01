@@ -160,6 +160,57 @@ bash .claude/hooks/session-start.sh
 
 エラーなく終了すれば OK。
 
+### 1.7 hook smoke-test(初回セットアップ時必須・v0.3 で追加)
+
+セットアップ完了後、**全 hook が空入力で正常起動するか**を一括検証する。`.claude/hooks/smoke-test.sh` がすべての hook を `{}`(空 JSON)入力で実行し、クラッシュ・SyntaxError・依存ツール不在を早期検出する。
+
+```bash
+cd /c/Users/hartm/Desktop/digital-product-studio-ai   # Git Bash
+# または WSL2 では:
+# cd /mnt/c/Users/hartm/Desktop/digital-product-studio-ai
+
+bash .claude/hooks/smoke-test.sh
+```
+
+**期待出力例**:
+
+```
+================================================================
+  hook smoke-test  (v0.3)
+================================================================
+
+  [skip] _lib.sh (library / self)
+  [skip] smoke-test.sh (library / self)
+  [pass] legal-pages-check.sh
+  [pass] lighthouse-budget.sh
+  [pass] placeholder-detection.sh
+  [pass] pre-deploy-approval-check.sh
+  [pass] session-start.sh
+  [pass] session-stop.sh
+  [pass] user-prompt-submit.sh
+  [pass] validate-a11y.sh
+  [pass] validate-images.sh
+  [pass] validate-meta-tags.sh
+
+  total: 10   passed: 10   failed: 0
+================================================================
+
+全 10 hook が空入力で正常終了しました(意図的ブロック含む)
+```
+
+**判定基準**:
+- `[pass]` = 正常終了(exit 0)、または意図的ブロック(exit 2)
+- `[fail]` = 異常終了(SyntaxError / 依存ツール不在 / unhandled error 等)
+
+**1 件でも `[fail]` が出た場合**は launch まで進めずに修正する。新しい hook を追加した時にも同じコマンドで検証すること(このスクリプトは `.claude/hooks/*.sh` を自動検出するため、追加 hook も自動で対象に入る)。
+
+**実行タイミング**:
+1. 初回セットアップ後(本書 §1 完了直後)
+2. PR で hook を追加・変更した直後
+3. v0.3 → v0.4 等のバージョン切替時
+
+このスクリプトは [v0.3 G-C4](../docs/gap-analysis-v0.2.md#g-c4-hook-の-windows--git-bash-smoke-test-不足) の解消として追加された。
+
 ---
 
 ## 2. セカンダリ環境(macOS)
@@ -373,6 +424,9 @@ echo $ANTHROPIC_API_KEY
 ### 7.2 hook が動作しない
 
 ```bash
+# まず smoke-test で原因切り分け
+bash .claude/hooks/smoke-test.sh
+
 # 実行権限確認
 ls -la .claude/hooks/
 
@@ -382,6 +436,15 @@ chmod +x .claude/hooks/*.sh
 # bash バージョン確認
 bash --version  # 4.x 以上推奨
 ```
+
+`smoke-test.sh` で `[fail]` が出た場合は該当 hook の出力を確認し、以下を切り分ける:
+
+| 症状 | 想定原因 | 対応 |
+|---|---|---|
+| `command not found: jq/yq/python3` | 依存ツール不在 | `_lib.sh` の `json_get()` は node にフォールバックするので Node.js 20+ があれば動作する。Node も無い場合は §1.3 Step 3 を実行 |
+| `Permission denied` | 実行権限不足 | `chmod +x .claude/hooks/*.sh` |
+| `bad substitution` / `unexpected token` | Bash 4 系で動作しない構文 | rules/bash-portability.md を参照、Bash 5 限定構文(`@Q` `@K` 等)を使っていないか確認 |
+| `CLAUDE_PROJECT_DIR: unbound variable` | 単独実行時の未設定 | smoke-test.sh は自動で `DPSAI_PROJECT_DIR` を渡すため通常は発生しない。直接実行時は `export CLAUDE_PROJECT_DIR=$(pwd)` を先に実行 |
 
 WSL2 環境であることを確認(Windows コマンドプロンプトや PowerShell では動作しない):
 

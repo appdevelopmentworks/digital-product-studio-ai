@@ -1,6 +1,12 @@
 ---
 name: design-system
 description: Produce the project's design system (typography, color, spacing, components, motion, accessibility). The a11y chapter is mandatory per H-4 fix. Lead agent art-direction-lead with ui-designer contributing component-level details.
+auto_trigger_keywords:
+  - デザインシステム
+  - design system
+  - デザイントークン
+  - デザイン規約
+  - カラーパレット
 ---
 
 # /design-system

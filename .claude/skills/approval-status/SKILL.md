@@ -1,6 +1,11 @@
 ---
 name: approval-status
 description: Visualize the project's approval state — what's pending, approved, or blocking phase progression. Surface to delivery-director and Shin. Lead agent client-success-lead.
+auto_trigger_keywords:
+  - 承認状態
+  - approval status
+  - 承認待ち
+  - 未承認
 ---
 
 # /approval-status

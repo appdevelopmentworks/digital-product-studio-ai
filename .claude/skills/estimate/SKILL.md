@@ -1,6 +1,12 @@
 ---
 name: estimate
 description: Generate a 3-pattern estimate (Fixed Price / Time & Material / Retainer) per docs/pricing-strategy.md. The Retainer pattern is mandatory — even when the client says they don't need maintenance, the Light tier must be presented. Lead agent commercial-manager.
+auto_trigger_keywords:
+  - 見積
+  - estimate
+  - 工数見積
+  - 見積書
+  - 価格提示
 ---
 
 # /estimate

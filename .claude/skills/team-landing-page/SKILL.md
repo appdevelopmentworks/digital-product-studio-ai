@@ -1,6 +1,11 @@
 ---
 name: team-landing-page
 description: Orchestrate A2 landing-page workflow — leaner team, conversion focus, 2-week timeline. Lead by studio-director.
+auto_trigger_keywords:
+  - A2
+  - ランディングページ
+  - landing page
+  - 縦長 LP
 ---
 
 # /team-landing-page

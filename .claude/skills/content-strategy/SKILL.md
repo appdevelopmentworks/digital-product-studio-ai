@@ -1,6 +1,12 @@
 ---
 name: content-strategy
 description: Define content pillars, hierarchy mapping, tone of voice, editorial cadence, and CTA framework. Lead agent content-strategy-lead with copywriter and seo-geo-strategist contributing.
+auto_trigger_keywords:
+  - コンテンツ戦略
+  - content strategy
+  - 編集方針
+  - tone of voice
+  - コンテンツピラー
 ---
 
 # /content-strategy

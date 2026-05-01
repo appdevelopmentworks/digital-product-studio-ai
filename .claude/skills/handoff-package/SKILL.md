@@ -1,6 +1,12 @@
 ---
 name: handoff-package
 description: Generate the client-delivery package — what they receive when the project completes (URLs, credentials, manuals, SLA, contact). Lead agent delivery-director with cms-engineer providing CMS materials.
+auto_trigger_keywords:
+  - 納品パッケージ
+  - handoff package
+  - 納品物
+  - 引継ぎ
+  - 納品準備
 ---
 
 # /handoff-package

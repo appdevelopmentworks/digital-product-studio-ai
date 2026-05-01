@@ -1,6 +1,13 @@
 ---
 name: team-mediasite
 description: Orchestrate A3 mediasite workflow — heavy CMS, content-driven, initial 5-10 articles produced, 1.5-month timeline. Lead by studio-director.
+auto_trigger_keywords:
+  - A3
+  - メディアサイト
+  - mediasite
+  - オウンドメディア
+  - ブログサイト
+  - 記事サイト
 ---
 
 # /team-mediasite

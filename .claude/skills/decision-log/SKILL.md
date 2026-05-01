@@ -1,6 +1,12 @@
 ---
 name: decision-log
 description: Append a structured entry to decisions.yaml with context, decided_by chain, impacted agents, related artifacts, escalation path. Lead agent client-success-lead.
+auto_trigger_keywords:
+  - 決定記録
+  - decision log
+  - ADR
+  - 意思決定
+  - decisions.yaml
 ---
 
 # /decision-log

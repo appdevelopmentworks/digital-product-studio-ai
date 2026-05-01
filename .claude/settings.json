@@ -290,6 +290,31 @@
             "timeout": 30
           }
         ]
+      },
+      {
+        "_comment": "placeholder-detection.sh — runs before deploy; aborts if any unreplaced <<...>> placeholder remains in publish-target files (G-C2 v0.3).",
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/placeholder-detection.sh\"",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+
+    "UserPromptSubmit": [
+      {
+        "_comment": "user-prompt-submit.sh — proposes relevant skills based on natural-language keywords in the user prompt (G-C1 v0.3). Non-blocking suggestion only.",
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/user-prompt-submit.sh\"",
+            "timeout": 15
+          }
+        ]
       }
     ]
   },

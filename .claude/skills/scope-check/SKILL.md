@@ -1,6 +1,12 @@
 ---
 name: scope-check
 description: Compare in-progress deliverables against SOW to detect scope deviations. Outputs severity-tagged report; deviations may trigger /change-order. Lead agent commercial-manager.
+auto_trigger_keywords:
+  - スコープチェック
+  - scope check
+  - SOW 確認
+  - 業務範囲確認
+  - スコープ逸脱
 ---
 
 # /scope-check

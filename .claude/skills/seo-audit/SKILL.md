@@ -1,6 +1,13 @@
 ---
 name: seo-audit
 description: Run classic-SEO checklist (meta tags, structured data, sitemap, robots, canonical, hreflang, internal links, image alt, page speed). Output is a checklist report with critical findings. Lead agent seo-geo-strategist.
+auto_trigger_keywords:
+  - SEO 監査
+  - SEO audit
+  - メタタグ
+  - sitemap.xml
+  - robots.txt
+  - canonical
 ---
 
 # /seo-audit

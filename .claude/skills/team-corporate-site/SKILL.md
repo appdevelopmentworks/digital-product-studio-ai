@@ -1,6 +1,12 @@
 ---
 name: team-corporate-site
 description: Orchestrate A1 corporate-site workflow — dispatch agents per phase, set Production mode, wire up the 8-gate flow. Lead by studio-director.
+auto_trigger_keywords:
+  - A1
+  - コーポレートサイト
+  - corporate site
+  - 企業サイト
+  - 会社サイト
 ---
 
 # /team-corporate-site

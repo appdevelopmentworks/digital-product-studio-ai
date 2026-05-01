@@ -1,6 +1,11 @@
 ---
 name: code-review
 description: Review code changes against path-scoped rules, Atomic Design contract, accessibility patterns, performance hazards, and SEO/GEO at page level. Lead agent frontend-lead with frontend-engineer self-reviewing first.
+auto_trigger_keywords:
+  - コードレビュー
+  - code review
+  - PR review
+  - 実装レビュー
 ---
 
 # /code-review

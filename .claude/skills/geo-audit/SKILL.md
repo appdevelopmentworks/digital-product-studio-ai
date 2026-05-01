@@ -1,6 +1,12 @@
 ---
 name: geo-audit
 description: Run GEO (Generative Engine Optimization) checklist per docs/geo-implementation-spec.md Section 8 — llms.txt, JSON-LD, citation-friendliness, trust signals. Lead agent seo-geo-strategist.
+auto_trigger_keywords:
+  - GEO 監査
+  - llms.txt
+  - LLM citation
+  - 生成 AI 最適化
+  - AI 検索最適化
 ---
 
 # /geo-audit

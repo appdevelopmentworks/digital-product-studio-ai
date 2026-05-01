@@ -1,6 +1,13 @@
 ---
 name: launch-checklist
 description: Pre-launch verification — DNS, SSL, redirects, analytics, monitoring, legal pages, approvals. Comprehensive go/no-go check. Lead agent delivery-director with seo-geo-strategist on SEO checks.
+auto_trigger_keywords:
+  - 公開チェック
+  - launch checklist
+  - ローンチ
+  - 公開前チェック
+  - go-live
+  - 本番デプロイ
 ---
 
 # /launch-checklist

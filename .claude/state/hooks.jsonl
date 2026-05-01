@@ -99,3 +99,81 @@ sed -i 's/status: pending/status: appr"}
 {"ts":"2026-04-29T02:21:08Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\.claude\rules\handoff-scope-boundary.md"}
 {"ts":"2026-04-29T02:21:41Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\.claude\rules\estimate-pricing.md"}
 {"ts":"2026-04-29T02:22:29Z","hook":"session-stop","event":"stopped","detail":"branch=main staged=0 modified=1"}
+{"ts":"2026-04-29T02:26:27Z","hook":"session-stop","event":"stopped","detail":"branch=main staged=0 modified=0"}
+{"ts":"2026-04-29T02:28:13Z","hook":"session-start","event":"started","detail":"branch=main"}
+{"ts":"2026-04-29T02:29:35Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\docs\templates\project-md-template.md"}
+{"ts":"2026-04-29T02:30:37Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\docs\templates\requirements-v0-template.md"}
+{"ts":"2026-04-29T02:31:34Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\docs\templates\assets-required-template.yaml"}
+{"ts":"2026-04-29T02:32:05Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\docs\templates\approvals-template.yaml"}
+{"ts":"2026-04-29T07:15:37Z","hook":"session-start","event":"started","detail":"branch=main"}
+{"ts":"2026-04-29T07:17:00Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\docs\templates\estimate-template.yaml"}
+{"ts":"2026-04-29T07:17:40Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\docs\templates\estimate-template.md"}
+{"ts":"2026-04-29T07:18:23Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\docs\templates\retainer-template.yaml"}
+{"ts":"2026-04-29T07:19:19Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\docs\templates\retainer-template.md"}
+{"ts":"2026-04-29T07:20:37Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\docs\templates\sow-template.md"}
+{"ts":"2026-04-29T07:21:17Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\docs\templates\change-order-template.md"}
+{"ts":"2026-04-29T07:22:23Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\docs\templates\nda-template.md"}
+{"ts":"2026-04-29T07:24:01Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\docs\templates\sitemap-template.md"}
+{"ts":"2026-04-29T07:25:31Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\docs\templates\content-strategy-template.md"}
+{"ts":"2026-04-29T07:27:18Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\docs\templates\design-system-template.md"}
+{"ts":"2026-04-29T07:28:38Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\docs\templates\i18n-strategy-template.md"}
+{"ts":"2026-04-29T07:31:33Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\docs\templates\privacy-policy-template.md"}
+{"ts":"2026-04-29T07:32:29Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\docs\templates\tokushoho-template.md"}
+{"ts":"2026-04-29T07:33:49Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\docs\templates\terms-of-service-template.md"}
+{"ts":"2026-04-29T07:34:50Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\docs\templates\apex-to-dpsai-handoff-template.yaml"}
+{"ts":"2026-04-29T07:35:54Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\docs\templates\dpsai-to-wmao-handoff-template.yaml"}
+{"ts":"2026-04-29T07:36:59Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\docs\templates\handoff-package-template.md"}
+{"ts":"2026-04-29T07:38:14Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\docs\templates\meeting-minutes-template.md"}
+{"ts":"2026-04-29T07:39:17Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\docs\templates\decisions-template.yaml"}
+{"ts":"2026-04-29T12:09:24Z","hook":"session-start","event":"started","detail":"branch=main"}
+{"ts":"2026-04-29T12:11:29Z","hook":"session-stop","event":"stopped","detail":"branch=main staged=0 modified=1"}
+{"ts":"2026-04-29T12:18:01Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\projects\aileap_v2\PROJECT.md"}
+{"ts":"2026-04-29T12:18:49Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\projects\aileap_v2\00-engagement\apex-to-dpsai-handoff.yaml"}
+{"ts":"2026-04-29T12:19:06Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\projects\aileap_v2\00-engagement\approvals.yaml"}
+{"ts":"2026-04-29T12:19:36Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\projects\aileap_v2\00-engagement\assets-required.yaml"}
+{"ts":"2026-04-29T12:20:17Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\projects\aileap_v2\00-engagement\decisions.yaml"}
+{"ts":"2026-04-29T12:20:49Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\projects\aileap_v2\00-engagement\estimate.yaml"}
+{"ts":"2026-04-29T12:21:41Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\projects\aileap_v2\00-engagement\sow.md"}
+{"ts":"2026-04-29T12:22:08Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\projects\aileap_v2\00-engagement\legal-review.yaml"}
+{"ts":"2026-04-29T12:23:19Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\projects\aileap_v2\01-discovery\onboarding-notes.md"}
+{"ts":"2026-04-29T12:24:25Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\projects\aileap_v2\01-discovery\requirements-v0.md"}
+{"ts":"2026-04-29T12:25:36Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\projects\aileap_v2\02-strategy\sitemap.md"}
+{"ts":"2026-04-29T12:26:45Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\projects\aileap_v2\02-strategy\content-strategy.md"}
+{"ts":"2026-04-29T20:50:45Z","hook":"session-start","event":"started","detail":"branch=main"}
+{"ts":"2026-04-29T21:10:50Z","hook":"session-start","event":"started","detail":"branch=main"}
+{"ts":"2026-04-29T21:12:53Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\projects\aileap_v2\03-design\design-system.md"}
+{"ts":"2026-04-29T21:13:54Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\projects\aileap_v2\05-launch\launch-checklist.md"}
+{"ts":"2026-04-29T21:14:49Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\projects\aileap_v2\06-handoff\seo-geo-30day-report.md"}
+{"ts":"2026-04-29T21:16:53Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\projects\aileap_v2\validation-notes.md"}
+{"ts":"2026-04-30T02:35:59Z","hook":"session-start","event":"started","detail":"branch=main"}
+{"ts":"2026-04-30T02:39:33Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\docs\gap-analysis-v0.2.md"}
+{"ts":"2026-04-30T02:41:07Z","hook":"session-stop","event":"stopped","detail":"branch=main staged=0 modified=1"}
+{"ts":"2026-04-30T02:44:42Z","hook":"session-stop","event":"stopped","detail":"branch=main staged=0 modified=1"}
+{"ts":"2026-04-30T02:48:30Z","hook":"session-start","event":"started","detail":"branch=main"}
+{"ts":"2026-04-30T02:49:44Z","hook":"session-stop","event":"stopped","detail":"branch=main staged=0 modified=1"}
+{"ts":"2026-04-30T02:56:44Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\.claude\projects\C--Users-hartm-Desktop-digital-product-studio-ai\memory\MEMORY.md"}
+{"ts":"2026-04-30T02:56:51Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\.claude\projects\C--Users-hartm-Desktop-digital-product-studio-ai\memory\user_shin.md"}
+{"ts":"2026-04-30T02:57:03Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\.claude\projects\C--Users-hartm-Desktop-digital-product-studio-ai\memory\project_dpsai_v03.md"}
+{"ts":"2026-04-30T02:57:13Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\.claude\projects\C--Users-hartm-Desktop-digital-product-studio-ai\memory\feedback_workflow.md"}
+{"ts":"2026-04-30T02:58:37Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\.claude\hooks\smoke-test.sh"}
+{"ts":"2026-04-30T11:20:41Z","hook":"session-start","event":"started","detail":"branch=main"}
+{"ts":"2026-04-30T11:21:15Z","hook":"validate-images","event":"triggered","detail":"tool=Edit file=C:\Users\hartm\Desktop\digital-product-studio-ai\docs\setup-requirements.md"}
+{"ts":"2026-04-30T11:21:25Z","hook":"validate-images","event":"triggered","detail":"tool=Edit file=C:\Users\hartm\Desktop\digital-product-studio-ai\docs\setup-requirements.md"}
+{"ts":"2026-04-30T11:23:24Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\.claude\hooks\placeholder-detection.sh"}
+{"ts":"2026-04-30T11:24:53Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\.claude\skills\placeholder-check\SKILL.md"}
+{"ts":"2026-04-30T11:25:01Z","hook":"validate-images","event":"triggered","detail":"tool=Edit file=C:\Users\hartm\Desktop\digital-product-studio-ai\.claude\settings.json"}
+{"ts":"2026-04-30T11:26:42Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\.claude\skills\legal-review-record\SKILL.md"}
+{"ts":"2026-04-30T11:27:53Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\.claude\hooks\user-prompt-submit.sh"}
+{"ts":"2026-04-30T11:31:15Z","hook":"validate-images","event":"triggered","detail":"tool=Edit file=C:\Users\hartm\Desktop\digital-product-studio-ai\docs\pricing-strategy.md"}
+{"ts":"2026-04-30T11:31:35Z","hook":"validate-images","event":"triggered","detail":"tool=Edit file=C:\Users\hartm\Desktop\digital-product-studio-ai\docs\handoff-protocols.md"}
+{"ts":"2026-04-30T11:32:03Z","hook":"validate-images","event":"triggered","detail":"tool=Edit file=C:\Users\hartm\Desktop\digital-product-studio-ai\docs\handoff-protocols.md"}
+{"ts":"2026-04-30T11:33:02Z","hook":"validate-images","event":"triggered","detail":"tool=Edit file=C:\Users\hartm\Desktop\digital-product-studio-ai\.claude\skills\meeting-minutes\SKILL.md"}
+{"ts":"2026-04-30T11:33:30Z","hook":"validate-images","event":"triggered","detail":"tool=Edit file=C:\Users\hartm\Desktop\digital-product-studio-ai\docs\templates\design-system-template.md"}
+{"ts":"2026-04-30T11:34:46Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\.claude\hooks\_tmp_add_keywords.sh"}
+{"ts":"2026-04-30T20:03:05Z","hook":"session-start","event":"started","detail":"branch=main"}
+{"ts":"2026-05-01T02:21:15Z","hook":"session-start","event":"started","detail":"branch=main"}
+{"ts":"2026-05-01T02:23:58Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\docs\template-mappings.md"}
+{"ts":"2026-05-01T02:24:26Z","hook":"session-start","event":"started","detail":"branch=main"}
+{"ts":"2026-05-01T02:24:27Z","hook":"session-stop","event":"stopped","detail":"branch=main staged=0 modified=34"}
+{"ts":"2026-05-01T02:24:28Z","hook":"smoke-test","event":"passed","detail":"10/10"}
+{"ts":"2026-05-01T02:25:38Z","hook":"session-stop","event":"stopped","detail":"branch=main staged=0 modified=34"}

@@ -1,6 +1,13 @@
 ---
 name: asset-checklist
 description: Generate the per-project required-asset list (logos, photos, copy drafts, credentials) based on project type and case-specific requirements. Lead agent client-success-lead.
+auto_trigger_keywords:
+  - 必要素材
+  - アセット
+  - ロゴ
+  - asset checklist
+  - 素材一覧
+  - クライアント素材
 ---
 
 # /asset-checklist

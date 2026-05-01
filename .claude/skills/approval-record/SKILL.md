@@ -1,6 +1,12 @@
 ---
 name: approval-record
 description: Record a client approval result into approvals.yaml with full metadata (approver, date, evidence reference). Lead agent client-success-lead.
+auto_trigger_keywords:
+  - 承認記録
+  - approval record
+  - クライアント承認
+  - sign-off
+  - 承認結果
 ---
 
 # /approval-record

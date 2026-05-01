@@ -325,9 +325,11 @@ notes: |
 
 本組織が公開を完遂し、Post-launch 30 日検証フェーズを終えた段階で WMAO に運用を引き渡すプロトコル。
 
+**重要**: 公開後 30 日間は本組織の **Phase 5(post-launch サポート)** として SOW に含まれる(後述 §4.6 参照)。Retainer(月額保守契約)とは別の概念であり、SOW 締結時点で必ず Phase 5 の存在をクライアントに明示する。
+
 ### 4.2 起動条件(必須)
 
-- Post-launch フェーズ着手後 30 日以上経過
+- Post-launch フェーズ着手後 30 日以上経過(Phase 5 完了)
 - 初動 SEO/GEO 検証完了(seo-geo-strategist の 30 日レポートあり)
 - 初期コンテンツ 5-10 本完成(B-C2 対応・メディアサイト案件)
 - Shin の最終承認
@@ -493,6 +495,82 @@ WMAO 側が受領時に実施することを期待する処理(WMAO 側で別途
 3. 月次レポートテンプレートの初期化
 4. 初動 30 日のベースライン記録
 5. クライアントへの WMAO 担当者紹介(client-success-lead 経由)
+
+### 4.6 Phase 5(公開後 30 日サポート)の位置づけ
+
+[gap-analysis-v0.2.md](gap-analysis-v0.2.md) G-H4 で指摘された「B-C1 / B-C2 境界の引継ぎ条件が UX 的に重い」問題を本節で解消する。
+
+#### 4.6.1 Phase 5 = SOW の一部
+
+公開後 30 日は本組織の **Phase 5(post-launch サポート)** として **SOW の構成要素** に含まれる。Retainer(月額保守契約)とは別概念。
+
+```
+Phase 1: Discovery
+Phase 2: Strategy
+Phase 3: Design
+Phase 4: Implementation + QA + Launch
+Phase 5: Post-launch サポート(30 日 / 含 30 日レポート発行)  ← ★ 本節で明示
+        │
+        ▼ Day 31 から
+Retainer(月額保守契約)                                       ← 別契約・別費用
+```
+
+Fixed Price 見積の「QA・公開」フェーズ費用には Phase 5 の費用が **必ず含まれる** ものとし、別途請求しない。これにより:
+
+- クライアントは「公開後 30 日まで本組織が責任を持つ」と理解できる
+- WMAO 引継ぎは「Day 31 から WMAO に切替」と単純に説明できる
+- 「公開後の保守」と「初動チューニング」が SOW 上で混同されない
+
+#### 4.6.2 Phase 5 で提供する範囲
+
+| 項目 | Phase 5 に含む | Retainer に含む |
+|---|---|---|
+| 重大バグ修正(launch 起因) | ✅ Phase 5(無償) | — |
+| Lighthouse スコア再測定 | ✅ Phase 5 | ✅ Retainer |
+| 初動 SEO/GEO 検証(seo-geo-30day-report) | ✅ Phase 5 | — |
+| 初動アクセス解析(GA4 ベースライン) | ✅ Phase 5 | — |
+| 軽微なコンテンツ修正(誤字 / 数字訂正) | ✅ Phase 5 | ✅ Retainer |
+| 機能追加 | ❌ Phase 5 対象外 | ✅ Retainer / Change Order |
+| デザイン変更 | ❌ Phase 5 対象外 | ✅ Retainer / Change Order |
+| 11 本目以降のコンテンツ制作 | ❌ Phase 5 対象外 | ❌ → WMAO |
+
+#### 4.6.3 SOW テンプレートでの明示要件
+
+`docs/templates/sow.md` には Phase 5 を以下の形式で明示する:
+
+```markdown
+## 第5フェーズ:公開後サポート(Phase 5・含む)
+
+期間: 公開日 + 30 日
+含む業務:
+- 公開直後の重大バグ修正(無償)
+- Lighthouse スコア再測定 + 必要に応じた最小チューニング
+- 初動 SEO/GEO 検証レポート発行(30 日後)
+- アクセス解析ベースライン記録
+- 軽微なコンテンツ修正(本フェーズ累計 5 時間以内)
+
+本フェーズの費用は本見積に含まれます(別途請求しません)。
+公開 31 日目以降の継続運用は WMAO への引継ぎ、
+または Retainer 契約(別途見積)に基づきます。
+```
+
+#### 4.6.4 SOW にない場合の取扱い
+
+既存契約の SOW に Phase 5 の明示がない場合(v0.2 までの旧テンプレで作成された SOW):
+
+- delivery-director は Change Order なしで Phase 5 を実施する(本組織の SOP として)
+- ただし `decisions.yaml` に「DEC-NNN: SOW 未明示だが Phase 5 として 30 日サポートを実施」を記録
+- 次回見積から本書 §4.6.3 に従って明示する
+
+#### 4.6.5 クライアント向け説明文(commercial-manager / client-success-lead 用)
+
+提案書・キックオフ・公開直前の節目で以下を共通説明として使う:
+
+> 公開後 30 日間は AILEAP の Phase 5(公開後サポート)として、初動 SEO/GEO 検証、
+> Lighthouse 再計測、軽微な修正対応を含めて当方が無償でサポートします。
+> 31 日目以降は WMAO への運用移管、または別途 Retainer(月額保守)契約をご検討ください。
+
+この説明はテンプレート化し、proposal-deck と sow と handoff-package の各テンプレに含める。
 
 ---
 

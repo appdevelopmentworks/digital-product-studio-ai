@@ -1,6 +1,12 @@
 ---
 name: competitor-analysis
 description: Web-perspective competitor analysis (5 competitors) covering site structure, hero narrative, service presentation, case format, content cadence, SEO/GEO posture, tone of voice. Lead agent content-strategy-lead with seo-geo-strategist contributing.
+auto_trigger_keywords:
+  - 競合分析
+  - competitor analysis
+  - 競合調査
+  - 競合サイト
+  - ベンチマーク
 ---
 
 # /competitor-analysis

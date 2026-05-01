@@ -1,6 +1,14 @@
 ---
 name: i18n-strategy
 description: Design the multi-language strategy — target languages, URL structure, translation pipeline, hreflang plan, locale considerations. Lead agent localization-specialist (Q5 priority — v0.2 forward-pulled).
+auto_trigger_keywords:
+  - 多言語
+  - i18n
+  - en 化
+  - 国際化
+  - hreflang
+  - 翻訳パイプライン
+  - localization
 ---
 
 # /i18n-strategy
