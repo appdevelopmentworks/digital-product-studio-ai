@@ -738,12 +738,104 @@ handoff_response:
 
 ---
 
-## 8. 改訂履歴
+## 8. v0.3 補遺: B 系プロジェクトのハンドオフ特殊扱い
+
+[gap-analysis-v0.2.md](gap-analysis-v0.2.md) v0.3 改訂方針 §6.1 で確定した **B 系プロダクト開発案件の解放** に伴い、本書のプロトコルを以下のように適用する。
+
+### 8.1 apex → 本組織(/handoff-from-strategy) — B 系受領時の特殊扱い
+
+`project_brief.project_type.primary` が B 系(B1 / B2 / 内部プロダクト等)である場合、studio-director の受領アクションに以下を追加する:
+
+1. **product-director を Tier 1 受領担当に追加**(A 系では strategy-director 単独だが、B 系は product-director も同時起動)
+2. apex YAML の `strategic_context` を **product-discovery brief** に翻訳(product-director 主担当で `02-strategy/product-discovery.md` を Write)
+3. **PMF 仮説の初期スケッチ**を strategic_context から抽出し、`product-strategy.md` の起草を product-director が担う
+4. 案件タイプ判定が「B 系で確定」した場合のみ、product-manager / backend-engineer / devops-engineer / qa-engineer の事前動員を studio-director が予約
+
+### 8.2 B 系プロジェクトの新規 YAML フィールド(任意)
+
+`apex-to-dpsai-handoff.yaml` で B 系を渡す場合、以下のフィールドを `project_brief` 配下に追加可能(必須ではないが推奨):
+
+```yaml
+project_brief:
+  # ... 既存フィールド
+  product_specifics:                 # B 系のときのみ
+    target_user_persona: <初期ペルソナ>
+    jtbd: <Jobs-to-be-Done 仮説>
+    value_hypothesis: <検証したい価値仮説>
+    anti_hypothesis: <この案件をやらない方が良い条件>
+    desired_mvp_scope: <最小学習可能範囲>
+    success_metrics:
+      - metric: <指標>
+        threshold: <閾値>
+        measurement_window: <測定期間>
+```
+
+これらのフィールドが渡されない場合、product-director が Discovery フェーズで本組織側で起草する。
+
+### 8.3 AILEAP 内部プロダクト案件のハンドオフ
+
+AILEAP 内部プロダクト(MeetingAI / 自社サイト / 将来プロダクト)は apex からの正式ハンドオフを受けず、Shin が直接 studio-director に依頼する形を取る。フロー:
+
+```
+[起動]
+  Shin → studio-director に依頼
+       ↓
+  studio-director:
+    1. PROJECT.md::internal_client = true で初期化
+    2. apex-handoff-internal-{date}.yaml を本組織内部で生成
+       (apex を経由しないため、本組織が代行で生成)
+    3. product-director を Tier 1 受領担当に指名
+    4. 通常の B 系ワークフローを起動
+       (sprint cadence・PMF gate 等は同一)
+
+[内部プロダクトの特殊扱い]
+  - commercial-manager は internal mode(pricing-strategy.md §4.5)
+  - PMF gate の判断者は Shin(クライアント案件では client + delivery-director 共同判断)
+  - WMAO 引継ぎは原則行わない(継続運用も本組織内)
+```
+
+### 8.4 B 系プロジェクトの本組織 → WMAO 引継ぎ(/handoff-to-marketing)
+
+A 系(コーポレートサイト / LP / メディアサイト)の WMAO 引継ぎは「サイトの継続運用」を WMAO が担う前提だが、**B 系(SaaS プロダクト等)の運用は本組織が継続する**ケースが多い。
+
+| シナリオ | 引継ぎ先 |
+|---|---|
+| クライアント B 系で「マーケティング運用」のみ WMAO に引継ぐ | WMAO に部分引継ぎ(マーケサイトのみ) — `handoff-to-marketing` を限定スコープで起動 |
+| クライアント B 系で本組織が継続運用(Retainer 契約 + sprint 継続) | WMAO 引継ぎ無し / Retainer 契約に基づき本組織内継続 |
+| 自社プロダクト(MeetingAI 等) | WMAO 引継ぎ無し |
+
+スコープ判定は delivery-director + product-director の合議。Shin が最終承認。
+
+### 8.5 B 系の Phase 5(公開後 30 日)の特殊扱い
+
+A 系の Phase 5 は §4.6 で定義した通り「初動チューニング + 30 日検証」だが、B 系では以下を追加する:
+
+- 公開後 **Week 4 の PMF Gate**(`/pmf-validation` 必須実行)
+- 同 Gate で「continue / pivot / kill」を product-director が判断
+- pivot / kill の場合は `decisions.yaml` に記録 + ロードマップ改訂 + 必要なら `/scope-check` 経由で Change Order
+
+Phase 5 が SOW に含まれる原則は B 系でも維持。Retainer は別契約。
+
+### 8.6 B 系新規エージェントのハンドオフ関与
+
+| エージェント | ハンドオフでの関与 |
+|---|---|
+| product-director | apex → 本組織 受領時に同時起動。Discovery / Strategy フェーズの主担当 |
+| product-manager | Strategy 完了後に起動。Sprint 0 着手時に backlog を整備 |
+| backend-engineer | Sprint 0 で起動。技術実装の hands-on 担当 |
+| devops-engineer | Sprint 0 で起動。CI/CD と env を構築 |
+| qa-engineer | Sprint 1-2 から起動(インフラ構築完了後) |
+
+---
+
+## 9. 改訂履歴
 
 | バージョン | 日付 | 主な変更 |
 |---|---|---|
 | 0.2 | 2026-04-27 | 初版。v0.1 では requirements 内の概要のみ。v0.2 で独立文書化、双方向ハンドオフを新設。 |
+| 0.2.1 | 2026-05-01 | Phase F G-H4 完了。§4.6 Phase 5 サポートの位置づけを追加(SOW 一部 / Retainer と別)。 |
+| 0.3 | 2026-05-01 | Phase G 完了。§8 v0.3 補遺(B 系プロジェクトのハンドオフ特殊扱い・内部プロダクト・Phase 5 PMF Gate・新規エージェント関与)を追加。 |
 
 ---
 
-**本書は v0.2 ハンドオフプロトコルの正本である。実装時は本書の YAML スキーマを必須要件として参照すること。apex / WMAO 側のスキーマ反映は別タスクとして Phase D 検証時または v0.3 着手時に依頼する。**
+**本書は v0.3 ハンドオフプロトコルの正本である。実装時は本書の YAML スキーマを必須要件として参照すること。B 系プロジェクトでは §8 を起点に、A 系では §1-7 を起点に参照する。apex / WMAO 側のスキーマ反映は別タスクとして v0.3 検証案件起動時に依頼する。**

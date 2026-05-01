@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
-  "_comment": "digital-product-studio-ai v0.2 — shared project settings. Language: English (Layer 2 internal config). For policy details see docs/language-policy.md, requirements-v0.2.md Section 7, and Section 11.",
+  "_comment": "digital-product-studio-ai v0.3 — shared project settings. Language: English (Layer 2 internal config). For policy details see docs/language-policy.md, requirements-v0.2.md Section 7, and Section 11. Updated 2026-05-01 (Phase G): version bumped to 0.3, B-series project type opened with 5 new agents (product-director full-mode + product-manager + backend-engineer + devops-engineer + qa-engineer). See docs/agent-roster.md §1.1 and §7 for details.",
 
   "permissions": {
     "_comment_permissions": "Permission strategy: explicit allow-list for safe read/inspect operations to minimize prompts; ask for any destructive or out-of-scope action; deny for secrets/credentials.",
@@ -323,7 +323,7 @@
 
   "env": {
     "CLAUDE_CODE_DEFAULT_LANGUAGE": "ja",
-    "CLAUDE_CODE_PROJECT_VERSION": "0.2",
+    "CLAUDE_CODE_PROJECT_VERSION": "0.3",
     "DPSAI_MAX_PARALLEL_PROJECTS": "3",
     "DPSAI_LIGHTHOUSE_PERFORMANCE_MIN": "90",
     "DPSAI_LIGHTHOUSE_ACCESSIBILITY_MIN": "95",
@@ -345,7 +345,7 @@
 
   "statusLine": {
     "type": "command",
-    "command": "echo \"📦 digital-product-studio-ai v0.2 | $(git -C \\\"$CLAUDE_PROJECT_DIR\\\" branch --show-current 2>/dev/null || echo no-git) | $(date +%H:%M)\"",
+    "command": "echo \"📦 digital-product-studio-ai v0.3 | $(git -C \\\"$CLAUDE_PROJECT_DIR\\\" branch --show-current 2>/dev/null || echo no-git) | $(date +%H:%M)\"",
     "padding": 1
   }
 }

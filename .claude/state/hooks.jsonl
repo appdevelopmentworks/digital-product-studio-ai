@@ -177,3 +177,31 @@ sed -i 's/status: pending/status: appr"}
 {"ts":"2026-05-01T02:24:27Z","hook":"session-stop","event":"stopped","detail":"branch=main staged=0 modified=34"}
 {"ts":"2026-05-01T02:24:28Z","hook":"smoke-test","event":"passed","detail":"10/10"}
 {"ts":"2026-05-01T02:25:38Z","hook":"session-stop","event":"stopped","detail":"branch=main staged=0 modified=34"}
+{"ts":"2026-05-01T03:22:44Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\.claude\agents\tier1-product-director.md"}
+{"ts":"2026-05-01T03:22:47Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\.claude\agents\tier2-product-manager.md"}
+{"ts":"2026-05-01T03:24:10Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\.claude\agents\tier3-backend-engineer.md"}
+{"ts":"2026-05-01T03:24:58Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\.claude\agents\tier3-devops-engineer.md"}
+{"ts":"2026-05-01T03:25:55Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\.claude\agents\tier3-qa-engineer.md"}
+{"ts":"2026-05-01T03:26:31Z","hook":"validate-images","event":"triggered","detail":"tool=Edit file=C:\Users\hartm\Desktop\digital-product-studio-ai\.claude\agents\tier2-backend-lead.md"}
+{"ts":"2026-05-01T04:29:03Z","hook":"validate-images","event":"triggered","detail":"tool=Edit file=C:\Users\hartm\Desktop\digital-product-studio-ai\.claude\agents\tier2-backend-lead.md"}
+{"ts":"2026-05-01T04:29:04Z","hook":"validate-images","event":"triggered","detail":"tool=Edit file=C:\Users\hartm\Desktop\digital-product-studio-ai\.claude\agents\tier2-backend-lead.md"}
+{"ts":"2026-05-01T04:29:06Z","hook":"validate-images","event":"triggered","detail":"tool=Edit file=C:\Users\hartm\Desktop\digital-product-studio-ai\.claude\agents\tier2-backend-lead.md"}
+{"ts":"2026-05-01T04:30:34Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\.claude\skills\pmf-validation\SKILL.md"}
+{"ts":"2026-05-01T04:31:03Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\.claude\skills\sprint-plan\SKILL.md"}
+{"ts":"2026-05-01T04:31:43Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\.claude\skills\api-design\SKILL.md"}
+{"ts":"2026-05-01T04:32:32Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\.claude\skills\infra-plan\SKILL.md"}
+{"ts":"2026-05-01T04:33:10Z","hook":"validate-images","event":"triggered","detail":"tool=Write file=C:\Users\hartm\Desktop\digital-product-studio-ai\.claude\skills\e2e-test-plan\SKILL.md"}
+{"ts":"2026-05-01T07:24:31Z","hook":"validate-images","event":"triggered","detail":"tool=Edit file=C:\Users\hartm\Desktop\digital-product-studio-ai\docs\agent-roster.md"}
+{"ts":"2026-05-01T07:25:00Z","hook":"validate-images","event":"triggered","detail":"tool=Edit file=C:\Users\hartm\Desktop\digital-product-studio-ai\docs\agent-roster.md"}
+{"ts":"2026-05-01T07:26:02Z","hook":"validate-images","event":"triggered","detail":"tool=Edit file=C:\Users\hartm\Desktop\digital-product-studio-ai\docs\agent-roster.md"}
+{"ts":"2026-05-01T07:26:08Z","hook":"validate-images","event":"triggered","detail":"tool=Edit file=C:\Users\hartm\Desktop\digital-product-studio-ai\docs\agent-roster.md"}
+{"ts":"2026-05-01T07:26:56Z","hook":"validate-images","event":"triggered","detail":"tool=Edit file=C:\Users\hartm\Desktop\digital-product-studio-ai\docs\agent-coordination-map.md"}
+{"ts":"2026-05-01T07:27:58Z","hook":"validate-images","event":"triggered","detail":"tool=Edit file=C:\Users\hartm\Desktop\digital-product-studio-ai\docs\handoff-protocols.md"}
+{"ts":"2026-05-01T07:28:12Z","hook":"validate-images","event":"triggered","detail":"tool=Edit file=C:\Users\hartm\Desktop\digital-product-studio-ai\.claude\settings.json"}
+{"ts":"2026-05-01T07:28:14Z","hook":"validate-images","event":"triggered","detail":"tool=Edit file=C:\Users\hartm\Desktop\digital-product-studio-ai\.claude\settings.json"}
+{"ts":"2026-05-01T07:29:57Z","hook":"validate-images","event":"triggered","detail":"tool=Edit file=C:\Users\hartm\Desktop\digital-product-studio-ai\.claude\settings.json"}
+{"ts":"2026-05-01T07:30:20Z","hook":"session-start","event":"started","detail":"branch=main"}
+{"ts":"2026-05-01T07:30:21Z","hook":"session-stop","event":"stopped","detail":"branch=main staged=0 modified=7"}
+{"ts":"2026-05-01T07:30:22Z","hook":"smoke-test","event":"passed","detail":"10/10"}
+{"ts":"2026-05-01T07:30:27Z","hook":"validate-images","event":"triggered","detail":"tool=Edit file=C:\Users\hartm\.claude\projects\C--Users-hartm-Desktop-digital-product-studio-ai\memory\project_dpsai_v03.md"}
+{"ts":"2026-05-01T07:31:28Z","hook":"session-stop","event":"stopped","detail":"branch=main staged=0 modified=7"}

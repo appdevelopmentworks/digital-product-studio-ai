@@ -495,7 +495,138 @@ Shin の指示で対応エージェントを動員
 | バージョン | 日付 | 主な変更 |
 |---|---|---|
 | 0.2 | 2026-04-27 | 初版。v0.1 では requirements 内の Section 10 のみ。v0.2 で独立文書化、衝突解決マトリクス・フェーズゲート責任者・並列管理協調を新設。 |
+| 0.3 | 2026-05-01 | Phase G 完了。下記 §11 v0.3 拡張を追加(B 系協調パターン・新規エージェント間の衝突解決マトリクス・スプリント協調)。 |
 
 ---
 
-**本書は v0.2 エージェント協調マップの正本である。エージェント定義ファイル(`.claude/agents/*.md`)は本書の協調ラインと整合していること。**
+## 11. v0.3 拡張: B 系プロダクト開発体制の協調
+
+[agent-roster.md §7](agent-roster.md#7-v03-で実装済の追加エージェント-2026-05-01-確定--phase-g) で追加された 5 体(product-director フル稼働 + product-manager + backend-engineer + devops-engineer + qa-engineer)の協調パターンを本セクションで確定する。
+
+### 11.1 B 系プロジェクトの委譲経路
+
+```
+                              ┌─────────────────┐
+                              │ studio-director │
+                              └────────┬────────┘
+                                       │
+       ┌──────────────┬────────────────┼────────────────┬──────────────┐
+       ▼              ▼                ▼                ▼              ▼
+┌──────────────┐┌──────────┐  ┌─────────────┐  ┌──────────┐  ┌──────────────┐
+│strategy-     ││creative- │  │technology-  │  │product-  │  │delivery-     │
+│director      ││director  │  │director     │  │director ★│  │director      │
+└──────────────┘└──────────┘  └─┬───────────┘  └────┬─────┘  └──────────────┘
+                                │                    │
+                                ▼                    ▼
+                       ┌────────────────┐   ┌─────────────────┐
+                       │ backend-lead ★ │   │ product-manager │
+                       │ (direct: 3 体) │   │ ★ 新規(Tier 2)│
+                       └─┬──────────────┘   └─────────────────┘
+                         │
+       ┌─────────────────┼─────────────────┐
+       ▼                 ▼                 ▼
+┌──────────────┐┌────────────────┐┌──────────────┐
+│backend-      ││devops-         ││qa-           │
+│engineer ★   ││engineer ★     ││engineer ★   │
+│ (新規 Tier 3)││ (新規 Tier 3)  ││ (新規 Tier 3)│
+└──────────────┘└────────────────┘└──────────────┘
+```
+
+★ = v0.3 で追加 / 拡張されたエージェント
+
+### 11.2 B 系プロジェクトの委譲ライン(追記)
+
+| 委譲元 | 委譲先 | 主な委譲内容 |
+|---|---|---|
+| product-director | product-manager | スプリント運営の day-to-day 委譲 |
+| product-director | (cross-consult) backend-lead | アーキテクチャ実現可能性の確認 |
+| product-manager | (cross-consult) backend-lead | スプリント容量サイン |
+| backend-lead | backend-engineer | API / DB / 認証実装の指示 |
+| backend-lead | devops-engineer | CI/CD / インフラ構築の指示 |
+| backend-lead | qa-engineer | テスト戦略 / 品質ゲートの指示 |
+
+### 11.3 B 系で頻発する横相談ペア(追加)
+
+| 横相談ペア | 典型的な相談内容 | エスカレーション先(衝突時) |
+|---|---|---|
+| product-manager ↔ backend-lead | スプリント容量と実装容量のすり合わせ | product-director ↔ technology-director |
+| product-director ↔ technology-director | アーキテクチャと roadmap の整合 | studio-director |
+| backend-engineer ↔ frontend-engineer | API contract handshake(zod 型共有) | backend-lead ↔ frontend-lead |
+| backend-engineer ↔ devops-engineer | env vars / secrets / deploy config | backend-lead |
+| backend-engineer ↔ qa-engineer | test fixtures / 統合テストの粒度 | backend-lead |
+| devops-engineer ↔ qa-engineer | CI 並列化 / E2E test 環境 | backend-lead |
+| qa-engineer ↔ frontend-engineer | UI E2E selectors / `data-testid` strategy | frontend-lead ↔ backend-lead(横並び権限) |
+| qa-engineer ↔ seo-geo-strategist | a11y(qa-engineer)と SEO/GEO(seo-geo-strategist)の audit 重複回避 | technology-director |
+
+### 11.4 B 系プロジェクトの追加衝突パターン
+
+#### 11.4.1 Product ↔ Engineering の衝突
+
+| 衝突パターン | 一次裁定者 | 最終裁定者 | 判断基準 |
+|---|---|---|---|
+| ロードマップの優先順位 vs 技術的負債(リファクタ) | product-director ↔ technology-director | studio-director | PMF 仮説 vs 速度低下リスクのバランス |
+| スプリント容量超過(scope creep) | product-manager ↔ backend-lead | product-director ↔ technology-director | velocity ベースの実証データ優先 |
+| API バージョニング戦略(/v1 vs 互換性維持) | backend-engineer ↔ backend-lead | technology-director | クライアントへの破壊的変更可否 |
+| テストカバレッジ目標(80% vs 60%) | qa-engineer ↔ backend-lead | technology-director | プロジェクト成熟度・ROI |
+
+#### 11.4.2 Product ↔ Delivery の衝突
+
+| 衝突パターン | 一次裁定者 | 最終裁定者 | 判断基準 |
+|---|---|---|---|
+| PMF gate での pivot 判断 vs 契約スコープ堅持 | product-director ↔ delivery-director | studio-director → Shin | クライアント案件は契約優先 / 自社プロダクトは PMF 優先 |
+| 内部プロダクトの roadmap 拡大 vs 外部受注容量 | product-director ↔ delivery-director | studio-director → Shin | AILEAP 事業計画 |
+
+### 11.5 B 系スプリント協調(週次)
+
+```
+[Day 1: スプリント計画 / 月曜]
+  product-manager:
+    1. backlog から候補ストーリー選定
+    2. backend-lead に capacity サイン依頼(同期)
+    3. backend-engineer / devops-engineer / qa-engineer 各位の容量バランス確認
+    4. sprint-NN.md を Write
+    5. product-director に「commit」承認依頼(quarter boundary 時のみ)
+
+[Day 5: ミッドスプリントチェック / 金曜]
+  product-manager:
+    - 進捗確認 → スプリントファイル更新
+    - ブロッカーの triage(devops-engineer による env 詰まり等)
+
+[Day 10: スプリントレビュー + 振り返り]
+  product-manager + backend-lead + 3 名の Tier 3:
+    - 完了 / 未完了の事実記録
+    - 次スプリントへの carry-over
+    - velocity 計算 → 次スプリントの計画値を更新
+
+[Day 11: 次スプリント計画]
+  サイクル繰り返し
+```
+
+### 11.6 B 系プロジェクトのフェーズゲート責任者(追加)
+
+| Gate | 主担当(追加) |
+|---|---|
+| Discovery → Strategy(B 系特殊) | product-director(プロダクト Discovery 完成) |
+| Strategy → Sprint 0 | product-director(roadmap 確定) + product-manager(初期 backlog 整備) |
+| Sprint N → Sprint N+1 | product-manager(retro 完了) |
+| Quarter Boundary | product-director(roadmap 再評価) |
+| 公開前 QA Gate | qa-engineer(QA レポート GO 判定) + backend-lead(技術ゲート) |
+| Post-launch Week 4 PMF Gate | product-director(PMF レビュー) |
+
+### 11.7 並列案件管理(B 系混在時の優先順位)
+
+studio-director の並列案件優先順位 §7.2 に追記:
+
+| 順位 | 条件 |
+|---|---|
+| 1 | 公開直前案件(launch ブロッカー) |
+| 2 | 契約上の納期が近い案件(A 系・B 系問わず) |
+| 3 | クライアント単価が高い案件 |
+| 4 | **B 系の PMF gate 直前案件**(週 4 / quarter-end) — 新規 |
+| 5 | 自社プロダクト案件は最低優先(B 系内部 / A 系内部いずれも) |
+
+B 系の PMF gate を逃すと意思決定が次サイクルまで遅延するため、4 位の優先度を確保。
+
+---
+
+**本書は v0.3 エージェント協調マップの正本である。エージェント定義ファイル(`.claude/agents/*.md`)は本書の協調ラインと整合していること。B 系プロジェクトでは §11 を起点に、A 系プロジェクトでは §1-10 を起点に参照する。**

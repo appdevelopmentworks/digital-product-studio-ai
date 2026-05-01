@@ -1,9 +1,9 @@
 # エージェント・ロスター
 
-**バージョン**: 0.2
-**作成日**: 2026-04-27
+**バージョン**: 0.3
+**作成日**: 2026-04-27(v0.2 初版)/ 2026-05-01(v0.3 更新)
 **位置づけ**: [requirements-v0.2.md](requirements-v0.2.md) Section 5 / [architecture.md](architecture.md) Section 1-2 の詳細名簿
-**対象**: v0.2 段階の 20 + 1 = 21 エージェント
+**対象**: v0.3 段階の **26 エージェント**(v0.2 21 体 + v0.3 で 5 体追加 — Phase G で B 系プロダクト開発体制を解放)
 
 ---
 
@@ -17,33 +17,49 @@
 
 ---
 
-## 1. v0.2 全エージェント一覧表
+## 1. v0.3 全エージェント一覧表(26 体)
 
-| # | Tier | Agent 名 | ファイル名 | Model | 所属 Practice | v0.2 動員案件 |
-|---|---|---|---|---|---|---|
-| 1 | 0 | studio-director | `tier0-studio-director.md` | Opus | (横断) | 全案件 |
-| 2 | 1 | strategy-director | `tier1-strategy-director.md` | Opus | Strategy | 全案件 |
-| 3 | 1 | creative-director | `tier1-creative-director.md` | Opus | Creative | 全案件 |
-| 4 | 1 | technology-director | `tier1-technology-director.md` | Opus | Engineering | 全案件 |
-| 5 | 1 | product-director | `tier1-product-director.md` | Opus | Product | 自社プロダクト案件 |
-| 6 | 1 | delivery-director | `tier1-delivery-director.md` | Opus | Delivery | 全案件 |
-| 7 | 2 | ux-strategy-lead | `tier2-ux-strategy-lead.md` | Sonnet | Strategy | A1 / A3 |
-| 8 | 2 | content-strategy-lead | `tier2-content-strategy-lead.md` | Sonnet | Strategy | A1 / A3 |
-| 9 | 2 | art-direction-lead | `tier2-art-direction-lead.md` | Sonnet | Creative | 全案件 |
-| 10 | 2 | frontend-lead | `tier2-frontend-lead.md` | Sonnet | Engineering | 全案件 |
-| 11 | 2 | backend-lead | `tier2-backend-lead.md` | Sonnet | Engineering | (待機・v0.3 で本格動員) |
-| 12 | 2 | client-success-lead | `tier2-client-success-lead.md` | Sonnet | Delivery | 全案件 |
-| 13 | 3 | ui-designer | `tier3-ui-designer.md` | Sonnet | Creative | 全案件 |
-| 14 | 3 | copywriter | `tier3-copywriter.md` | Sonnet | Creative | 全案件 |
-| 15 | 3 | frontend-engineer | `tier3-frontend-engineer.md` | Sonnet | Engineering | 全案件 |
-| 16 | 3 | cms-engineer | `tier3-cms-engineer.md` | Sonnet | Engineering | A1(WordPress) / A3 |
-| 17 | 3 | seo-geo-strategist | `tier3-seo-geo-strategist.md` | Sonnet | Strategy | 全案件 |
-| 18 | 3 | commercial-manager | `tier3-commercial-manager.md` | Sonnet | Delivery | 全案件 |
-| 19 | Stack | nextjs-specialist | `stack-nextjs-specialist.md` | Sonnet | (横断) | A1 / A2(Next.js 採用時) |
-| 20 | Stack | wordpress-specialist | `stack-wordpress-specialist.md` | Sonnet | (横断) | A1 / A3(WordPress 採用時) |
-| 21 | Stack | localization-specialist | `stack-localization-specialist.md` | Sonnet | (横断・Q5 前倒し) | 多言語要件案件 |
+| # | Tier | Agent 名 | ファイル名 | Model | 所属 Practice | 主な動員案件 | v0.3 ステータス |
+|---|---|---|---|---|---|---|---|
+| 1 | 0 | studio-director | `tier0-studio-director.md` | Opus | (横断) | 全案件 | 既存 |
+| 2 | 1 | strategy-director | `tier1-strategy-director.md` | Opus | Strategy | 全案件 | 既存 |
+| 3 | 1 | creative-director | `tier1-creative-director.md` | Opus | Creative | 全案件 | 既存 |
+| 4 | 1 | technology-director | `tier1-technology-director.md` | Opus | Engineering | 全案件 | 既存 |
+| 5 | 1 | product-director | `tier1-product-director.md` | Opus | Product | **B 系・自社プロダクト案件**(v0.3 でフル稼働) | **拡張(v0.3)** |
+| 6 | 1 | delivery-director | `tier1-delivery-director.md` | Opus | Delivery | 全案件 | 既存 |
+| 7 | 2 | ux-strategy-lead | `tier2-ux-strategy-lead.md` | Sonnet | Strategy | A1 / A3 | 既存 |
+| 8 | 2 | content-strategy-lead | `tier2-content-strategy-lead.md` | Sonnet | Strategy | A1 / A3 | 既存 |
+| 9 | 2 | art-direction-lead | `tier2-art-direction-lead.md` | Sonnet | Creative | 全案件 | 既存 |
+| 10 | 2 | frontend-lead | `tier2-frontend-lead.md` | Sonnet | Engineering | 全案件 | 既存 |
+| 11 | 2 | backend-lead | `tier2-backend-lead.md` | Sonnet | Engineering | A 系で軽量・**B 系でフル稼働**(direct reports +3 体) | **拡張(v0.3)** |
+| 12 | 2 | client-success-lead | `tier2-client-success-lead.md` | Sonnet | Delivery | 全案件 | 既存 |
+| **13** | **2** | **product-manager** | `tier2-product-manager.md` | **Sonnet** | **Product** | **B 系・自社プロダクト案件** | **🆕 新規(v0.3)** |
+| 14 | 3 | ui-designer | `tier3-ui-designer.md` | Sonnet | Creative | 全案件 | 既存 |
+| 15 | 3 | copywriter | `tier3-copywriter.md` | Sonnet | Creative | 全案件 | 既存 |
+| 16 | 3 | frontend-engineer | `tier3-frontend-engineer.md` | Sonnet | Engineering | 全案件 | 既存 |
+| 17 | 3 | cms-engineer | `tier3-cms-engineer.md` | Sonnet | Engineering | A1(WordPress) / A3 | 既存 |
+| 18 | 3 | seo-geo-strategist | `tier3-seo-geo-strategist.md` | Sonnet | Strategy | 全案件 | 既存 |
+| 19 | 3 | commercial-manager | `tier3-commercial-manager.md` | Sonnet | Delivery | 全案件 | 既存 |
+| **20** | **3** | **backend-engineer** | `tier3-backend-engineer.md` | **Sonnet** | **Engineering** | **B 系・自社プロダクト案件**(API / DB / 認証) | **🆕 新規(v0.3)** |
+| **21** | **3** | **devops-engineer** | `tier3-devops-engineer.md` | **Sonnet** | **Engineering** | **B 系・自社プロダクト案件**(CI/CD / インフラ / 監視) | **🆕 新規(v0.3)** |
+| **22** | **3** | **qa-engineer** | `tier3-qa-engineer.md` | **Sonnet** | **Engineering** | **B 系主導・A 系で QA ゲート補助** | **🆕 新規(v0.3)** |
+| 23 | Stack | nextjs-specialist | `stack-nextjs-specialist.md` | Sonnet | (横断) | A1 / A2 / B 系(Next.js 採用時) | 既存 |
+| 24 | Stack | wordpress-specialist | `stack-wordpress-specialist.md` | Sonnet | (横断) | A1 / A3(WordPress 採用時) | 既存 |
+| 25 | Stack | localization-specialist | `stack-localization-specialist.md` | Sonnet | (横断・Q5 前倒し) | 多言語要件案件 | 既存 |
 
-合計: **20 + 1 = 21 体**(20 枠 + Q5 前倒し 1 体)
+**合計: 26 体**(v0.2 21 体 + v0.3 で 5 体追加 = 拡張済 1 体含む実装済み 26 体)
+
+### 1.1 v0.3 で追加された 5 体
+
+| # | 役割 | Tier | 種類 |
+|---|---|---|---|
+| 5 | product-director | 1 | 既存(本格起動仕様へ拡張) |
+| 13 | product-manager | 2 | 🆕 新規 |
+| 20 | backend-engineer | 3 | 🆕 新規 |
+| 21 | devops-engineer | 3 | 🆕 新規 |
+| 22 | qa-engineer | 3 | 🆕 新規 |
+
+backend-lead(#11)も direct reports が +3 体になり、責務範囲が拡張(B 系で 3 名の direct report を統括)。
 
 ---
 
@@ -422,41 +438,39 @@
 
 ---
 
-## 7. v0.3 で追加予定のエージェント(参考)
+## 7. v0.3 で実装済の追加エージェント(2026-05-01 確定 / Phase G)
 
-合計 +11 体、v0.3 段階で 32 体に拡張予定。
+論点 3(2026-04-30 Shin との合意)の通り、v0.3 では **+5 体** を追加し合計 26 体に到達。当初 v0.2 改訂方針指示書で想定されていた v0.3 リスト(research-lead / motion-design-lead / qa-lead 等)は v0.4 以降に持ち越し。
 
-### Tier 2 追加(3 体)
+### v0.3 で追加された 5 体(実装済)
 
-| Agent | 所属 Practice | 主な責任 |
-|---|---|---|
-| research-lead | Product | ユーザーリサーチ統括(H-1 本格対応) |
-| motion-design-lead | Creative | モーション・インタラクション統括 |
-| qa-lead | Engineering | テスト戦略・品質保証統括 |
+| Tier | Agent | Model | 所属 Practice | 主な責任 |
+|---|---|---|---|---|
+| 1 | product-director(本格起動) | Opus | Product | B 系プロダクト戦略・PMF 判断・roadmap |
+| 2 | product-manager(新規) | Sonnet | Product | スプリント計画・バックログ管理・週次進捗 |
+| 3 | backend-engineer(新規) | Sonnet | Engineering | API / DB / 認証 / ビジネスロジック実装 |
+| 3 | devops-engineer(新規) | Sonnet | Engineering | CI/CD / インフラ / 監視 / シークレット |
+| 3 | qa-engineer(新規) | Sonnet | Engineering | 自動テスト / E2E / リグレッション / QA レポート |
 
-### Tier 3 追加(5 体)
-
-| Agent | 所属 Practice | 主な責任 |
-|---|---|---|
-| backend-engineer | Engineering | API・ビジネスロジック実装(B 系本格動員) |
-| devops-engineer | Engineering | デプロイ・環境構築・監視 |
-| user-researcher | Product | ユーザーインタビュー・ユーザビリティテスト |
-| data-analyst | Product | 公開後データ分析(H-2 本格対応) |
-| accessibility-specialist | Engineering | WCAG 2.2 AA 準拠の専門家 |
-
-### Tech Stack 追加(3 体)
-
-| Agent | 対応領域 |
-|---|---|
-| saas-stack-specialist | tRPC / Drizzle / Postgres / Vercel / Auth(B 系) |
-| headless-cms-specialist | microCMS / Sanity / Contentful / Strapi |
-| astro-specialist | Astro Islands / 静的サイト / コンテンツコレクション |
+backend-lead(既存)も v0.3 で direct reports が +3 体になり、責務範囲を拡張。
 
 ### v0.3 で対応する案件タイプ追加
 
-- A4. リブランド改修
-- B1. SaaS MVP
-- C3. リニューアル + 機能拡張
+- B1. SaaS MVP(Phase I-B 検証案件として投入予定)
+- AILEAP 自社プロダクト案件の本格運用(MeetingAI 含む)
+
+### v0.3 では対応しない(v0.4+ に持ち越し)
+
+| Agent | 持ち越し理由 |
+|---|---|
+| research-lead, user-researcher, data-analyst | ユーザーリサーチの本格運用は v0.4 で(現状 ux-strategy-lead がペルソナ作成を兼任) |
+| motion-design-lead | A 系で art-direction-lead が兼任可能 |
+| qa-lead | qa-engineer が backend-lead 配下で運用 — Tier 2 専任は v0.4 で |
+| accessibility-specialist | seo-geo-strategist が H-4 fix で兼任 |
+| saas-stack-specialist | B1 案件の検証結果を見て v0.4 で必要性判定 |
+| headless-cms-specialist | A3 案件の検証結果を見て v0.4 で必要性判定 |
+| astro-specialist | 同上 |
+| A4 リブランド改修 / C3 リニューアル + 機能拡張 | v0.4 で対応(段階展開原則) |
 
 ---
 
@@ -596,7 +610,8 @@ When in doubt, default to **Japanese**.
 | バージョン | 日付 | 主な変更 |
 |---|---|---|
 | 0.2 | 2026-04-27 | 初版。v0.1 では requirements 内の 4.1-4.5 に分散。v0.2 で独立文書化、20+1 体に整理。 |
+| 0.3 | 2026-05-01 | Phase G 完了。B 系プロダクト開発体制を解放(+5 体): product-director フル稼働化、product-manager / backend-engineer / devops-engineer / qa-engineer 新規追加。合計 21 → 26 体。backend-lead の direct reports を 3 体に拡張。§7 を v0.4 想定にシフト。 |
 
 ---
 
-**本書は v0.2 エージェント・ロスターの正本である。`.claude/agents/` 配下の各エージェント定義ファイルは本書と整合していること。エージェント追加・削除・モデル変更時は本書を更新する。**
+**本書は v0.3 エージェント・ロスターの正本である。`.claude/agents/` 配下の各エージェント定義ファイルは本書と整合していること。エージェント追加・削除・モデル変更時は本書を更新する。**
