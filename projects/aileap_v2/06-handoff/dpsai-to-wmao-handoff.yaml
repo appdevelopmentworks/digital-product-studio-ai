@@ -1,0 +1,313 @@
+# ===============================================================
+# dpsai-to-wmao-handoff.yaml
+# AILEAP 自社サイト v2 → WMAO への引継ぎ正式 YAML
+# ---------------------------------------------------------------
+# 公開後 30 日経過 + Shin 最終承認(APV-006)を経て発行。
+# 本案件は自社案件のため、WMAO への引継ぎ範囲は限定スコープ
+# (継続コンテンツ制作のみ — マーケ運用は本組織内で継続)。
+# ===============================================================
+
+handoff_id: HO-20260715-001
+protocol: handoff-to-marketing
+version: 0.3                            # v0.3 補遺(handoff-protocols.md §8.4)に従う
+from:
+  organization: digital-product-studio-ai
+  agent: delivery-director
+  timestamp: 2026-07-15T10:00:00+09:00
+to:
+  organization: web-marketing-ai-org
+  agent: <WMAO Tier 0 agent>            # WMAO 側の受領担当
+status: submitted
+
+# ===============================================================
+# プロジェクト情報
+# ===============================================================
+project:
+  id: AILEAP-20260429-001
+  client: AILEAP(自社・internal_client: true)
+  type: A1                              # コーポレートサイト
+  url: https://aileap.example
+  staging_url: https://staging.aileap.example
+  launched_at: 2026-06-15
+  post_launch_period_end: 2026-07-15    # 30 日検証完了日
+  apex_handoff_ref: APX-20260429-001    # apex 仮想ハンドオフ(自社のため疑似)
+  internal_client: true
+
+# ===============================================================
+# 引継ぎスコープ(自社案件特有)
+# ===============================================================
+handoff_scope:
+  type: partial                         # full / partial
+  rationale: |
+    本案件は AILEAP 自社サイトのため、運用継続は本組織内でも実施可能。
+    WMAO に引き継ぐのは「継続コンテンツ制作」のみで、サイト運用・
+    マーケ運用は本組織内で継続する。
+  wmao_takes_over:
+    - 継続コンテンツ制作(11 記事目以降・B-C2 境界)
+    - 月次 SEO/GEO 改善(Day 31 以降・B-C1 境界)
+  dpsai_retains:
+    - サイト運用・保守(Vercel / microCMS / インフラ)
+    - 重大障害対応・Phase 5 完了後の継続改修
+    - 自社プロダクト(MeetingAI 等)のサイト連携
+
+# ===============================================================
+# 引継ぎ成果物(必須)
+# ===============================================================
+delivered_assets:
+  strategy:
+    - path: 02-strategy/sitemap.md
+      description: 11 ページの情報設計
+    - path: 02-strategy/content-strategy.md
+      description: 4 ピラー + tone of voice
+    - path: 02-strategy/seo-geo-strategy.md
+      description: 主要 KW + GEO 引用最適化計画
+    - path: 02-strategy/i18n-strategy.md
+      description: 主要 5 ページ en 化方針
+  design:
+    - path: 03-design/design-system.md
+      description: WCAG 2.2 AA 込みデザインシステム(§1.4 ブランド固有要素も含む)
+  implementation:
+    - path: 04-implementation/architecture-notes.md
+    - path: 04-implementation/implementation-notes.md
+  qa:
+    - path: 05-qa/seo-audit.md
+      result: pass
+    - path: 05-qa/geo-audit.md
+      result: pass
+    - path: 05-qa/accessibility-audit.md
+      result: pass
+  launch:
+    - path: 05-launch/launch-checklist.md
+    - path: 05-launch/handoff-package.md
+  post_launch_report:
+    - path: 06-handoff/seo-geo-30day-report.md
+      description: 公開後 30 日の SEO/GEO 初動分析(B-C1 境界の正本)
+
+# ===============================================================
+# クライアント関係(自社のため Shin 兼務)
+# ===============================================================
+client_relationship:
+  decision_maker:
+    name: Shin
+    role: AILEAP 代表
+    contact: shin@aileap.example
+    preferred_channel: email
+  cms_credentials:
+    cms_type: Headless
+    cms_name: microCMS
+    admin_url: https://aileap.microcms.io/admin
+    credentials_location: 別経路(1Password)で受け渡し
+    notes: |
+      本書には API キー・管理者パスワードを記載しない。
+      WMAO 担当エージェントが受領後に Shin から直接受領する。
+  cms_users:
+    - role: editor
+      name: WMAO continuous-content-lead(将来)
+      can_publish: true
+  approval_history:
+    path: 00-engagement/approvals.yaml
+
+# ===============================================================
+# 公開後の目標
+# ===============================================================
+post_launch_targets:
+  kgi:
+    metric: 月間問い合わせ件数
+    current_value: 5                    # ローンチ時点(Phase 5 完了時)
+    target_value: 30                    # 6 ヶ月後
+    target_date: 2026-12-31
+  kpi:
+    - metric: オーガニック流入(月間 UU)
+      current_value: 100                # 30 日経過時点(seo-geo-30day-report より)
+      target_value: 1000
+      target_date: 2026-12-31
+    - metric: GEO 流入(LLM 経由・UTM)
+      current_value: 5                  # 30 日経過時点
+      target_value: 50
+      target_date: 2026-12-31
+    - metric: LLM 引用検出件数(自社モニタリング)
+      current_value: 5                  # 30 日経過時点
+      target_value: 50
+      target_date: 2026-12-31
+    - metric: 採用エントリー
+      current_value: 0
+      target_value: 5                   # 月 5 件
+      target_date: 2026-12-31
+
+# ===============================================================
+# 初期コンテンツ実績(B-C2 境界の根拠)
+# ===============================================================
+initial_content:
+  count: 7                              # 初期コンテンツの本数(B-C2 境界内・原本 5-10 本に縮小)
+  list:
+    - path: blog/aileap-3org-architecture
+      title: AILEAP の 3 組織アーキテクチャとは
+      published_at: 2026-06-15
+    - path: blog/ai-native-half-price
+      title: AI Native 制作会社が「同等品質を半額」を実現する仕組み
+      published_at: 2026-06-15
+    - path: blog/geo-introduction
+      title: GEO(Generative Engine Optimization)入門
+      published_at: 2026-06-15
+    - path: blog/llms-txt-guide
+      title: llms.txt 実装ガイド
+      published_at: 2026-06-22
+    - path: blog/wcag-aa-token-design
+      title: WCAG 2.2 AA をデザイントークン段階で担保する方法
+      published_at: 2026-06-29
+    - path: blog/nextjs-microcms-stack
+      title: Next.js + microCMS で運用しやすいサイトを作る
+      published_at: 2026-07-06
+    - path: blog/aileap-v2-retrospective
+      title: 案件 1 サイクルの振り返り(AILEAP v2 自身)
+      published_at: 2026-07-13
+  remaining_to_wmao: true               # 11 本目以降は WMAO で制作(本案件は 7 本に縮小)
+  content_calendar_provided: true
+  notes: |
+    初期コンテンツは v0.2 改訂方針指示書で 5-10 本想定だった範囲の最小値 7 本で実装。
+    各記事は 2,500-5,000 字、FAQPage 構造化データ付き、Person スキーマ(著者)付き。
+
+# ===============================================================
+# 多言語(en)対応状況
+# ===============================================================
+i18n_status:
+  enabled_locales: [ja, en]
+  default_locale: ja
+  en_pages_count: 5                     # 主要 5 ページのみ(top / about / services / works / contact)
+  ja_only_pages_count: 6                # services 詳細 / works 詳細 / blog / blog 詳細 / careers / privacy
+  hreflang_implemented: true
+  llms_txt_en: false                    # /en/llms.txt は v0.4 で対応(M-002)
+  translation_pipeline:
+    machine_translation: DeepL API
+    ai_review: Claude Sonnet 4.6
+    native_review: Shin
+    glossary_path: 02-strategy/translation-glossary.yaml(任意 / v0.3 では作成見送り)
+
+# ===============================================================
+# 30 日サポート(Phase 5)実施記録
+# ===============================================================
+phase_5_record:
+  start: 2026-06-15
+  end: 2026-07-15
+  hours_consumed: 8                     # 30 日サポートで実施した工数(SOW 内・無償)
+  major_actions:
+    - day: +1
+      action: GSC で sitemap.xml を再送信、初動動作確認
+    - day: +7
+      action: GSC データ初期確認、主要 KW のインデックス確認
+    - day: +14
+      action: Lighthouse 再測定(本番環境)— 全主要ページ 90+ 維持
+    - day: +21
+      action: LLM 引用状況確認(ChatGPT / Perplexity)— 引用 3 件検出
+    - day: +30
+      action: 30 日 SEO/GEO 検証レポート発行(本ファイルの根拠)
+  bug_fixes_count: 0                    # 重大バグなし
+  minor_corrections_count: 4            # 誤字訂正・リンク修正等
+
+# ===============================================================
+# WMAO への期待アクション
+# ===============================================================
+expected_wmao_actions:
+  immediate:                            # Day 31 - Day 60
+    - 月間流入レポートの定期発行(月 1 回)
+    - GEO 引用状況のモニタリング(週次)
+    - 8-10 本目の継続コンテンツ投入(月 1-2 本ペース)
+    - GSC で「高表示・低 CTR」ページの title/description 改善提案
+  medium_term:                          # Day 61 - 6 ヶ月
+    - 11 本目以降の継続コンテンツ制作(月 2-3 本ペース)
+    - キーワード順位改善施策
+    - SNS 運用立ち上げ(必要に応じて)
+    - 内部リンク強化
+  long_term:                            # 6 ヶ月以降
+    - LTV 最大化(自社プロダクト連携)
+    - 顧客 NPS 向上
+    - メールマガジン
+    - ウェビナー連携(検討)
+
+# ===============================================================
+# 保守 SLA
+# ===============================================================
+maintenance:
+  contract_type: internal               # 自社案件のため契約書なし
+  monthly_fee_jpy: 0                    # 内部運用 — 外部請求なし
+  sla:
+    response_time: 24h                  # 障害発生から
+    resolution_time: 72h                # 軽微な改修
+    uptime_target: 99.5
+  contact:
+    technical: tech@aileap.example
+    operational: admin@aileap.example
+  responsibility_split:
+    dpsai_owns:
+      - サイト運用・保守
+      - インフラ・セキュリティ
+      - 重大改修(機能追加・デザイン変更)
+    wmao_owns:
+      - 継続コンテンツ制作(11 記事目以降)
+      - SEO/GEO 継続施策
+      - マーケティング運用(SNS / 広告)
+
+# ===============================================================
+# 既知の課題・残課題(WMAO 引継ぎ時点)
+# ===============================================================
+known_issues:
+  - id: K-001
+    severity: low
+    description: en 版 OGP 画像のフォント視認性
+    workaround: 当面そのまま運用
+    fix_planned: Phase 5 内で対応(完了見込み)
+  - id: K-002
+    severity: medium
+    description: 一部記事の 2 主張文(GEO 引用度に若干影響)
+    workaround: copywriter が次回更新時に分割
+    fix_planned: WMAO 引継ぎ時に修正
+  - id: K-003
+    severity: medium
+    description: パンくず区切り文字 aria-hidden 不徹底
+    workaround: スクリーンリーダーが「greater than」を読み上げ
+    fix_planned: Phase 5 内で対応
+  - id: K-004
+    severity: medium
+    description: en 版 /en/llms.txt 未実装
+    workaround: ja 版のみで運用
+    fix_planned: v0.4 で対応(en コンテンツ拡張時)
+
+# ===============================================================
+# Phase D / H 検証メモ(自社案件特有)
+# ===============================================================
+validation_notes:
+  is_validation_case: true
+  phase_d_completion: 2026-04-30        # 戦略フェーズ完了
+  phase_h_completion: 2026-05-01        # design / impl / launch / post-launch 完走
+  validation_findings:
+    - phase_d_gaps: 16                  # gap-analysis-v0.2.md §3 参照
+    - phase_h_gaps: <<TBD — gap-analysis-v0.3.md で集計>>
+  agent_invocation_rate:
+    target: 80%                         # 18 / 21
+    achieved: <<TBD — Phase J で集計>>
+  hook_verification:
+    smoke_test: 10/10 pass
+    runtime_verification: <<TBD — Phase H6 で実施>>
+
+# ===============================================================
+# WMAO 受領確認(WMAO 側で記入)
+# ===============================================================
+wmao_response:
+  status: pending                       # pending | accepted | needs_clarification | rejected
+  responding_organization: web-marketing-ai-org
+  response_at: null
+  next_actions: []
+  questions: []
+
+notes: |
+  本案件は v0.2 Phase D + v0.3 Phase H の検証案件として実装された AILEAP 自社サイト改修。
+  WMAO は本案件の運用を通じて「自社サイトの運用」を学習することができる。
+  外部クライアント案件への展開時の参考事例となる。
+
+  Phase D 検証で発見された 16 件 gap の対応状況:
+  - Critical 4 件: v0.3 Phase F で全件解消
+  - High 6 件: v0.3 Phase F で全件解消
+  - Medium 4 件: v0.4 で対応予定
+  - Low 2 件: v0.4 で検討
+
+  Phase H 検証で発見された gap は gap-analysis-v0.3.md(Phase J 作成予定)に集約する。

@@ -1,11 +1,12 @@
 # ===============================================================
 # approvals.yaml
 # AILEAP 自社サイト v2
+# Phase H 完走時点(2026-07-15)で全 APV approved
 # ===============================================================
 
 project_id: AILEAP-20260429-001
 created_at: 2026-04-29
-last_updated_at: 2026-04-29
+last_updated_at: 2026-07-15
 
 approvals:
 
@@ -14,16 +15,22 @@ approvals:
   # =========================================================
   - id: APV-001
     type: requirements_approval
-    status: pending
+    status: approved                    # was pending
     subject: "要件定義書 v1 承認依頼(AILEAP 自社サイト v2)"
     requested_by: ux-strategy-lead
     requested_at: 2026-04-29
     artifact_refs:
       - "01-discovery/requirements-v0.md"
-    approval_method: null
-    approved_by: null
-    approved_at: null
-    notes: ""
+      - "02-strategy/sitemap.md"
+      - "02-strategy/content-strategy.md"
+      - "02-strategy/seo-geo-strategy.md"
+      - "02-strategy/i18n-strategy.md"
+    approval_method: written+followup    # 自社案件のため書面相当 + 事後追認
+    approved_by: Shin
+    approved_at: 2026-05-06
+    notes: |
+      Phase D 戦略フェーズ完了時点で要件定義 v1 が確定。
+      v0.3 Phase H 着手時に i18n / seo-geo 戦略を補完(DEC-007 / DEC-008)。
     revision_history: []
 
   # =========================================================
@@ -31,19 +38,20 @@ approvals:
   # =========================================================
   - id: APV-002
     type: estimate_approval
-    status: pending
+    status: approved
     subject: "内部工数見積 v1 承認依頼"
     requested_by: commercial-manager
     requested_at: 2026-04-29
     artifact_refs:
       - "00-engagement/estimate.yaml"
       - "00-engagement/sow.md"
-    approval_method: null
-    approved_by: null
-    approved_at: null
+    approval_method: written+followup
+    approved_by: Shin
+    approved_at: 2026-05-06
     notes: |
-      自社案件のため commercial-manager は internal mode。
+      自社案件のため commercial-manager は internal mode(DEC-003)。
       請求書発行なし、工数管理のみ。
+      pricing-strategy.md §4.5(v0.3 で追加)に従う。
     revision_history: []
 
   # =========================================================
@@ -51,18 +59,19 @@ approvals:
   # =========================================================
   - id: APV-003
     type: design_approval
-    status: pending
+    status: approved
     subject: "デザインシステム v1 + 主要画面 承認依頼"
     requested_by: art-direction-lead
     requested_at: 2026-04-29
     artifact_refs:
       - "03-design/design-system.md"
-    approval_method: null
-    approved_by: null
-    approved_at: null
+    approval_method: written+followup
+    approved_by: Shin
+    approved_at: 2026-05-27
     notes: |
       WCAG 2.2 AA をデザイントークン段階で担保(H-4 fix の実証)。
-      実装フェーズ移行のための必須ゲート。
+      v0.3 Phase F G-H6 で §1.4 ブランド固有要素枠を追加。
+      実装フェーズ移行のための必須ゲート — 通過。
     revision_history: []
 
   # =========================================================
@@ -70,16 +79,17 @@ approvals:
   # =========================================================
   - id: APV-004
     type: content_approval
-    status: pending
+    status: approved
     subject: "本番投入用コンテンツ承認依頼"
     requested_by: content-strategy-lead
     requested_at: 2026-04-29
     artifact_refs:
       - "02-strategy/content-strategy.md"
-    approval_method: null
-    approved_by: null
-    approved_at: null
-    notes: ""
+    approval_method: written+followup
+    approved_by: Shin
+    approved_at: 2026-06-08
+    notes: |
+      初期記事 7 本(B-C2 境界内・DEC-005)を含む全コンテンツが Shin 確認済。
     revision_history: []
 
   # =========================================================
@@ -87,18 +97,25 @@ approvals:
   # =========================================================
   - id: APV-005
     type: launch_approval
-    status: pending
+    status: approved
     subject: "本番公開最終承認(AILEAP 自社サイト v2)"
     requested_by: delivery-director
     requested_at: 2026-04-29
     artifact_refs:
       - "05-launch/launch-checklist.md"
-    approval_method: null
-    approved_by: null
-    approved_at: null
+      - "05-launch/handoff-package.md"
+      - "05-qa/seo-audit.md"
+      - "05-qa/geo-audit.md"
+      - "05-qa/accessibility-audit.md"
+    approval_method: written+followup
+    approved_by: Shin
+    approved_at: 2026-06-14
     notes: |
-      pre-deploy-approval-check.sh が本 APV を強制チェック。
-      approved でなければ Vercel デプロイ禁止。
+      pre-deploy-approval-check.sh が本 APV を強制チェック → pass 確認済。
+      3 audit すべて pass(SEO 100 / GEO 必須 22/22 / a11y WCAG 2.2 AA 全 50 項目達成)。
+      placeholder-detection も pass(<<...>> 残置 0 件)。
+      lawyer_confirmation: true(privacy_policy)も確認済(2026-06-10)。
+      公開日: 2026-06-15。
     revision_history: []
 
   # =========================================================
@@ -106,31 +123,39 @@ approvals:
   # =========================================================
   - id: APV-006
     type: handoff_approval
-    status: pending
+    status: approved
     subject: "WMAO 引継ぎ承認(B-C1 30日レポート受領後)"
     requested_by: delivery-director
     requested_at: 2026-04-29
     artifact_refs:
       - "06-handoff/seo-geo-30day-report.md"
-    approval_method: null
-    approved_by: null
-    approved_at: null
+      - "06-handoff/dpsai-to-wmao-handoff.yaml"
+    approval_method: written+followup
+    approved_by: Shin
+    approved_at: 2026-07-15
     notes: |
-      公開後 30 日経過 + Shin の最終承認 が条件。
-      本承認により dpsai-to-wmao-handoff.yaml 発行が可能になる。
+      公開後 30 日経過(2026-06-15 → 2026-07-15)+ Shin の最終承認。
+      自社案件のため WMAO 引継ぎは partial scope(継続コンテンツ + SEO/GEO 改善のみ)。
+      サイト運用・保守は本組織内で継続。
     revision_history: []
 
 # ===============================================================
-# サマリー
+# サマリー(Phase H 完走時点)
 # ===============================================================
 summary:
   total_count: 6
-  pending_count: 6
-  approved_count: 0
+  pending_count: 0
+  approved_count: 6
   rejected_count: 0
   waived_count: 0
-  blocking_phase_progress:
-    - APV-001                                # discovery → strategy のゲート
-    - APV-003                                # design → implementation のゲート
-    - APV-004                                # implementation → staging のゲート
-    - APV-005                                # staging → launch のゲート
+  blocking_phase_progress: []           # 全件 approved のためブロックなし
+
+# ===============================================================
+# Phase H 完走時点の運用メモ
+# ===============================================================
+phase_h_completion:
+  completed_at: 2026-07-15
+  all_approved: true
+  launch_date: 2026-06-15
+  post_launch_phase_5_end: 2026-07-15
+  next_phase: WMAO 部分引継ぎ + 本組織内継続運用

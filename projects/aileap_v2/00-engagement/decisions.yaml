@@ -238,15 +238,240 @@ decisions:
     superseded_by: null
     notes: ""
 
+  # =========================================================
+  # DEC-006: SEO/GEO 戦略文書を正式作成(v0.3 Phase H)
+  # =========================================================
+  - id: DEC-006
+    type: strategy
+    title: SEO/GEO 戦略の正本を独立文書化
+    decided_at: 2026-05-01
+    decided_by:
+      - role: seo-geo-strategist
+        name: seo-geo-strategist
+      - role: 決裁者
+        name: Shin
+    proposed_by: seo-geo-strategist
+    impacted_agents:
+      - seo-geo-strategist
+      - content-strategy-lead
+      - frontend-engineer
+    related_artifacts:
+      - "02-strategy/seo-geo-strategy.md"
+    context: |
+      Phase D 戦略フェーズで sitemap と content-strategy はあったが、
+      SEO/GEO 戦略の独立文書がなく、Claude の文脈推測に依存していた。
+      v0.3 Phase H で正本として独立文書化。
+    decision_rationale: |
+      ターゲットキーワード設計・GEO 引用クエリ・構造化データ実装計画を
+      明示することで、frontend-engineer / copywriter が一貫した実装を
+      できるようになる。
+    consequences:
+      positive:
+        - 実装の一貫性向上
+        - 30 日後の検証根拠が明確化
+        - WMAO 引継ぎ材料が充実
+      negative: []
+      mitigation: []
+    review_required_by: null
+    superseded_by: null
+    notes: ""
+
+  # =========================================================
+  # DEC-007: 多言語(en) 化を主要 5 ページに限定
+  # =========================================================
+  - id: DEC-007
+    type: scope
+    title: 多言語(en) 化を主要 5 ページに限定(top / about / services / works / contact)
+    decided_at: 2026-04-30
+    decided_by:
+      - role: localization-specialist
+        name: localization-specialist
+      - role: strategy-director
+        name: strategy-director
+      - role: 決裁者
+        name: Shin
+    proposed_by: Shin                   # v0.3 着手時の論点 4 で確定
+    impacted_agents:
+      - localization-specialist
+      - copywriter
+      - frontend-engineer
+    related_artifacts:
+      - "02-strategy/i18n-strategy.md"
+      - "PROJECT.md"
+    context: |
+      v0.2 Phase D では DEC-002 で en を v0.3 へ繰り延べた。
+      v0.3 着手時の Shin 確認(2026-04-30)で「主要 5 ページのみ en 化」が確定。
+      en 化全 11 ページは v0.4 以降に持ち越し。
+    options_considered:
+      - option: 主要 5 ページのみ en 化
+        pros:
+          - 検証スコープが明確
+          - 翻訳パイプラインの本番運用検証可能
+          - 工数 32h 程度に収まる
+        cons:
+          - 詳細ページ(services 詳細・blog 等)は ja のみ
+      - option: 全 11 ページ en 化
+        pros:
+          - en 訴求が完全
+        cons:
+          - 工数 +30h 上乗せ
+          - 検証スコープが膨張
+    decision_rationale: |
+      v0.3 検証案件として、翻訳パイプライン(DeepL → Claude → Shin)が
+      動くことを確認することが最優先。詳細ページの en 化は Phase 2 / v0.4 で。
+      DEC-002 を一部 supersede(en を v0.3 で実施することの確定)。
+    consequences:
+      positive:
+        - 翻訳パイプライン本番運用が検証できる
+        - hreflang / og:locale 等の SEO 多言語対応が動作確認できる
+      negative:
+        - en 詳細ページが将来の課題として残る
+      mitigation:
+        - i18n-strategy.md で 「v0.4 で en 拡張」の判定材料を明記
+    review_required_by: null
+    superseded_by: null
+    notes: |
+      DEC-002 の「en を v0.3 で実施」の方針を本決定で具体化。
+
+  # =========================================================
+  # DEC-008: 技術スタックを Next.js 14 App Router + microCMS で確定
+  # =========================================================
+  - id: DEC-008
+    type: technical
+    title: 技術スタックを Next.js 14 App Router + microCMS + Vercel で確定
+    decided_at: 2026-05-01
+    decided_by:
+      - role: technology-director
+        name: technology-director
+      - role: frontend-lead
+        name: frontend-lead
+      - role: 決裁者
+        name: Shin
+    proposed_by: technology-director
+    impacted_agents:
+      - technology-director
+      - frontend-lead
+      - frontend-engineer
+      - cms-engineer
+      - nextjs-specialist
+    related_artifacts:
+      - "04-implementation/architecture-notes.md"
+    context: |
+      Phase H 着手時に技術スタックを正式確定する必要があった。
+      Next.js / Astro / WordPress を比較。
+    decision_rationale: |
+      - Next.js 14 App Router: RSC で初期表示高速化 / metadata API で SEO 効率化
+      - microCMS: A3 検証兼用 / 国内サポート / WordPress より軽量
+      - Vercel: 既存 aileap-hazel.vercel.app からの継続性
+      Astro / WordPress は却下(architecture-notes.md §1.2 参照)。
+    consequences:
+      positive:
+        - SEO/GEO 実装が容易(metadata API + JSON-LD)
+        - Lighthouse 90+ 達成見込み
+        - i18n が next-intl で素直に実装可能
+      negative:
+        - microCMS の月額費用が発生(自社案件のため AILEAP 負担)
+      mitigation:
+        - microCMS 無料プランから開始、必要に応じて有料へ
+    review_required_by: null
+    superseded_by: null
+    notes: ""
+
+  # =========================================================
+  # DEC-009: launch ゲート通過(APV-005 approved)
+  # =========================================================
+  - id: DEC-009
+    type: gate
+    title: launch ゲート通過 — 公開承認(APV-005)
+    decided_at: 2026-06-14
+    decided_by:
+      - role: delivery-director
+        name: delivery-director
+      - role: 決裁者
+        name: Shin
+    proposed_by: delivery-director
+    impacted_agents:
+      - 全エージェント
+    related_artifacts:
+      - "05-launch/launch-checklist.md"
+      - "05-launch/handoff-package.md"
+      - "05-qa/seo-audit.md"
+      - "05-qa/geo-audit.md"
+      - "05-qa/accessibility-audit.md"
+      - "00-engagement/approvals.yaml"
+    context: |
+      launch-checklist の全項目 pass、3 audit pass、placeholder-detection pass、
+      lawyer_confirmation: true(privacy_policy)確認済。
+      pre-deploy-approval-check.sh も pass。
+    decision_rationale: |
+      全 launch ゲート条件を満たしたため、本番公開を承認。
+      公開日: 2026-06-15。
+      Phase 5(公開後 30 日サポート)を本組織が継続。
+    consequences:
+      positive:
+        - サイト公開
+        - Phase 5 サポート期間開始
+      negative: []
+      mitigation: []
+    review_required_by: null
+    superseded_by: null
+    notes: ""
+
+  # =========================================================
+  # DEC-010: WMAO 引継ぎ partial scope で実施(自社案件特殊扱い)
+  # =========================================================
+  - id: DEC-010
+    type: handoff
+    title: WMAO 引継ぎを partial scope で実施(継続コンテンツ + SEO/GEO 改善のみ)
+    decided_at: 2026-07-15
+    decided_by:
+      - role: delivery-director
+        name: delivery-director
+      - role: product-director
+        name: product-director(自社案件のため横相談)
+      - role: 決裁者
+        name: Shin
+    proposed_by: delivery-director
+    impacted_agents:
+      - delivery-director
+      - product-director
+      - WMAO 受領担当(将来)
+    related_artifacts:
+      - "06-handoff/dpsai-to-wmao-handoff.yaml"
+      - "06-handoff/seo-geo-30day-report.md"
+    context: |
+      handoff-protocols.md §8.4(v0.3 補遺)で B 系および自社案件の
+      WMAO 引継ぎ scope は柔軟に決定する旨が明記された。
+      自社案件のため、サイト運用・保守は本組織内で継続可能。
+    decision_rationale: |
+      WMAO に「継続コンテンツ + SEO/GEO 月次改善」のみ引継ぎ。
+      サイト運用・インフラ保守・重大改修は本組織内で継続。
+      これにより自社プロダクト連携(MeetingAI 等)の柔軟性を確保。
+    consequences:
+      positive:
+        - WMAO は継続施策に集中可能
+        - 本組織は自社サイトの一次保守者であり続ける
+      negative:
+        - WMAO 引継ぎが標準的なフルスコープではない
+      mitigation:
+        - dpsai-to-wmao-handoff.yaml::handoff_scope.type = partial で明示
+    review_required_by: null
+    superseded_by: null
+    notes: ""
+
 # ===============================================================
-# サマリー
+# サマリー(Phase H 完走時点)
 # ===============================================================
 summary:
-  total_count: 5
+  total_count: 10
   by_type:
-    scope: 3
+    scope: 4
     budget: 1
     legal: 1
-  active_count: 5
+    strategy: 1
+    technical: 1
+    gate: 1
+    handoff: 1
+  active_count: 10
   superseded_count: 0
   pending_review_count: 0
