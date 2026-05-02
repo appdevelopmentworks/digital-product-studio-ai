@@ -1,0 +1,99 @@
+# ===============================================================
+# assets-required.yaml
+# AILEAP MeetingAI 紹介 LP — 必要素材
+# A2 軽量版(aileap_v2 と比較して素材点数が少ない)
+# ===============================================================
+
+project_id: AILEAP-MTG-20260601-001
+created_at: 2026-06-01
+last_updated_at: 2026-07-30
+
+assets:
+
+  - id: AST-001
+    category: branding
+    name: AILEAP ロゴ(SVG / PNG)
+    status: received                       # aileap_v2 で受領済 — 継承
+    source_project: aileap_v2
+    received_at: 2026-04-29
+    notes: aileap_v2 の AST-001 から継承
+
+  - id: AST-002
+    category: branding
+    name: MeetingAI プロダクトロゴ
+    status: received
+    provider: Shin
+    received_at: 2026-06-03
+    notes: AILEAP ロゴと整合(同じカラーパレット内)
+
+  - id: AST-003
+    category: visual
+    name: MeetingAI 製品スクリーンショット 5 枚
+    status: received
+    provider: Shin(MeetingAI ベータ版から取得)
+    received_at: 2026-06-08
+    notes: hero / feature 1-3 / footer 用
+
+  - id: AST-004
+    category: copy
+    name: MeetingAI コアメッセージ(120 字)
+    status: received
+    provider: Shin + copywriter
+    received_at: 2026-06-04
+    notes: |
+      原案: Shin が起案 → copywriter が GEO 観点で調整。
+      内容: 100 字結論先出し原則準拠。
+
+  - id: AST-005
+    category: copy
+    name: 主要 FAQ 8 件(LP 後半 + FAQPage 構造化データ用)
+    status: received
+    provider: copywriter(content-strategy-lead 監修)
+    received_at: 2026-06-12
+    notes: GEO 引用用の FAQPage 構造化データに転記する。
+
+  - id: AST-006
+    category: legal
+    name: プライバシーポリシー(aileap_v2 と統合)
+    status: received
+    source_project: aileap_v2
+    received_at: 2026-06-10
+    notes: |
+      aileap_v2 の `/privacy` と同一(統合運用)。MeetingAI フォーム送信先も aileap_v2 と同じく
+      Resend → contact@aileap.example。lawyer_confirmation: true は aileap_v2 で確認済。
+
+  - id: AST-007
+    category: technical
+    name: Resend API キー(aileap_v2 と共有)
+    status: received
+    source_project: aileap_v2
+    received_at: 2026-04-29
+    notes: 別経路(Vercel 環境変数)で受け渡し済。本書には記載しない。
+
+  - id: AST-008
+    category: technical
+    name: GA4 measurement ID(MeetingAI 用追加プロパティ or aileap_v2 と統合)
+    status: received
+    provider: Shin
+    received_at: 2026-06-15
+    notes: aileap_v2 と統合プロパティで運用 — utm_campaign で MeetingAI を識別。
+
+# ===============================================================
+# サマリー
+# ===============================================================
+summary:
+  total_count: 8
+  received_count: 8
+  pending_count: 0
+  overdue_count: 0
+  reception_rate: 100%
+
+# ===============================================================
+# 検証メモ(Phase I-A 特有)
+# ===============================================================
+validation_notes: |
+  A2 軽量版のため必要素材 8 件(aileap_v2 は 12 件)。
+  4 件(AST-001, 006, 007 + 部分的に 008)が aileap_v2 から継承。
+  → 自社プロダクト連続案件では「素材の使い回し」が現実的に動作することを確認。
+  /asset-checklist スキルが「source_project」フィールドを認識して継承を考慮できるか
+  検証(Phase J で集計)。

@@ -1,0 +1,103 @@
+# ===============================================================
+# apex-to-dpsai-handoff.yaml
+# AILEAP MeetingAI 紹介 LP(自社・疑似ハンドオフ)
+# ---------------------------------------------------------------
+# 自社案件のため apex 経由ではなく Shin の直接依頼を本組織が
+# 「疑似 apex ハンドオフ」として記録する形式
+# (handoff-protocols.md §8.3 内部プロダクト案件のフロー)
+# ===============================================================
+
+handoff_id: APX-INTERNAL-MTG-001
+protocol: handoff-from-strategy
+version: 0.3
+from:
+  organization: aileap-internal           # apex ではなく内部
+  agent: Shin                             # 直接依頼
+  timestamp: 2026-06-01T10:00:00+09:00
+to:
+  organization: digital-product-studio-ai
+  agent: studio-director
+status: accepted                          # 受領済(本案件起動済)
+
+# ===============================================================
+# クライアント情報
+# ===============================================================
+client:
+  name: 株式会社 AILEAP(MeetingAI 事業部)
+  industry: AI / SaaS / B2B
+  size: SME(中小企業向け SaaS)
+  decision_maker:
+    name: Shin
+    role: AILEAP 代表 / MeetingAI プロダクト責任者(兼任)
+    contact: shin@aileap.example
+  stakeholders:
+    - name: Shin
+      role: クライアント役兼 PM
+      relationship: 自社代表
+
+# ===============================================================
+# 戦略文脈(Shin が起案)
+# ===============================================================
+strategic_context:
+  business_objective: |
+    AILEAP の自社プロダクト MeetingAI(会議要約 + 議事録自動生成 SaaS)の
+    β版を 2026 Q3 に開始予定。本 LP はβ版申込み獲得の核となる。
+  target_audience: |
+    主読者: 中堅企業(従業員 50-300 名)の経営企画 / バックオフィス
+    副読者: 個人事業主・スタートアップ初期メンバー
+  competitive_position: |
+    既存類似サービス(tl;dv / Otter.ai / Notta)に対する AILEAP の差別化:
+    1. 日本語特化精度
+    2. AILEAP 自身が AI Native 制作会社で運用ナレッジ豊富
+    3. WMAO への自動連携で投稿用記事化が一気通貫
+  digital_strategy: |
+    AILEAP コーポレートサイト(aileap_v2)経由での認知獲得 +
+    LP 単独での GEO / SEO 流入獲得の二段構え
+  why_web: |
+    β版申込みの導線として Web LP が必須。
+    aileap_v2 から「サービス → MeetingAI」CTA で誘導 + 直接流入の両方を狙う
+
+# ===============================================================
+# プロジェクトブリーフ
+# ===============================================================
+project_brief:
+  recommended_channels:
+    - web                                 # LP 単独
+  project_type:
+    primary: A2
+    fallback: A2                          # 代替不要
+  kgi:
+    - β版申込み件数 50 件(公開後 3 ヶ月)
+  budget_range:
+    min: 0                                # 内部案件
+    max: 0
+    currency: JPY
+    note: 自社案件のため工数管理のみ(commercial-manager internal mode)
+  timeline:
+    desired_launch: 2026-06-30
+    flexibility: soft                     # 多少動く
+  constraints:
+    - aileap_v2 のデザインシステムを継承
+    - フォーム送信は aileap_v2 と同じ Resend + reCAPTCHA
+    - Vercel + Next.js 14 App Router(aileap_v2 と同スタック)
+
+# ===============================================================
+# 添付資料
+# ===============================================================
+attachments:
+  - path: aileap_v2/02-strategy/content-strategy.md
+    type: content_strategy
+    description: aileap_v2 のコンテンツ戦略(MeetingAI 言及あり)
+  - path: aileap_v2/03-design/design-system.md
+    type: design_system
+    description: 継承元デザインシステム(WCAG 2.2 AA 込み)
+
+notes: |
+  本案件は MeetingAI 事業の最初の対外的な仕掛け。
+  β版開始(2026 Q3)に向けて 6/30 公開を必達目標とする。
+  aileap_v2 と並行運用するため、デザイン・実装の継承を最大化する。
+
+  Phase I-A 検証として:
+  - A2 軽量フローの動作確認
+  - 並列案件管理の検証(aileap_v2 + 本案件)
+  - /team-landing-page スキルの起動確認

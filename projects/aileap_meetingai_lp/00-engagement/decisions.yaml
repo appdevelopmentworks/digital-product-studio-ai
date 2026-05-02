@@ -1,0 +1,233 @@
+# ===============================================================
+# decisions.yaml
+# AILEAP MeetingAI 紹介 LP
+# ===============================================================
+
+project_id: AILEAP-MTG-20260601-001
+created_at: 2026-06-01
+last_updated_at: 2026-07-30
+
+decisions:
+
+  - id: DEC-001
+    type: scope
+    title: 案件タイプを A2(LP)に確定
+    decided_at: 2026-06-01
+    decided_by:
+      - role: studio-director
+        name: studio-director
+      - role: 決裁者
+        name: Shin
+    proposed_by: studio-director
+    impacted_agents:
+      - delivery-director
+      - art-direction-lead
+      - copywriter
+      - frontend-engineer
+    related_artifacts:
+      - PROJECT.md
+    context: |
+      MeetingAI β版申込み獲得には LP 単独構成が最適。
+      コーポレートサイト型(A1)ではコンテンツ過剰、メディアサイト型(A3)では LP 効率が落ちる。
+    decision_rationale: A2 軽量フローで 2-4 週間で公開可能。
+    consequences:
+      positive:
+        - 短納期で公開
+        - ux-strategy-lead / cms-engineer 不在で済む
+      negative:
+        - サイトマップが浅い(top + thanks 2 ページ)
+      mitigation:
+        - aileap_v2 から流入経路を確保(導線分散しない)
+    review_required_by: null
+    superseded_by: null
+
+  - id: DEC-002
+    type: scope
+    title: 多言語(en)対応をスコープアウト
+    decided_at: 2026-06-01
+    decided_by:
+      - role: localization-specialist
+        name: localization-specialist
+      - role: 決裁者
+        name: Shin
+    proposed_by: localization-specialist
+    impacted_agents:
+      - localization-specialist
+      - copywriter
+    related_artifacts:
+      - PROJECT.md
+    context: MeetingAI は国内提供から開始するため、本 LP の en 化は不要。
+    decision_rationale: |
+      v0.3 で aileap_v2 が主要 5 ページ en 化済。本 LP の en 化は将来 MeetingAI 海外展開時に
+      別案件として実施。
+    consequences:
+      positive: [スコープ簡素化]
+      negative: []
+      mitigation: []
+    review_required_by: null
+    superseded_by: null
+
+  - id: DEC-003
+    type: design
+    title: aileap_v2 デザインシステムを継承(差分のみ design 文書化)
+    decided_at: 2026-06-06
+    decided_by:
+      - role: art-direction-lead
+        name: art-direction-lead
+      - role: creative-director
+        name: creative-director
+    proposed_by: art-direction-lead
+    impacted_agents:
+      - art-direction-lead
+      - ui-designer
+      - frontend-engineer
+    related_artifacts:
+      - "03-design/design-notes.md"
+      - "../aileap_v2/03-design/design-system.md"
+    context: |
+      aileap_v2 で WCAG 2.2 AA トークン担保のデザインシステムを完成済。
+      MeetingAI LP は AILEAP ブランド傘下のため、視覚一貫性のため継承する。
+    decision_rationale: |
+      A2 LP 固有の差分(ヒーロー幅広レイアウト・申込フォーム強調)のみを design-notes.md に記録し、
+      ベース design-system は aileap_v2 を参照する形で工数 12h に圧縮。
+    consequences:
+      positive:
+        - 工数 -50%(A2 標準デザイン工数 25h → 12h)
+        - 視覚一貫性確保
+        - WCAG 2.2 AA 自動継承
+      negative: []
+      mitigation: []
+    review_required_by: null
+    superseded_by: null
+
+  - id: DEC-004
+    type: budget
+    title: commercial-manager を internal mode で動作(2 連続自社案件)
+    decided_at: 2026-06-01
+    decided_by:
+      - role: commercial-manager
+        name: commercial-manager
+      - role: 決裁者
+        name: Shin
+    proposed_by: commercial-manager
+    impacted_agents:
+      - commercial-manager
+      - delivery-director
+    related_artifacts:
+      - "00-engagement/estimate.yaml"
+    context: |
+      aileap_v2 に続く自社プロダクト LP のため internal_client: true。
+      pricing-strategy.md §4.5 に従い参考値で 3 パターン生成。
+    decision_rationale: |
+      v0.3 Phase F G-H3 で確定した internal mode 仕様の連続運用検証も兼ねる。
+      Phase H で 1 件目(aileap_v2)が動作したため、本案件で 2 件目の動作確認。
+    consequences:
+      positive: [internal mode 連続運用の動作実証]
+      negative: []
+      mitigation: []
+    review_required_by: null
+    superseded_by: null
+
+  - id: DEC-005
+    type: technical
+    title: フォームスタックを Resend + reCAPTCHA(aileap_v2 継承)
+    decided_at: 2026-06-11
+    decided_by:
+      - role: frontend-lead
+        name: frontend-lead
+      - role: technology-director
+        name: technology-director
+    proposed_by: frontend-lead
+    impacted_agents:
+      - frontend-engineer
+      - backend-lead
+    related_artifacts:
+      - "04-implementation/architecture-notes.md"
+      - "../aileap_v2/04-implementation/architecture-notes.md"
+    context: aileap_v2 で動作確認済のフォームスタックを再利用。
+    decision_rationale: |
+      Resend + zod + react-hook-form + reCAPTCHA v3 の組み合わせは aileap_v2 で
+      動作確認済。本 LP でもそのまま採用することで実装工数を削減。
+      Edge Function ベースで cold start 問題なし。
+    consequences:
+      positive:
+        - 実装工数削減(aileap_v2 のコードを直接流用可能)
+        - 動作実績ありで信頼性高い
+      negative: []
+      mitigation: []
+    review_required_by: null
+    superseded_by: null
+
+  - id: DEC-006
+    type: gate
+    title: launch ゲート通過 — 公開承認(APV-005 approved)
+    decided_at: 2026-06-29
+    decided_by:
+      - role: delivery-director
+        name: delivery-director
+      - role: 決裁者
+        name: Shin
+    proposed_by: delivery-director
+    impacted_agents:
+      - 全エージェント
+    related_artifacts:
+      - "05-launch/launch-checklist.md"
+      - "00-engagement/approvals.yaml"
+    context: 全 launch ゲート条件を満たした。
+    decision_rationale: |
+      3 audit pass / placeholder-detection pass / lawyer_confirmation: true(privacy)。
+      公開日: 2026-06-30。
+    consequences:
+      positive: [LP 公開]
+      negative: []
+      mitigation: []
+    review_required_by: null
+    superseded_by: null
+
+  - id: DEC-007
+    type: handoff
+    title: WMAO 引継ぎ partial scope 採用(自社プロダクト LP の特殊扱い)
+    decided_at: 2026-07-30
+    decided_by:
+      - role: delivery-director
+        name: delivery-director
+      - role: product-director
+        name: product-director
+      - role: 決裁者
+        name: Shin
+    proposed_by: delivery-director
+    impacted_agents:
+      - delivery-director
+      - product-director
+      - WMAO 受領担当(将来)
+    related_artifacts:
+      - "06-handoff/dpsai-to-wmao-handoff.yaml"
+    context: |
+      handoff-protocols.md §8.4 に従い、自社プロダクト案件の WMAO 引継ぎは partial scope。
+      MeetingAI のプロダクト紹介内容は本組織が継続管理(プロダクト責任の所在)。
+    decision_rationale: |
+      WMAO は SEO/GEO 月次改善 + LP 流入分析のみ担当。
+      LP のコピー・デザイン・機能の更新は本組織内で実施。
+    consequences:
+      positive: [プロダクト責任の所在が明確]
+      negative: [WMAO の引継ぎスコープが限定的]
+      mitigation:
+        - dpsai-to-wmao-handoff.yaml::handoff_scope.type = partial で明示
+    review_required_by: null
+    superseded_by: null
+
+# ===============================================================
+# サマリー(Phase I-A 完走時点)
+# ===============================================================
+summary:
+  total_count: 7
+  by_type:
+    scope: 2
+    budget: 1
+    design: 1
+    technical: 1
+    gate: 1
+    handoff: 1
+  active_count: 7
+  superseded_count: 0
+  pending_review_count: 0

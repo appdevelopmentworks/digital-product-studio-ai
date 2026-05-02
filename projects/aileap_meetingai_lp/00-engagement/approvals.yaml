@@ -1,0 +1,121 @@
+# ===============================================================
+# approvals.yaml
+# AILEAP MeetingAI 紹介 LP
+# Phase I-A 完走時点(2026-07-30)で全 APV approved
+# ===============================================================
+
+project_id: AILEAP-MTG-20260601-001
+created_at: 2026-06-01
+last_updated_at: 2026-07-30
+
+approvals:
+
+  - id: APV-001
+    type: requirements_approval
+    status: approved
+    subject: "要件定義 v1 承認(MeetingAI LP)"
+    requested_by: client-success-lead       # A2 では ux-strategy-lead 不在のため client-success-lead 主導
+    requested_at: 2026-06-02
+    artifact_refs:
+      - "01-discovery/requirements-v0.md"
+      - "02-strategy/sitemap.md"
+      - "02-strategy/content-strategy.md"
+    approval_method: written+followup
+    approved_by: Shin
+    approved_at: 2026-06-05
+    notes: A2 軽量フロー — sitemap は 2 ページのみのため簡素化。
+
+  - id: APV-002
+    type: estimate_approval
+    status: approved
+    subject: "内部工数見積(60h)承認"
+    requested_by: commercial-manager
+    requested_at: 2026-06-02
+    artifact_refs:
+      - "00-engagement/estimate.yaml"
+      - "00-engagement/sow.md"
+    approval_method: written+followup
+    approved_by: Shin
+    approved_at: 2026-06-02
+    notes: |
+      internal mode(pricing-strategy.md §4.5)。
+      aileap_v2 継承で A2 標準より軽量化。
+
+  - id: APV-003
+    type: design_approval
+    status: approved
+    subject: "LP デザイン(aileap_v2 継承+差分)承認"
+    requested_by: art-direction-lead
+    requested_at: 2026-06-06
+    artifact_refs:
+      - "03-design/design-notes.md"          # 継承元参照 + LP 固有差分のみ記録
+    approval_method: written+followup
+    approved_by: Shin
+    approved_at: 2026-06-10
+    notes: |
+      aileap_v2 design-system を継承。差分は LP 固有(ヒーロー幅広・フォーム配置)のみ。
+      WCAG 2.2 AA はトークン段階で担保済(継承元と同一)。
+
+  - id: APV-004
+    type: content_approval
+    status: approved
+    subject: "LP コピー本番投入承認"
+    requested_by: copywriter
+    requested_at: 2026-06-15
+    artifact_refs:
+      - "02-strategy/content-strategy.md"
+    approval_method: written+followup
+    approved_by: Shin
+    approved_at: 2026-06-18
+    notes: 100 字結論先出し + GEO 引用最適化 + 1 文 1 主張ルール適用。
+
+  - id: APV-005
+    type: launch_approval
+    status: approved
+    subject: "本番公開最終承認(MeetingAI LP)"
+    requested_by: delivery-director
+    requested_at: 2026-06-26
+    artifact_refs:
+      - "05-launch/launch-checklist.md"
+      - "05-qa/seo-audit.md"
+      - "05-qa/geo-audit.md"
+      - "05-qa/accessibility-audit.md"
+    approval_method: written+followup
+    approved_by: Shin
+    approved_at: 2026-06-29
+    notes: |
+      3 audit すべて pass / placeholder-detection pass / lawyer_confirmation: true(privacy)。
+      公開日: 2026-06-30。
+
+  - id: APV-006
+    type: handoff_approval
+    status: approved
+    subject: "WMAO 引継ぎ承認(MeetingAI LP・partial scope)"
+    requested_by: delivery-director
+    requested_at: 2026-07-30
+    artifact_refs:
+      - "06-handoff/seo-geo-30day-report.md"
+      - "06-handoff/dpsai-to-wmao-handoff.yaml"
+    approval_method: written+followup
+    approved_by: Shin
+    approved_at: 2026-07-30
+    notes: |
+      自社案件のため partial scope(SEO/GEO 月次改善のみ WMAO に)。
+      LP 自体の運用・プロダクト紹介内容更新は本組織内で継続。
+
+# ===============================================================
+# サマリー
+# ===============================================================
+summary:
+  total_count: 6
+  pending_count: 0
+  approved_count: 6
+  rejected_count: 0
+  waived_count: 0
+  blocking_phase_progress: []
+
+phase_i_a_completion:
+  completed_at: 2026-07-30
+  all_approved: true
+  launch_date: 2026-06-30
+  post_launch_phase_5_end: 2026-07-30

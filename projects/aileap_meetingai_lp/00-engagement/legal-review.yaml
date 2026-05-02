@@ -1,0 +1,106 @@
+# ===============================================================
+# legal-review.yaml
+# AILEAP MeetingAI 紹介 LP — 法務確認状態
+# A2 軽量版(privacy のみ・aileap_v2 と統合運用)
+# ===============================================================
+
+project_id: AILEAP-MTG-20260601-001
+created_at: 2026-06-01
+last_updated_at: 2026-07-30
+
+requires_lawyer_review: true                # 個人情報取得あり(β版申込みフォーム)
+overall_lawyer_confirmation: true           # privacy_policy のみ必須・確認済
+
+# ===============================================================
+# ページ別の弁護士確認状態
+# ===============================================================
+pages_reviewed:
+
+  - page: privacy_policy
+    required: true
+    lawyer_confirmation: true                # aileap_v2 で確認済(2026-06-10)を継承
+    template_used: docs/templates/privacy-policy-template.md
+    lawyer_name: 山田 太郎(仮)
+    lawyer_firm: 〇〇法律事務所(仮)
+    bar_registration_no: 第12345号(仮)
+    reviewed_at: 2026-06-10
+    review_method: written_opinion
+    evidence_path: ../aileap_v2/00-engagement/legal-evidence/privacy-2026-06-10.pdf
+    review_notes: |
+      aileap_v2 で確認済の privacy_policy を本案件でも採用(統合運用)。
+      MeetingAI フォーム送信先 contact@aileap.example も aileap_v2 と同一。
+      本案件で再確認は不要(同一文書を使用)。
+    publish_blocked: false                   # 確認済のためブロックなし
+    inherited_from: aileap_v2
+
+  - page: tokushoho
+    required: false                          # MeetingAI はβ版で課金なし — 商品販売非該当
+    lawyer_confirmation: false
+    template_used: null
+    review_notes: |
+      MeetingAI β版は無料提供のため特商法対象外。
+      正式版(課金開始)時には別途必要。Phase I-A スコープ外。
+    publish_blocked: false
+    skip_reason: not-applicable-to-beta
+
+  - page: terms_of_service
+    required: false                          # 会員機能なし(β申込み連絡先のみ)
+    lawyer_confirmation: false
+    template_used: null
+    review_notes: |
+      LP からのβ版申込みは「お問い合わせ + 連絡先取得」レベル。
+      正式版で会員登録 / API 利用規約が必要になった時点で別途作成。
+    publish_blocked: false
+    skip_reason: no-membership-feature
+
+# ===============================================================
+# 弁護士確認手配
+# ===============================================================
+lawyer_engagement:
+  vendor: 〇〇法律事務所(仮)— aileap_v2 と同一
+  engagement_status: completed              # aileap_v2 で完了済を継承
+  estimated_cost_jpy: 0                      # 本案件で追加発生なし(aileap_v2 で完了済を流用)
+  notes: aileap_v2 の弁護士確認をそのまま継承。
+
+# ===============================================================
+# 業種特殊性
+# ===============================================================
+industry_specific_compliance:
+  applicable_regulations: []                 # MeetingAI は会議要約 SaaS で特殊規制なし
+  notes: |
+    MeetingAI は会議の音声 / テキスト要約 SaaS のため、
+    医療・金融・士業のような業種別規制には該当しない。
+    プライバシー観点での個人情報保護法 + GDPR 配慮(将来的・国際展開時)を考慮済。
+
+# ===============================================================
+# 公開前チェックリスト
+# ===============================================================
+pre_launch_checklist:
+  - item: privacy_policy が lawyer_confirmation: true
+    status: completed
+    blocker_for_launch: true
+    completed_at: 2026-06-10
+  - item: 個人情報保護管理者の氏名・役職を確定
+    status: completed
+    blocker_for_launch: true
+    completed_at: 2026-06-10                 # aileap_v2 と同一管理者
+  - item: フォーム送信時の同意文言設定
+    status: completed
+    blocker_for_launch: true
+    completed_at: 2026-06-22
+
+# ===============================================================
+# 検証メモ
+# ===============================================================
+validation_notes: |
+  Phase I-A 検証:
+  - aileap_v2 で確認済の privacy_policy を継承する形が成立することを確認
+  - 「inherited_from: aileap_v2」フィールドが /legal-review-record スキルで対応可能か
+    Phase J で確認(legal-review-record スキルは新規確認専用で、継承機能は v0.4 で検討)
+  - MeetingAI のβ版は商品販売非該当のため tokushoho は不要 = legal-pages-check.sh の
+    分岐動作確認
+
+# ===============================================================
+# 運用ルール(継承)
+# ===============================================================
+# aileap_v2 と同じ運用ルールを継承。詳細は ../aileap_v2/00-engagement/legal-review.yaml 参照。

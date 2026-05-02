@@ -1,0 +1,252 @@
+# ===============================================================
+# dpsai-to-wmao-handoff.yaml
+# AILEAP MeetingAI 紹介 LP → WMAO partial 引継ぎ
+# ---------------------------------------------------------------
+# 公開後 30 日経過 + APV-006 approved を経て発行。
+# 自社プロダクト LP のため partial scope(SEO/GEO 改善 + LP 流入分析のみ)。
+# LP 自体の保守・プロダクト訴求内容更新は本組織内で継続。
+# ===============================================================
+
+handoff_id: HO-20260730-002                # aileap_v2 (HO-20260715-001) に続く 2 件目
+protocol: handoff-to-marketing
+version: 0.3
+from:
+  organization: digital-product-studio-ai
+  agent: delivery-director
+  timestamp: 2026-07-30T15:00:00+09:00
+to:
+  organization: web-marketing-ai-org
+  agent: <WMAO Tier 0 agent>
+status: submitted
+
+# ===============================================================
+# プロジェクト情報
+# ===============================================================
+project:
+  id: AILEAP-MTG-20260601-001
+  client: AILEAP(自社・MeetingAI 事業部・internal_client: true)
+  type: A2                              # ランディングページ
+  url: https://meetingai.aileap.example/
+  staging_url: https://staging.meetingai.aileap.example/
+  launched_at: 2026-06-30
+  post_launch_period_end: 2026-07-30
+  apex_handoff_ref: APX-INTERNAL-MTG-001
+  related_project: aileap_v2            # 統合運用の親プロジェクト
+  internal_client: true
+
+# ===============================================================
+# 引継ぎスコープ(自社プロダクト LP の特殊扱い)
+# ===============================================================
+handoff_scope:
+  type: partial                         # partial(全体運用ではなく一部のみ)
+  rationale: |
+    本案件は AILEAP 自社プロダクト LP のため、プロダクト責任は本組織内に留まる。
+    WMAO に引き継ぐのは「SEO/GEO 月次改善」と「LP 流入分析」のみ。
+    LP のコピー / デザイン / 機能更新は本組織内で実施する。
+  wmao_takes_over:
+    - SEO/GEO 月次改善(B-C1 境界・Day 31 以降)
+    - LP 流入分析(GA4 + GSC)
+    - A/B テスト施策の提案(本組織が実装判断)
+    - aileap_v2 ブログでの MeetingAI 関連記事継続
+  dpsai_retains:
+    - LP 自体の保守(コピー / デザイン / 機能変更)
+    - プロダクト訴求内容更新(MeetingAI の機能アップデート反映)
+    - β版 → 正式版移行時の LP リニューアル
+    - 重大障害対応
+
+# ===============================================================
+# 引継ぎ成果物
+# ===============================================================
+delivered_assets:
+  strategy:
+    - path: 02-strategy/sitemap.md
+    - path: 02-strategy/content-strategy.md
+    - path: 02-strategy/seo-geo-strategy.md
+  design:
+    - path: 03-design/design-notes.md
+    - path: ../aileap_v2/03-design/design-system.md  # 継承元
+  implementation:
+    - path: 04-implementation/architecture-notes.md
+    - path: 04-implementation/implementation-notes.md
+  qa:
+    - path: 05-qa/seo-audit.md
+      result: pass
+    - path: 05-qa/geo-audit.md
+      result: pass
+    - path: 05-qa/accessibility-audit.md
+      result: pass
+  launch:
+    - path: 05-launch/launch-checklist.md
+    - path: 05-launch/handoff-package.md
+  post_launch_report:
+    - path: 06-handoff/seo-geo-30day-report.md
+
+# ===============================================================
+# クライアント関係(自社のため Shin 兼務)
+# ===============================================================
+client_relationship:
+  decision_maker:
+    name: Shin
+    role: AILEAP 代表 / MeetingAI プロダクト責任者
+    contact: shin@aileap.example
+    preferred_channel: email
+  cms_credentials:
+    cms_type: none                       # CMS 不使用(messages/ja.json で運用)
+    notes: コピー変更は GitHub PR ベース。WMAO は提案のみ・実装は本組織内。
+  approval_history:
+    path: 00-engagement/approvals.yaml
+
+# ===============================================================
+# 30 日経過時点の KPI(seo-geo-30day-report より)
+# ===============================================================
+post_launch_targets:
+  kgi:
+    metric: β版申込み件数
+    current_value: 18                    # 30 日経過時点
+    target_value: 50                     # 3 ヶ月後
+    target_date: 2026-09-30
+  kpi:
+    - metric: LP 流入 UU
+      current_value: 720
+      target_value: 2000                 # 月
+      target_date: 2026-09-30
+    - metric: β版申込みフォーム CV 率
+      current_value: 2.5%
+      target_value: 5%
+      target_date: 2026-09-30
+    - metric: LLM 引用検出
+      current_value: 7                   # 30 日合計
+      target_value: 15                   # 3 ヶ月合計
+      target_date: 2026-09-30
+    - metric: 平均ページ滞在時間
+      current_value: 78s
+      target_value: 60s+ 維持
+      target_date: continuous
+
+# ===============================================================
+# 初期コンテンツ(LP 単発のため "コンテンツ" 概念は希薄)
+# ===============================================================
+initial_content:
+  count: 1                              # LP 1 ページのみ(+ thanks)
+  list:
+    - path: /
+      title: MeetingAI 紹介 LP
+      published_at: 2026-06-30
+  remaining_to_wmao: false              # LP 単発のため WMAO 制作対象なし
+  notes: |
+    LP のコンテンツは 1 ページ完結。
+    WMAO は LP 改善提案 + aileap_v2 ブログでの MeetingAI 関連記事追加のみ担当。
+
+# ===============================================================
+# 多言語(en)対応状況
+# ===============================================================
+i18n_status:
+  enabled_locales: [ja]
+  default_locale: ja
+  en_pages_count: 0                     # 本 LP は ja のみ(MeetingAI 国内開始)
+  notes: |
+    en 化は MeetingAI 海外展開時(時期未定)に別案件として対応。
+    aileap_v2 は主要 5 ページ en 化済(参考情報)。
+
+# ===============================================================
+# 30 日サポート(Phase 5)実施記録
+# ===============================================================
+phase_5_record:
+  start: 2026-06-30
+  end: 2026-07-30
+  hours_consumed: 3                     # LP 規模小 + 継承効果で軽量
+  major_actions:
+    - day: +3
+      action: OGP 画像リビルド(SP 視認性改善)
+    - day: +14
+      action: FAQ 4 件追加 + JSON-LD 更新
+    - day: +18
+      action: アンカーリンク scroll-margin-top 微調整
+    - day: +30
+      action: 30 日 SEO/GEO 検証レポート発行
+  bug_fixes_count: 0                    # 重大バグなし
+  minor_corrections_count: 3            # OGP / FAQ / アンカー
+
+# ===============================================================
+# WMAO への期待アクション
+# ===============================================================
+expected_wmao_actions:
+  immediate:                            # Day 31 - Day 60
+    - 月間流入レポート発行(月 1 回)
+    - LLM 引用状況のモニタリング(週次)
+    - aileap_v2 ブログで MeetingAI 関連記事 2 本追加
+    - GSC でカテゴリ KW(会議要約 AI / 議事録 自動生成)の順位改善施策
+    - A/B テスト候補リストの実装可否を本組織と相談
+  medium_term:                          # Day 61 - 3 ヶ月
+    - β版申込み件数 50 件達成支援
+    - ロングテール KW 拡張(関連記事の継続追加)
+    - LP コピー改善提案(本組織が実装判断)
+  long_term:                            # 3 ヶ月以降
+    - 正式版リリース時の LP リニューアル支援(本組織が主導)
+    - 競合動向のモニタリング
+
+# ===============================================================
+# 保守 SLA
+# ===============================================================
+maintenance:
+  contract_type: internal               # 自社案件
+  monthly_fee_jpy: 0
+  sla:
+    response_time: 24h
+    resolution_time: 72h
+    uptime_target: 99.5
+  responsibility_split:
+    dpsai_owns:
+      - LP 自体の保守
+      - プロダクト訴求内容更新
+      - 重大改修
+    wmao_owns:
+      - SEO/GEO 月次改善
+      - LP 流入分析
+      - aileap_v2 ブログでの関連記事継続
+
+# ===============================================================
+# 既知の課題
+# ===============================================================
+known_issues:
+  - id: K-001
+    severity: low
+    description: OGP 画像のサブテキスト視認性(SP)— Phase 5 で完了
+    fix_planned: 完了(2026-07-03)
+  - id: K-002
+    severity: low
+    description: スキップリンクスタイル(aileap_v2 と共通)
+    fix_planned: aileap_v2 と一括対応(別タスク)
+
+# ===============================================================
+# Phase I-A 検証メモ
+# ===============================================================
+validation_notes:
+  is_validation_case: true
+  phase_i_a_completion: 2026-05-02      # ドキュメント上の完走日(検証案件としての完了)
+  validation_findings:
+    - aileap_v2 デザインシステム継承運用が成立
+    - フォームスタック流用で実装工数を 50% 削減
+    - A2 軽量フロー(ux-strategy-lead 不在)が成立
+    - 並列案件管理(aileap_v2 + 本案件)が hook で動作確認
+    - /team-landing-page スキルの動作確認
+  agent_invocation_rate:
+    target: 60%                         # A2 では一部対象外で目標も低め
+    achieved_pending_phase_j: true     # Phase J で集計
+
+# ===============================================================
+# WMAO 受領確認(WMAO 側で記入)
+# ===============================================================
+wmao_response:
+  status: pending
+  responding_organization: web-marketing-ai-org
+  response_at: null
+  next_actions: []
+  questions: []
+
+notes: |
+  本案件は v0.3 Phase I-A の検証案件として実装された自社プロダクト LP。
+  aileap_v2 の延長で「2 件目の自社案件」として実施し、継承運用の動作確認を達成。
+
+  partial scope 引継ぎは handoff-protocols.md §8.4 の「自社プロダクト案件」フローに従う。
+  外部クライアント案件への展開時は full scope への切替を検討。

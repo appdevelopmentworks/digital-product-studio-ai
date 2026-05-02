@@ -1,0 +1,64 @@
+# ===============================================================
+# estimate.yaml
+# AILEAP MeetingAI 紹介 LP — internal mode estimate
+# pricing-strategy.md §4.5 に従う
+# ===============================================================
+
+estimate_id: EST-INTERNAL-MTG-001
+project_id: AILEAP-MTG-20260601-001
+created_at: 2026-06-01
+valid_until: 2026-12-01                   # 6 ヶ月先(自社案件は更新サイクル長)
+internal_client: true
+
+# ===============================================================
+# 必須出力(MUST)— pricing-strategy.md §4.5.1
+# ===============================================================
+internal_effort_hours: 60
+phase_breakdown:
+  engagement: 5                            # ヒアリング + 要件 + 見積
+  strategy: 8                              # サイトマップ(簡易)+ コンテンツ戦略
+  design: 12                               # aileap_v2 継承 + LP 固有調整
+  implementation: 18                       # 1 ページ + フォーム
+  qa_launch: 8                             # 3 audit + launch
+  post_launch: 9                           # 30 日サポート
+
+note: |
+  内部プロジェクト — 外部請求なし。工数管理のみ。
+  aileap_v2 のデザインシステム・実装基盤を継承するため、
+  通常の A2 標準工数 45-85h より低めの 60h で見積。
+
+# ===============================================================
+# 推奨出力(SHOULD)— 参考値
+# ===============================================================
+patterns:
+  fixed_price:
+    total_jpy: 350000                     # 参考値:A2 標準レンジ 20-50 万円
+    note: |
+      参考値:外部委託していたら相当の額(機会費用算定用)
+      A2 標準 20-50 万円のレンジ中央付近。aileap_v2 デザイン継承で軽量化。
+  time_and_material:
+    hourly_rate_jpy: 10000
+    estimated_hours: 60
+    ceiling_jpy: 700000
+    note: 参考値
+  retainer:
+    tier: light                           # LP は軽量 Retainer
+    monthly_fee_jpy: 30000
+    note: |
+      参考値:A2 LP の Light tier は月 3-8 万円(pricing-strategy.md §4.1)
+      ただし自社案件のため実契約なし。
+
+# ===============================================================
+# 任意出力(MAY)— 自社のため省略
+# ===============================================================
+# payment_schedule: 省略(支払いなし)
+# change_order_unit_prices: 省略
+# performance_bonus: 省略
+
+# ===============================================================
+# Phase I-A 検証メモ
+# ===============================================================
+validation_notes: |
+  本見積は v0.3 Phase F G-H3(internal mode 仕様)に従って作成。
+  pricing-strategy.md §4.5.4 の「推奨セット込みの例」と整合する形式。
+  commercial-manager の連続運用検証(aileap_v2 → 本案件)としても機能。
