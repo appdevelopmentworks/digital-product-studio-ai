@@ -1,0 +1,138 @@
+# ===============================================================
+# legal-review.yaml
+# AILEAP MeetingAI β版 BE + 管理画面
+# B 系特有: 利用規約 + プライバシーポリシー両方必須(API データ取扱い)
+# ===============================================================
+
+project_id: AILEAP-MTG-BE-20260801-001
+created_at: 2026-08-01
+last_updated_at: 2026-11-04
+
+requires_lawyer_review: true                  # B 系 + 個人情報(録音)取扱い
+overall_lawyer_confirmation: true             # 公開前に達成
+
+# ===============================================================
+# ページ別の弁護士確認状態
+# ===============================================================
+pages_reviewed:
+
+  - page: privacy_policy
+    required: true                            # 必須(録音データ + LLM API 送信)
+    lawyer_confirmation: true
+    template_used: docs/templates/privacy-policy-template.md
+    lawyer_name: 山田 太郎(仮)
+    lawyer_firm: 〇〇法律事務所(仮)
+    bar_registration_no: 第12345号(仮)
+    reviewed_at: 2026-08-12
+    review_method: written_opinion
+    evidence_path: 00-engagement/legal-evidence/privacy-2026-08-12.pdf
+    review_notes: |
+      MeetingAI の独自要件:
+      - 会議録音の保存 / 削除ポリシー
+      - LLM API 提供事業者(Anthropic / OpenAI)へのデータ送信
+      - 学習データ非利用の明示
+      - GDPR 配慮(将来の海外展開向け)
+      aileap_v2 の privacy_policy をベースに上記拡張条項を追加 → 弁護士確認。
+    publish_blocked: false
+    extends_from: aileap_v2
+
+  - page: terms_of_service
+    required: true                            # ★ B 系では必須(会員機能 + API 利用)
+    lawyer_confirmation: true
+    template_used: docs/templates/terms-of-service-template.md
+    lawyer_name: 山田 太郎(仮)
+    lawyer_firm: 〇〇法律事務所(仮)
+    reviewed_at: 2026-08-12
+    review_method: written_opinion
+    evidence_path: 00-engagement/legal-evidence/terms-2026-08-12.pdf
+    review_notes: |
+      β版独自条項:
+      - 会員登録規約(招待制)
+      - β版利用条件 / 提供義務の限定
+      - データ取扱い(録音 / 要約結果の所有権 = ユーザー)
+      - 損害賠償条項(β版のため上限設定)
+      - サービス停止条件(β版終了 → 正式版移行 / kill 判断)
+      - 禁止事項(reverse engineering / 再販等)
+      弁護士確認済。
+    publish_blocked: false
+
+  - page: tokushoho
+    required: false                           # β版は無料のため不要
+    lawyer_confirmation: false
+    template_used: null
+    review_notes: |
+      β版は完全無料のため特商法対象外。
+      正式版(2026 Q4 / 課金開始)時に必須化。
+    publish_blocked: false
+    skip_reason: not-applicable-to-beta
+
+# ===============================================================
+# 弁護士確認手配
+# ===============================================================
+lawyer_engagement:
+  vendor: 〇〇法律事務所(仮)— aileap_v2 と同一
+  engagement_status: completed
+  estimated_cost_jpy: 150000                 # 拡張確認のため追加発生
+  notes: |
+    aileap_v2 の弁護士事務所に MeetingAI 拡張確認を依頼。
+    privacy_policy 拡張 + 新規 terms_of_service の 2 点で 15 万円。
+
+# ===============================================================
+# 業種特殊性
+# ===============================================================
+industry_specific_compliance:
+  applicable_regulations:
+    - 個人情報保護法(録音データ取扱い)
+    - GDPR 配慮(将来海外展開時)
+  notes: |
+    SaaS 一般的な適用範囲。
+    医療 / 金融特化機能はないため業界別規制は対象外。
+
+# ===============================================================
+# 公開前チェックリスト
+# ===============================================================
+pre_launch_checklist:
+  - item: privacy_policy が lawyer_confirmation: true(MeetingAI 拡張版)
+    status: completed
+    blocker_for_launch: true
+    completed_at: 2026-08-12
+  - item: terms_of_service が lawyer_confirmation: true
+    status: completed
+    blocker_for_launch: true
+    completed_at: 2026-08-12
+  - item: 個人情報保護管理者の氏名・役職を確定
+    status: completed
+    blocker_for_launch: true
+    completed_at: 2026-08-12
+  - item: フォーム送信時の同意文言設定(録音データ提供同意含む)
+    status: completed
+    blocker_for_launch: true
+    completed_at: 2026-09-26
+
+# ===============================================================
+# 検証メモ(Phase I-B 特有)
+# ===============================================================
+validation_notes: |
+  B 系では terms_of_service が必須(A 系では任意)。
+  legal-pages-check.sh の B 系分岐動作確認:
+  - PROJECT.md::type = B1 → terms_of_service 必須化が動作するか
+  - 既存 hook では A3 / B* / payment* で tokushoho 必須化のみ実装(legal-pages-check.sh §94-118)
+  - terms_of_service の B 系必須化は v0.4 で hook 拡張する余地
+
+  /legal-review-record スキルの動作確認:
+  - 1 案件で 2 ページ(privacy + terms)の確認記録が必要
+  - スキル設計(SKILL.md)では 1 ページずつ実行を想定 → 連続 2 回実行で対応 OK
+
+# ===============================================================
+# B 系プロダクトの法務ロードマップ(申し送り)
+# ===============================================================
+b_series_legal_roadmap:
+  beta_phase:
+    pages: [privacy_policy, terms_of_service]
+    status: completed
+  paid_launch_phase:                          # 正式版(2026 Q4 想定)
+    pages: [privacy_policy 改訂, terms_of_service 改訂, tokushoho 新規]
+    note: 課金機能追加時に弁護士再確認 + 特商法ページ追加が必須
+  international_expansion:                    # 将来の海外展開
+    pages: [privacy_policy 国際版, GDPR 完全準拠, COPPA 対応]
+    note: 海外展開判断時に v0.4 以降で対応

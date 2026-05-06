@@ -1,0 +1,144 @@
+# ===============================================================
+# approvals.yaml
+# AILEAP MeetingAI β版 BE + 管理画面
+# B 系特有: PMF Gate(APV-005)を必須化
+# Phase I-B 完走時点(2026-11-04)で全 APV 確定
+# ===============================================================
+
+project_id: AILEAP-MTG-BE-20260801-001
+created_at: 2026-08-01
+last_updated_at: 2026-11-04
+
+approvals:
+
+  - id: APV-001
+    type: requirements_approval
+    status: approved
+    subject: "要件定義 + product-strategy 承認(MeetingAI BE)"
+    requested_by: product-director
+    requested_at: 2026-08-15
+    artifact_refs:
+      - "01-discovery/requirements-v0.md"
+      - "01-discovery/product-discovery.md"
+      - "02-strategy/product-strategy.md"
+      - "02-strategy/product-roadmap.md"
+    approval_method: written+followup
+    approved_by: Shin
+    approved_at: 2026-08-15
+    notes: B 系のため product-director 主導で起案。
+
+  - id: APV-002
+    type: estimate_approval
+    status: approved
+    subject: "内部工数見積(320h)承認"
+    requested_by: commercial-manager
+    requested_at: 2026-08-04
+    artifact_refs:
+      - "00-engagement/estimate.yaml"
+      - "00-engagement/sow.md"
+    approval_method: written+followup
+    approved_by: Shin
+    approved_at: 2026-08-04
+    notes: |
+      internal mode + B 系単価適用。
+      4 スプリント × 80h + Discovery/Strategy 40h + API設計 24h + QA 20h + Launch 8h = 320h。
+
+  - id: APV-003
+    type: design_approval
+    status: approved
+    subject: "API 設計 + DB スキーマ承認(B 系特有)"
+    requested_by: backend-engineer
+    requested_at: 2026-08-15
+    artifact_refs:
+      - "03-design/api-spec.md"
+      - "03-design/database-schema.md"
+      - "03-design/design-notes.md"           # 管理画面 UI(aileap_v2 継承)
+    approval_method: written+followup
+    approved_by: Shin
+    approved_co_signers:
+      - product-director                       # B 系のため product-director も co-sign
+      - backend-lead
+    approved_at: 2026-08-15
+    notes: |
+      B 系の design_approval は API + DB スキーマが核心。
+      backend-engineer 主担当 + backend-lead レビュー + product-director の product-fit 確認。
+
+  - id: APV-004
+    type: sprint_review_approval
+    status: approved
+    subject: "Sprint 02 完了レビュー(録音 upload + Whisper 統合)"
+    requested_by: product-manager
+    requested_at: 2026-09-12
+    artifact_refs:
+      - "04-implementation/sprint-plans/sprint-02.md"
+    approval_method: sprint_demo
+    approved_by: Shin
+    approved_co_signers:
+      - product-director
+    approved_at: 2026-09-12
+    notes: |
+      録音アップロード + Whisper 統合の demo を Shin に確認。
+      要約 API は Sprint 03 着手 — PMF gate 前の中間チェックポイント。
+
+  - id: APV-005
+    type: pmf_gate_approval                   # ★ B 系特有・最重要 APV
+    status: approved
+    subject: "Week 4 PMF Gate — continue 判断"
+    requested_by: product-director
+    requested_at: 2026-09-13
+    artifact_refs:
+      - "06-handoff/pmf-validation-week-4.md"
+    approval_method: pmf_review_meeting
+    approved_by: Shin
+    approved_at: 2026-09-13
+    decision: continue                         # continue | pivot | kill
+    decision_rationale: |
+      Week 4 時点で 5 名のテストユーザー(社内 + 親しい外部)から要約品質 4.2/5.0 評価。
+      LP 申込み 50 名のうち 32 名が「βテストに参加したい」と返信。
+      anti-hypothesis(LP 申込み 50 名中実利用 10 名未満)は回避できそう。
+      → Sprint 03 着手 → 公開へ進む。
+    notes: |
+      Phase I-B の最重要承認。pmf-validation スキルの動作確認も兼ねる。
+      kill 時は本案件停止 + decisions.yaml に記録 → 別 roadmap 起案。
+
+  - id: APV-006
+    type: launch_approval
+    status: approved
+    subject: "β版公開最終承認(MeetingAI BE)"
+    requested_by: delivery-director
+    requested_at: 2026-10-04
+    artifact_refs:
+      - "05-launch/launch-checklist.md"
+      - "05-qa/e2e-test-plan.md"
+      - "05-qa/accessibility-audit.md"
+      - "04-implementation/infra-plan.md"
+    approval_method: written+followup
+    approved_by: Shin
+    approved_co_signers:
+      - product-director
+      - backend-lead
+    approved_at: 2026-10-04
+    notes: |
+      B 系のため公開承認は backend-lead + product-director の co-sign 必須。
+      E2E テスト 完全 pass / Lighthouse(管理画面)90+ / API レイテンシ p95 < 30 秒 を確認。
+      公開日: 2026-10-05。
+
+# ===============================================================
+# サマリー
+# ===============================================================
+summary:
+  total_count: 6
+  pending_count: 0
+  approved_count: 6
+  rejected_count: 0
+  waived_count: 0
+  pmf_gate_decision: continue                 # B 系特有のフィールド
+
+phase_i_b_completion:
+  completed_at: 2026-11-04
+  all_approved: true
+  launch_date: 2026-10-05
+  pmf_gate_date: 2026-09-13
+  pmf_decision: continue
+  post_launch_phase_5_end: 2026-11-04
+  wmao_handoff_scope: none                    # B 系のため引継ぎなし

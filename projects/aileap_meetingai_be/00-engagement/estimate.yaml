@@ -1,0 +1,82 @@
+# ===============================================================
+# estimate.yaml
+# AILEAP MeetingAI β版 BE + 管理画面 — internal mode estimate
+# pricing-strategy.md §2.2(B 系参考レンジ)+ §4.5(internal mode)
+# ===============================================================
+
+estimate_id: EST-INTERNAL-MTG-BE-001
+project_id: AILEAP-MTG-BE-20260801-001
+created_at: 2026-08-01
+valid_until: 2027-02-01                     # 6 ヶ月先(自社案件)
+internal_client: true
+
+# ===============================================================
+# 必須出力(MUST)— pricing-strategy.md §4.5.1
+# ===============================================================
+internal_effort_hours: 320                  # 4 スプリント × 80h/sprint(チーム合計)
+phase_breakdown:
+  engagement: 8                             # 受領 + 要件確定 + estimate
+  product_discovery: 16                     # product-director の Discovery
+  product_strategy_roadmap: 24              # product-strategy + roadmap + user-stories
+  api_design: 24                            # api-spec + database-schema
+  sprint_01_setup: 60                       # インフラ + 認証 + 基本 CRUD
+  sprint_02_recording: 60                   # 録音 upload + Whisper 統合
+  sprint_03_summary: 60                     # LLM 要約 + 議事録 PDF
+  sprint_04_dashboard: 40                   # 管理画面 + 利用統計
+  qa: 20                                    # E2E + 統合テスト
+  launch: 8
+
+note: |
+  内部プロジェクト — 外部請求なし。工数管理のみ。
+  B1 SaaS MVP 標準 3 ヶ月(480h+)を 2 ヶ月(320h)に圧縮:
+  - 認証・DB は Supabase 採用で実装工数 -30%
+  - LP / aileap_v2 のスタック流用で開発環境構築 -50%
+  - フロントエンドは管理画面のみ(ユーザー UI は最小限の Web ページ)
+
+# ===============================================================
+# 推奨出力(SHOULD)— 参考値(pricing-strategy.md §2.2 B1 レンジ)
+# ===============================================================
+patterns:
+  fixed_price:
+    total_jpy: 4500000                      # 参考値:B1 標準 300-800 万円のレンジ低め
+    note: |
+      参考値:外部委託していたら相当の額。
+      B1 SaaS MVP 標準 300-800 万円のレンジ低め(450 万円)— Supabase / Vercel / 既存スタック流用。
+  time_and_material:
+    hourly_rate_jpy: 14000                  # B 系は単価上げ(技術難易度を反映)
+    estimated_hours: 320
+    ceiling_jpy: 5000000
+    note: 参考値
+  retainer:
+    tier: enterprise                        # B 系は Enterprise 相当
+    monthly_fee_jpy: 600000                 # 参考値:B 系 Retainer 標準 30-100 万円
+    note: |
+      参考値:正式版以降の継続運用相当(本案件期間中は Phase 5 のみ)。
+      自社案件のため実契約なし。
+
+# ===============================================================
+# 任意出力(MAY)— 自社のため省略 / B 系の場合は performance_bonus は省略
+# ===============================================================
+
+# ===============================================================
+# B 系特有の見積メモ
+# ===============================================================
+b_series_notes:
+  sprint_velocity_assumption: 80            # h/sprint(チーム合計工数)
+  sprint_count: 4
+  pmf_gate_buffer_hours: 24                 # PMF gate week 4 の判断 + pivot 余裕
+  out_of_scope_explicit:
+    - チーム / ワークスペース機能
+    - Slack / Teams 連携
+    - SSO
+    - 課金機能
+  llm_api_cost_estimate_jpy_monthly: 50000  # Claude / GPT-4 API β版ユーザー 50 名想定
+  hosting_cost_estimate_jpy_monthly: 30000  # Vercel + Supabase Pro 相当
+
+# ===============================================================
+# Phase I-B 検証メモ
+# ===============================================================
+validation_notes: |
+  本見積は B 系初の internal mode estimate。
+  pricing-strategy.md §4.5(internal mode 仕様)+ §2.2(B 系単価レンジ)を統合適用。
+  commercial-manager の B 系見積パターン動作確認を兼ねる。

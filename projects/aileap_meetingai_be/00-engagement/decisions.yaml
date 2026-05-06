@@ -1,0 +1,231 @@
+# ===============================================================
+# decisions.yaml
+# AILEAP MeetingAI β版 BE + 管理画面 — B 系の主要決定ログ
+# ===============================================================
+
+project_id: AILEAP-MTG-BE-20260801-001
+created_at: 2026-08-01
+last_updated_at: 2026-11-04
+
+decisions:
+
+  - id: DEC-001
+    type: scope
+    title: 案件タイプを B1 SaaS MVP に確定
+    decided_at: 2026-08-01
+    decided_by:
+      - role: studio-director
+        name: studio-director
+      - role: product-director
+        name: product-director(B 系のため受領担当に追加)
+      - role: 決裁者
+        name: Shin
+    proposed_by: studio-director
+    impacted_agents: [全 B 系エージェント]
+    related_artifacts: [PROJECT.md]
+    context: aileap_meetingai_lp(LP)で集めた申込みを実プロダクトで提供する必要。
+    decision_rationale: |
+      MVP として β版バックエンド + 管理画面で必要最小機能のみ実装。
+      正式版以降の拡張は別案件 / 継続スプリントで対応。
+    consequences:
+      positive: [B 系新規エージェント 5 体の実戦投入, PMF 検証の実施]
+      negative: [本組織内継続運用が前提となる(WMAO 引継ぎなし)]
+      mitigation: [WMAO 引継ぎなし方針を事前に明示(handoff-protocols.md §8.4)]
+    review_required_by: null
+    superseded_by: null
+
+  - id: DEC-002
+    type: process
+    title: スプリント長 2 週間 × 4 スプリント = 8 週間
+    decided_at: 2026-08-04
+    decided_by:
+      - role: product-director
+        name: product-director
+      - role: product-manager
+        name: product-manager
+      - role: backend-lead
+        name: backend-lead
+      - role: 決裁者
+        name: Shin
+    proposed_by: product-manager
+    impacted_agents: [product-manager, backend-engineer, devops-engineer, qa-engineer]
+    related_artifacts: [04-implementation/sprint-plans/]
+    context: B1 MVP を 2 ヶ月で完走するための sprint cadence 確定。
+    decision_rationale: |
+      B 系標準 2 週間 sprint(agent-coordination-map.md §11.5)を採用。
+      4 スプリントで Sprint 01: setup / Sprint 02: 録音 / Sprint 03: 要約 / Sprint 04: 管理画面。
+      PMF gate を Sprint 03 着手前(Week 4 = 2026-09-13)に配置。
+    consequences:
+      positive: [規律的な進行, PMF gate のタイミング確定]
+      negative: [Sprint 04 が短縮(3 日)になる]
+      mitigation: [Sprint 04 のスコープを管理画面のみに限定]
+
+  - id: DEC-003
+    type: pmf_gate
+    title: PMF Gate を Week 4(Sprint 03 着手前)に設定
+    decided_at: 2026-08-04
+    decided_by:
+      - role: product-director
+        name: product-director
+      - role: 決裁者
+        name: Shin
+    proposed_by: product-director
+    impacted_agents: [全 B 系エージェント]
+    related_artifacts:
+      - "06-handoff/pmf-validation-week-4.md"
+    context: B 系の PMF 判断を機能追加前(Sprint 03 = LLM 要約)に実施することで pivot/kill コスト最小化。
+    decision_rationale: |
+      handoff-protocols.md §8.5 / agent-coordination-map.md §11.6 の B 系 PMF Gate 規定。
+      Sprint 02 完了時点(録音 upload + Whisper)で「要約品質」を Shin が評価。
+      4.0/5.0 未達なら Sprint 03 着手を停止 → プロンプトチューニング後に再評価。
+    consequences:
+      positive: [pivot/kill コスト最小化]
+      negative: [Sprint 03 開始のリスク]
+      mitigation: [Sprint 02 完了デモを充実させる]
+
+  - id: DEC-004
+    type: technical
+    title: 技術スタックを Next.js 14 + Supabase + Vercel に確定
+    decided_at: 2026-08-08
+    decided_by:
+      - role: technology-director
+        name: technology-director
+      - role: backend-lead
+        name: backend-lead
+      - role: 決裁者
+        name: Shin
+    proposed_by: backend-lead
+    impacted_agents: [backend-engineer, devops-engineer, frontend-engineer]
+    related_artifacts: [04-implementation/architecture-notes.md]
+    context: B1 MVP に最適なスタックの選定。
+    decision_rationale: |
+      - Next.js 14: aileap_v2 / aileap_meetingai_lp と整合 + 管理画面 UI
+      - Supabase: Postgres + Auth + Storage + Realtime が一体 → 実装工数 -30%
+      - Vercel: 既存運用との整合 + Edge Function で API 配信
+      LLM API は Anthropic Claude(主) + OpenAI Whisper(音声 → テキスト)
+    consequences:
+      positive: [実装工数削減, 既存運用との整合]
+      negative: [Supabase Pro プラン費用が発生(月 25 USD〜)]
+      mitigation: [β版規模では Free プランでも対応可能・正式版で Pro 移行]
+
+  - id: DEC-005
+    type: technical
+    title: 認証方式を招待制 + パスワードレス(マジックリンク)に確定
+    decided_at: 2026-08-12
+    decided_by:
+      - role: backend-lead
+        name: backend-lead
+      - role: backend-engineer
+        name: backend-engineer
+      - role: product-director
+        name: product-director
+    proposed_by: backend-engineer
+    impacted_agents: [backend-engineer, devops-engineer, qa-engineer]
+    related_artifacts: [03-design/api-spec.md]
+    context: β版ユーザー認証フローの確定。
+    decision_rationale: |
+      Supabase Auth の magic link を採用:
+      - パスワードレス → セキュリティ + UX 両立
+      - 招待制で β版ユーザー数を制御
+      - 実装工数最小(Supabase の標準機能)
+      SSO は v2.0 で対応(出口に応じた拡張)。
+    consequences:
+      positive: [実装工数最小, セキュリティ高い]
+      negative: [メール到達 SLA(数秒〜数十秒)依存]
+      mitigation: [メール送信は Supabase + Resend の二重化で信頼性確保]
+
+  - id: DEC-006
+    type: technical
+    title: 録音処理を非同期(キュー経由)に確定
+    decided_at: 2026-08-22
+    decided_by:
+      - role: backend-engineer
+        name: backend-engineer
+      - role: backend-lead
+        name: backend-lead
+      - role: devops-engineer
+        name: devops-engineer
+    proposed_by: backend-engineer
+    impacted_agents: [backend-engineer, devops-engineer, qa-engineer]
+    related_artifacts: [03-design/api-spec.md, 04-implementation/infra-plan.md]
+    context: 60 分録音の処理時間が 5-15 分かかるため、同期 API では timeout。
+    decision_rationale: |
+      アップロード成功 → ジョブキュー投入 → 完了通知の非同期パターン:
+      1. POST /api/recordings → Supabase Storage アップロード + ジョブキュー登録 → 即時 200
+      2. ワーカー(Vercel Cron / Inngest)が Whisper → Claude で処理
+      3. 完了時にユーザーへ通知メール + Web 画面で表示
+    consequences:
+      positive: [API timeout 回避, ユーザー UX 良い]
+      negative: [完了までに時間差発生]
+      mitigation: [進捗バー UI で「処理中」状態を可視化]
+
+  - id: DEC-007
+    type: handoff
+    title: WMAO 引継ぎを none scope に確定(B 系特殊)
+    decided_at: 2026-08-04
+    decided_by:
+      - role: product-director
+        name: product-director
+      - role: delivery-director
+        name: delivery-director
+      - role: 決裁者
+        name: Shin
+    proposed_by: product-director
+    impacted_agents: [delivery-director, WMAO 受領担当(参考)]
+    related_artifacts: [PROJECT.md, 06-handoff/dpsai-to-wmao-handoff.yaml]
+    context: handoff-protocols.md §8.4 の B 系自社プロダクトフロー適用。
+    decision_rationale: |
+      自社プロダクトの SaaS 本体は本組織内継続運用が原則。
+      集客・LP 改善は aileap_meetingai_lp 案件側で WMAO に partial 引継ぎ済。
+      本案件(SaaS 本体)は WMAO 関与なし。
+    consequences:
+      positive: [プロダクト責任の所在が明確]
+      negative: [WMAO の知見が SaaS 本体に流れない]
+      mitigation: [将来 WMAO の AI 機能(SaaS 化)経験を逆輸入する余地]
+
+  - id: DEC-008
+    type: pmf_gate
+    title: Week 4 PMF Gate 結果 — continue 判断
+    decided_at: 2026-09-13
+    decided_by:
+      - role: product-director
+        name: product-director
+      - role: 決裁者
+        name: Shin
+    proposed_by: product-director
+    impacted_agents: [全 B 系エージェント]
+    related_artifacts:
+      - "06-handoff/pmf-validation-week-4.md"
+    context: APV-005(PMF Gate)の結果記録。
+    decision_rationale: |
+      pmf-validation スキルで以下を確認:
+      - 5 名テストユーザーから要約品質 4.2/5.0 評価(目標 4.0 達成)
+      - LP 申込み 50 名のうち 32 名が「βテスト参加意向」(目標 30 以上)
+      - anti-hypothesis(実利用 10 名未満)は明確に回避見込み
+      → Sprint 03 着手 → 公開へ進む。
+    consequences:
+      positive: [Sprint 03 着手 / 計画通り進行]
+      negative: []
+      mitigation: []
+
+# ===============================================================
+# サマリー(Phase I-B 完走時点)
+# ===============================================================
+summary:
+  total_count: 8
+  by_type:
+    scope: 1
+    process: 1
+    pmf_gate: 2                              # B 系特有
+    technical: 3
+    handoff: 1
+  active_count: 8
+  superseded_count: 0
+  pending_review_count: 0
+
+# ===============================================================
+# B 系特有の DEC タイプ追記
+# ===============================================================
+b_series_decision_types_used:
+  - pmf_gate                                  # PMF 関連の判断(Phase I-B 新規)
+  - process                                   # スプリント運営の決定

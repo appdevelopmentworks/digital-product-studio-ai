@@ -1,0 +1,152 @@
+# ===============================================================
+# apex-to-dpsai-handoff.yaml
+# AILEAP MeetingAI β版 BE + 管理画面(B 系・自社プロダクト疑似ハンドオフ)
+# handoff-protocols.md §8.2 / §8.3 の B 系 + internal product フローを採用
+# ===============================================================
+
+handoff_id: APX-INTERNAL-MTG-BE-001
+protocol: handoff-from-strategy
+version: 0.3
+from:
+  organization: aileap-internal             # apex 経由ではなく内部
+  agent: Shin                               # 直接依頼
+  timestamp: 2026-08-01T10:00:00+09:00
+to:
+  organization: digital-product-studio-ai
+  agent: studio-director
+  # ★ B 系のため product-director を Tier 1 受領担当に追加(handoff-protocols.md §8.1)
+  additional_receivers:
+    - product-director                      # PMF 判断 + roadmap 主担当
+status: accepted
+
+# ===============================================================
+# クライアント情報
+# ===============================================================
+client:
+  name: 株式会社 AILEAP(MeetingAI 事業部)
+  industry: AI / SaaS / B2B
+  size: SME(中小企業向け SaaS)
+  decision_maker:
+    name: Shin
+    role: AILEAP 代表 / MeetingAI プロダクト責任者
+    contact: shin@aileap.example
+  stakeholders:
+    - name: Shin
+      role: クライアント役 + プロダクト責任者 + PMF 判断者
+      relationship: 自社代表
+
+# ===============================================================
+# 戦略文脈(Shin が起案)
+# ===============================================================
+strategic_context:
+  business_objective: |
+    aileap_meetingai_lp(LP)で β版申込みを獲得する仕組みは整った。
+    本案件で実際の MeetingAI β版本体を提供できるようにする。
+    PMF 検証を経て正式版(2026 Q4)へ移行する判断材料を取得することが本案件の核。
+  target_audience: |
+    主読者(β版利用者): 中堅企業のバックオフィス担当者 + スタートアップ初期メンバー
+    LP 申込者(50 件想定)から 30 件を実利用に転換することが Week 4 PMF 判断の基準。
+  competitive_position: |
+    Notta / tl;dv / Otter.ai / MeetGeek 等の既存サービスに対して
+    日本語特化精度 + AILEAP 自身の AI Native 運用ノウハウで差別化。
+    β版を経て「日本語特化 + 中堅企業ワークフロー対応」の独自ポジションを確立。
+  digital_strategy: |
+    LP からの申込み獲得 → β版提供 → ユーザー満足度測定 → 正式版価格設定。
+    本案件は 4 番目までの「PMF 検証」フェーズに該当する。
+  why_web: |
+    SaaS のため Web プラットフォームが本体。LP は集客装置、本案件はプロダクト本体。
+
+# ===============================================================
+# プロジェクトブリーフ(B 系)
+# ===============================================================
+project_brief:
+  recommended_channels:
+    - web                                   # 管理画面 + ユーザー Web UI
+    - api                                   # 録音アップロード + 要約取得 API
+  project_type:
+    primary: B1                             # SaaS MVP
+    fallback: B1                            # 代替不要
+  kgi:
+    - β版アクティブユーザー 20+ / Week 4(WAU)
+    - 録音 → 要約完了率 90%+
+  budget_range:
+    min: 0                                  # 内部案件
+    max: 0
+    currency: JPY
+    note: 自社プロダクトのため工数管理のみ
+  timeline:
+    desired_launch: 2026-09-30              # 2 ヶ月想定(B1 標準 3 ヶ月から圧縮)
+    flexibility: hard                       # PMF gate のため期日厳守
+  constraints:
+    - aileap_v2 / aileap_meetingai_lp と同一スタック(Next.js / Vercel)
+    - データベース: Supabase(Postgres + Auth + Storage 一体)
+    - LLM API: 既存 Claude / GPT-4 アカウント流用
+    - 認証は招待制パスワードレス(SSO は v2.0)
+
+# ===============================================================
+# B 系特有フィールド(handoff-protocols.md §8.2)
+# ===============================================================
+product_specifics:
+  target_user_persona: |
+    名前: 田中花子(仮)
+    職種: 中堅企業(従業員 80 名)の経営企画担当
+    課題: 週 5 件の経営会議の議事録作成に毎週 4-5 時間
+    技術リテラシー: 中(Web ツールに慣れている / API は使わない)
+  jtbd: |
+    会議の録音を投げるだけで議事録を生成し、Slack / Teams で共有したい。
+    検索機能で過去の会議内容を引ける状態にしたい。
+  value_hypothesis: |
+    AILEAP の日本語特化精度(95%)+ 中堅企業ワークフローへの最適化により、
+    既存サービス(Notta / tl;dv)では満たせない「日本語の会議要約品質」と
+    「中堅企業向けの即実用性」を提供できる。β版で 30 件以上の継続利用が
+    あれば PMF が成立すると判断。
+  anti_hypothesis: |
+    以下のいずれかが起きたら本案件は pivot or kill:
+    1. β版申込み 50 件のうち実利用が 10 件未満(関心度低い)
+    2. 要約精度が 4.0/5.0 を継続的に下回る(品質が市場要求未達)
+    3. 中堅企業ユーザーが「中堅企業向け機能」より「個人向け機能」を要求(セグメント誤り)
+  desired_mvp_scope: |
+    最小学習可能範囲(MVP):
+    - 招待制ユーザー登録
+    - 録音アップロード → 自動要約
+    - 議事録 PDF 出力
+    - 簡易な利用統計ダッシュボード(管理者用)
+    まずはこの範囲で 4 週間運用し PMF 判断する。
+  success_metrics:
+    - metric: WAU(Week 4)
+      threshold: 20
+      measurement_window: Week 4 計測値
+    - metric: 録音 → 要約完了率
+      threshold: 90%
+      measurement_window: Week 1-4 累計
+    - metric: 平均要約精度(自己評価)
+      threshold: 4.0 / 5.0
+      measurement_window: Week 4 までのアンケート
+    - metric: 議事録共有 → Slack/Teams 連携率
+      threshold: 50%
+      measurement_window: 連携機能実装後 2 週間(v1.5 機能扱い・本案件スコープ外だが PMF 判断材料)
+
+# ===============================================================
+# 添付資料
+# ===============================================================
+attachments:
+  - path: ../aileap_meetingai_lp/02-strategy/content-strategy.md
+    type: content_strategy
+    description: 親案件 LP のコンテンツ戦略(プロダクト訴求の根拠)
+  - path: ../aileap_v2/03-design/design-system.md
+    type: design_system
+    description: 管理画面 UI で継承するデザインシステム
+  - path: ../aileap_meetingai_lp/02-strategy/seo-geo-strategy.md
+    type: seo_geo_strategy
+    description: LP の SEO/GEO 戦略(本案件の管理画面は noindex / SaaS 本体)
+
+notes: |
+  本案件は AILEAP の自社プロダクト第 1 号として、PMF 検証を含めた完全な B1 SaaS MVP 案件。
+  Phase I-B の検証目的:
+  - B 系新規エージェント 5 体の本格動員
+  - B 系新規スキル 5 個の動作確認
+  - PMF gate(Week 4)を実 Shin 判断で動かす
+  - WMAO 引継ぎなしの本組織内継続運用パターンの実証
+
+  並列案件 3 件目(aileap_v2 + aileap_meetingai_lp + 本案件)で
+  DPSAI_MAX_PARALLEL_PROJECTS=3 の上限テストも兼ねる。

@@ -1,0 +1,301 @@
+# ===============================================================
+# backlog.yaml — AILEAP MeetingAI β版 BE
+# product-manager 主担当(B 系新規)
+# user-stories.md の machine-readable 版
+# ===============================================================
+
+version: 1
+project_id: AILEAP-MTG-BE-20260801-001
+last_groomed: 2026-08-15
+
+# ===============================================================
+# Sprint 01 ストーリー(完了)
+# ===============================================================
+backlog:
+
+  - id: STORY-001
+    epic: infra
+    title: Supabase project 初期化 + RLS 設計
+    description: |
+      Supabase project 作成 + 全主要テーブルに RLS policy 設定
+    acceptance_criteria:
+      - Supabase project 作成済
+      - users / recordings / transcripts / summaries に RLS
+      - 他ユーザー record アクセス不可テスト pass
+    estimate_hours: 6
+    priority: P0
+    status: done
+    sprint: sprint-01
+    owner: devops-engineer
+    blocked_by: []
+    related_decisions: [DEC-004]
+
+  - id: STORY-002
+    epic: auth
+    title: Next.js + Supabase Auth(magic link)実装
+    description: |
+      magic link 認証フロー全体実装
+    acceptance_criteria:
+      - /login で email 入力 → magic link 送信
+      - /auth/callback でセッション確立
+      - 招待されていないメールは送信拒否
+    estimate_hours: 12
+    priority: P0
+    status: done
+    sprint: sprint-01
+    owner: backend-engineer
+    related_decisions: [DEC-005]
+
+  - id: STORY-003
+    epic: admin
+    title: 招待発行管理画面
+    acceptance_criteria:
+      - /admin/invite で email 入力 → 発行
+      - invitations テーブルに記録
+      - Resend 経由でメール送信
+    estimate_hours: 8
+    priority: P0
+    status: done
+    sprint: sprint-01
+    owner: backend-engineer
+
+  - id: STORY-004
+    epic: data
+    title: User / Invitation / Recording テーブル + 基本 CRUD
+    estimate_hours: 8
+    priority: P0
+    status: done
+    sprint: sprint-01
+    owner: backend-engineer
+
+  - id: STORY-005
+    epic: infra
+    title: Vercel 本番環境設定 + 環境変数
+    estimate_hours: 4
+    priority: P0
+    status: done
+    sprint: sprint-01
+    owner: devops-engineer
+
+  - id: STORY-006
+    epic: infra
+    title: CI/CD(GitHub Actions)
+    estimate_hours: 6
+    priority: P0
+    status: done
+    sprint: sprint-01
+    owner: devops-engineer
+
+# ===============================================================
+# Sprint 02
+# ===============================================================
+  - id: STORY-007
+    epic: recording
+    title: 録音アップロード API
+    estimate_hours: 12
+    priority: P0
+    status: done
+    sprint: sprint-02
+    owner: backend-engineer
+    related_decisions: [DEC-006]
+
+  - id: STORY-008
+    epic: infra
+    title: Inngest ジョブキュー設定
+    estimate_hours: 8
+    priority: P0
+    status: done
+    sprint: sprint-02
+    owner: devops-engineer
+    co_owners: [backend-engineer]
+
+  - id: STORY-009
+    epic: ml
+    title: Whisper API 統合 + 文字起こし保存
+    estimate_hours: 16
+    priority: P0
+    status: done
+    sprint: sprint-02
+    owner: backend-engineer
+
+  - id: STORY-010
+    epic: ui
+    title: ユーザー UI(録音 upload + 進捗表示)
+    estimate_hours: 12
+    priority: P0
+    status: done
+    sprint: sprint-02
+    owner: frontend-engineer
+
+  - id: STORY-011
+    epic: qa
+    title: E2E テスト基盤
+    estimate_hours: 8
+    priority: P0
+    status: done
+    sprint: sprint-02
+    owner: qa-engineer
+
+# ===============================================================
+# Sprint 03
+# ===============================================================
+  - id: STORY-012
+    epic: ml
+    title: Claude API 統合 + プロンプトチューニング
+    estimate_hours: 16
+    priority: P0
+    status: done
+    sprint: sprint-03
+    owner: backend-engineer
+    co_owners: [product-director]    # プロンプトチューニング監修
+
+  - id: STORY-013
+    epic: data
+    title: 構造化議事録の保存(JSONB)
+    estimate_hours: 8
+    priority: P0
+    status: done
+    sprint: sprint-03
+    owner: backend-engineer
+
+  - id: STORY-014
+    epic: pdf
+    title: 議事録 PDF 生成
+    estimate_hours: 12
+    priority: P0
+    status: done
+    sprint: sprint-03
+    owner: backend-engineer
+
+  - id: STORY-015
+    epic: ui
+    title: 議事録閲覧 UI
+    estimate_hours: 12
+    priority: P0
+    status: done
+    sprint: sprint-03
+    owner: frontend-engineer
+
+  - id: STORY-016
+    epic: notification
+    title: 完了通知メール
+    estimate_hours: 4
+    priority: P0
+    status: done
+    sprint: sprint-03
+    owner: backend-engineer
+
+  - id: STORY-017
+    epic: qa
+    title: E2E テスト(録音 → 要約 → PDF)
+    estimate_hours: 8
+    priority: P0
+    status: done
+    sprint: sprint-03
+    owner: qa-engineer
+
+# ===============================================================
+# Sprint 04
+# ===============================================================
+  - id: STORY-018
+    epic: admin
+    title: 管理画面ダッシュボード
+    estimate_hours: 12
+    priority: P0
+    status: done
+    sprint: sprint-04
+    owner: frontend-engineer
+    co_owners: [backend-engineer]
+
+  - id: STORY-019
+    epic: admin
+    title: 利用統計 API + UI
+    estimate_hours: 12
+    priority: P0
+    status: done
+    sprint: sprint-04
+    owner: backend-engineer
+    co_owners: [frontend-engineer]
+
+  - id: STORY-020
+    epic: cost
+    title: LLM コスト集計
+    estimate_hours: 4
+    priority: P1
+    status: done
+    sprint: sprint-04
+    owner: backend-engineer
+
+  - id: STORY-021
+    epic: infra
+    title: 監視 / アラート(Sentry / UptimeRobot)
+    estimate_hours: 8
+    priority: P0
+    status: done
+    sprint: sprint-04
+    owner: devops-engineer
+
+  - id: STORY-022
+    epic: qa
+    title: 公開前最終 E2E + リグレッション
+    estimate_hours: 4
+    priority: P0
+    status: done
+    sprint: sprint-04
+    owner: qa-engineer
+
+# ===============================================================
+# Backlog(本案件スコープ外・参考)
+# ===============================================================
+  - id: STORY-023
+    epic: integration
+    title: Slack / Teams 連携(v1.5)
+    priority: P1
+    status: backlog
+    sprint: null
+    owner: backend-engineer
+    target_release: v1.5
+
+  - id: STORY-024
+    epic: search
+    title: 議事録の意味検索(v1.5)
+    priority: P1
+    status: backlog
+    sprint: null
+    owner: backend-engineer
+    target_release: v1.5
+
+# ===============================================================
+# 進捗集計
+# ===============================================================
+summary:
+  total_stories: 24
+  completed: 22                            # Sprint 01-04 全完了
+  backlog: 2
+  by_sprint:
+    sprint-01: 6 / 6
+    sprint-02: 5 / 5
+    sprint-03: 6 / 6
+    sprint-04: 5 / 5
+  by_epic:
+    infra: 5
+    auth: 1
+    admin: 4
+    data: 2
+    recording: 1
+    ml: 2
+    ui: 2
+    pdf: 1
+    notification: 1
+    qa: 3
+    cost: 1
+    integration: 1                         # backlog
+    search: 1                              # backlog
+
+# ===============================================================
+# 検証メモ
+# ===============================================================
+validation_notes: |
+  /sprint-plan スキル(B 系新規)の入力源として動作。
+  user-stories.md(人間可読)+ backlog.yaml(machine-readable)の両立。
+  Phase I-B で 22 ストーリー(本案件スコープ)すべて done で完走。

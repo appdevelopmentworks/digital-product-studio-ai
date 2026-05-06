@@ -1,0 +1,148 @@
+# ===============================================================
+# assets-required.yaml
+# AILEAP MeetingAI β版 BE + 管理画面 — 必要素材
+# B 系特有: 技術系アセット中心(API 認証情報・ML モデル等)
+# ===============================================================
+
+project_id: AILEAP-MTG-BE-20260801-001
+created_at: 2026-08-01
+last_updated_at: 2026-11-04
+
+assets:
+
+  - id: AST-001
+    category: branding
+    name: AILEAP / MeetingAI ロゴ(SVG / PNG)
+    status: received
+    source_project: aileap_meetingai_lp       # 親案件から継承
+    received_at: 2026-08-01
+
+  - id: AST-002
+    category: technical
+    name: Supabase project(URL + anon key + service role key)
+    status: received
+    provider: Shin
+    received_at: 2026-08-08
+    notes: |
+      新規 Supabase project を作成済。
+      service_role_key は別経路(1Password)で受け渡し済。
+      環境変数で管理(本書に値は記載しない)。
+
+  - id: AST-003
+    category: technical
+    name: Anthropic Claude API キー(LLM 要約用)
+    status: received
+    provider: Shin(既存アカウント流用)
+    received_at: 2026-08-08
+    notes: |
+      AILEAP の既存 Claude API アカウントを流用。
+      月額予算 50,000 円目安(Tier 適切設定)。
+
+  - id: AST-004
+    category: technical
+    name: OpenAI Whisper API キー(音声 → テキスト用)
+    status: received
+    provider: Shin(既存アカウント流用)
+    received_at: 2026-08-08
+    notes: |
+      Whisper-large-v3 を使用。日本語精度高い。
+
+  - id: AST-005
+    category: technical
+    name: Resend API キー(招待メール + 通知用)
+    status: received
+    source_project: aileap_v2                  # 既存共有
+    received_at: 2026-08-01
+
+  - id: AST-006
+    category: legal
+    name: プライバシーポリシー(MeetingAI 拡張版)
+    status: received
+    provider: Shin(弁護士確認手配)
+    received_at: 2026-08-12
+    notes: |
+      aileap_v2 / aileap_meetingai_lp の privacy_policy をベースに、
+      会議録音の取扱い + LLM API 提供事業者へのデータ送信に関する
+      拡張条項を追加。弁護士確認済(2026-08-12 / lawyer_confirmation: true)。
+
+  - id: AST-007
+    category: legal
+    name: β版利用規約(API 利用条項含む)
+    status: received
+    provider: Shin(弁護士確認手配)
+    received_at: 2026-08-12
+    notes: |
+      会員機能ありのため利用規約必須。
+      弁護士確認済(2026-08-12)。
+
+  - id: AST-008
+    category: technical
+    name: GA4(MeetingAI BE 用 — 統合 or 別プロパティ)
+    status: received
+    provider: Shin
+    received_at: 2026-08-15
+    notes: |
+      管理画面側のみ GA4 計測(ユーザー UI は別プロパティ・SaaS のため)。
+      aileap_v2 統合プロパティに utm_campaign で分離。
+
+  - id: AST-009
+    category: technical
+    name: Sentry DSN(エラー監視・B 系標準)
+    status: received
+    provider: Shin
+    received_at: 2026-08-22
+    notes: |
+      B 系では Sentry 統合を推奨。Vercel logs だけでは insufficient。
+      DSN 別経路で受け渡し。
+
+  - id: AST-010
+    category: technical
+    name: Inngest(ジョブキュー)アカウント
+    status: received
+    provider: Shin
+    received_at: 2026-08-22
+    notes: |
+      非同期ジョブ処理(録音 → 要約)用。
+      Vercel Cron 代替として採用(より柔軟な retry / scheduling)。
+
+  - id: AST-011
+    category: technical
+    name: UptimeRobot 監視 + Slack 通知
+    status: received
+    source_project: aileap_v2                  # 既存共有
+    received_at: 2026-08-01
+
+# ===============================================================
+# サマリー
+# ===============================================================
+summary:
+  total_count: 11
+  received_count: 11
+  pending_count: 0
+  overdue_count: 0
+  reception_rate: 100%
+  by_category:
+    branding: 1
+    technical: 8                             # B 系は技術系が多い
+    legal: 2
+
+# ===============================================================
+# B 系特有の素材構成
+# ===============================================================
+b_series_specifics:
+  llm_apis: 2                                # Claude + Whisper
+  database: 1                                # Supabase
+  auth_provider: Supabase Auth(magic link)
+  storage: Supabase Storage(録音ファイル + 議事録 PDF)
+  monitoring: 2                              # Sentry + UptimeRobot
+  job_queue: Inngest
+
+# ===============================================================
+# 検証メモ
+# ===============================================================
+validation_notes: |
+  B 系では legal が 2 件(privacy + 利用規約)で必須。
+  technical が 8 件と多い(LLM API / DB / Auth / Storage / Monitoring / Queue)。
+  source_project からの継承は 3 件(branding + Resend + UptimeRobot)。
+  /asset-checklist スキルが B 系の technical 系アセットを認識できるか
+  Phase J で集計(現状の category enum: branding / technical / legal / copy / visual で十分か検証)。
